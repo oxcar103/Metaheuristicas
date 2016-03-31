@@ -159,13 +159,15 @@ pythontex-files-*/
 TSWLatexianTemp*
 
 # NetBeans specific #
-SC/nbproject/private/
-SC/build/
-SC/nbbuild/
-SC/dist/
-SC/nbdist/
+SC/nbproject/private/*
+SC/build/*
+SC/nbbuild/*
+SC/dist/*
+SC/nbdist/*
 SC/nbactions.xml
 SC/nb-configuration.xml
+SC/build.xml
+SC/manifest.mf
 
 # Class Files #
 SC/*.class
