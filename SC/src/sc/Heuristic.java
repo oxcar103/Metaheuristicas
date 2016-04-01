@@ -91,14 +91,18 @@ public abstract class Heuristic {
         int succ = 0, n_inst = inst.numInstances();
         IBk ibk = new IBk();
         
+        eval_car.setClass(inst.classAttribute());
+        
         for(int i = num_car-1; i >= 0; i--){
-            if(c_sel[i] == false){
+            if(c_sel[i] == false && i != instances.classIndex()){
                 eval_car.deleteAttributeAt(i);
             }
         }
-        
-        for(int i = 0; i < n_inst; i++){
-            try {
+        try {
+            
+            ibk.buildClassifier(instances);
+
+            for(int i = 0; i < n_inst; i++){
                 neighbours = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(eval_car.instance(i), num_neigh+1);
                 
                 // neighbours.instance(0) is equal to aux.instance(i), so we delete it
@@ -120,12 +124,12 @@ public abstract class Heuristic {
                 }
                 
                 // If expected class is our instance's class, increase successes
-                if(exp_class == eval_car.instance(i).classValue()){
+                if(eval_car.instance(i).classValue() == exp_class){
                     succ++;
                 }
-            } catch (Exception ex) {
-                Logger.getLogger(Heuristic.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (Exception ex) {
+            Logger.getLogger(Heuristic.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return succ;
