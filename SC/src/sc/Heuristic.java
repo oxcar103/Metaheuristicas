@@ -17,7 +17,7 @@ import weka.core.Instances;
 public abstract class Heuristic {
     // Constants
     public final int max_eval = 15000;
-    public final int num_neig = 3;
+    public final int num_neigh = 3;
     
     // Variables
     protected Instances instances;
@@ -25,7 +25,7 @@ public abstract class Heuristic {
     protected boolean[] car;
     protected int num_car, num_c_sel;
     
-    abstract void Exec();
+    abstract void Train();
             
     public Heuristic(Instances inst, int col_class){
         num_inst = inst.numInstances();
@@ -99,7 +99,7 @@ public abstract class Heuristic {
         
         for(int i = 0; i < n_inst; i++){
             try {
-                neighbours = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(eval_car.instance(i), num_neig+1);
+                neighbours = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(eval_car.instance(i), num_neigh+1);
                 
                 // neighbours.instance(0) is equal to aux.instance(i), so we delete it
                 neighbours.delete(0);

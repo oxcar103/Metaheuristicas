@@ -18,7 +18,7 @@ public class TabooSearch extends RandomHeuristic{
     }
 
     @Override
-    void Exec() {
+    void Train() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

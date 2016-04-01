@@ -18,7 +18,7 @@ public class LocalSearch extends RandomHeuristic{
     }
 
     @Override
-    void Exec() {
+    void Train() {
         boolean improv = true;
         
         while(improv){

@@ -17,7 +17,7 @@ public class SFS extends Heuristic{
         super(inst, col_class);
     }
 
-    void Exec(){
+    void Train(){
         boolean [] copy_c = car.clone();
         int c_prom = -1;
         boolean end = false;
