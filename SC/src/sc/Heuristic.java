@@ -15,7 +15,7 @@ import weka.core.Instances;
  *
  * @author oxcar103
  */
-public class Heuristic {
+public abstract class Heuristic {
     // Constants
     public final int max_eval = 15000;
     public final int exec = 10;
@@ -30,6 +30,8 @@ public class Heuristic {
     Random rnd = new Random(seed);
     protected int[] seeds;
 
+    abstract void Exec();
+            
     public Heuristic(Instances inst, int col_class){
         num_inst = inst.numInstances();
         instances = new Instances(inst);
