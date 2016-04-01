@@ -26,7 +26,7 @@ public class Heuristic {
     protected Instances instances;
     protected int num_inst;
     protected boolean[] car;
-    protected int num_car;
+    protected int num_car, num_c_sel;
     Random rnd = new Random(seed);
     protected int[] seeds;
 
@@ -35,6 +35,7 @@ public class Heuristic {
         instances = new Instances(inst);
         instances.setClassIndex(col_class);
         
+        num_c_sel = 0;
         num_car = inst.numAttributes()-1;
         car = new boolean [num_car];
         
@@ -51,10 +52,25 @@ public class Heuristic {
         return car;
     }
     
+    double SuccessesRate(Instances inst){
+        return (Evaluate(inst) * 100) / (instances.numInstances() * 1.0);
+    }
+ 
+    double ReductionRate(){
+        return ((num_car - num_c_sel) * 100) / (num_car * 1.0);
+    }
+    
     protected void GenerateNeighbours(int num_c){
         int i = rnd.nextInt(num_c);
 
         car[i] = !car[i];
+        
+        if(car[i] == true){
+            num_c_sel++;
+        }
+        else{
+            num_c_sel--;
+        }
     }
     
     protected int Evaluate(){
