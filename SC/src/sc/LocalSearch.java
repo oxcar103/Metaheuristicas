@@ -11,15 +11,26 @@ import weka.core.Instances;
  *
  * @author oxcar103
  */
-public class LocalSearch extends Heuristic{
+public class LocalSearch extends RandomHeuristic{
     
-    public LocalSearch(Instances inst, int col_class) {
-        super(inst, col_class);
+    public LocalSearch(Instances inst, int col_class, int seed) {
+        super(inst, col_class, seed);        
     }
 
     @Override
     void Exec() {
+        boolean improv = true;
         
+        while(improv){
+            improv = false;
+            
+            for(int i = 0; i < num_car && !improv; i++){
+                if(Evaluate(i) > Evaluate()){
+                    Flip(i);
+                    improv = true;
+                }
+            }
+        }
     }
     
     
