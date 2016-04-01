@@ -20,7 +20,9 @@ public abstract class Heuristic {
     public final int max_eval = 15000;
     public final int exec = 10;
     public final int num_neig = 3;
-    public final int seed = 103;
+    
+    //Best random seed in the history
+    private final int seed = 103;
     
     // Variables
     protected Instances instances;
