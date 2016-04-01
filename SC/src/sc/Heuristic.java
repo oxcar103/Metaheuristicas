@@ -85,7 +85,7 @@ public abstract class Heuristic {
     }
     
     protected int Evaluate(boolean [] c_sel, Instances inst){
-        Instances aux = new Instances(inst);
+        Instances eval_car = new Instances(inst);
         Instances neighbours;
         double exp_class;
         int succ = 0, n_inst = inst.numInstances();
@@ -93,13 +93,13 @@ public abstract class Heuristic {
         
         for(int i = num_car-1; i >= 0; i--){
             if(c_sel[i] == false){
-                aux.deleteAttributeAt(i);
+                eval_car.deleteAttributeAt(i);
             }
         }
         
         for(int i = 0; i < n_inst; i++){
             try {
-                neighbours = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(aux.instance(i), num_neig+1);
+                neighbours = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(eval_car.instance(i), num_neig+1);
                 
                 // neighbours.instance(0) is equal to aux.instance(i), so we delete it
                 neighbours.delete(0);
@@ -116,11 +116,11 @@ public abstract class Heuristic {
                 }
                 else{
                     // If there isn't a majority class, we chose the nearest neighbour's class.
-                    exp_class = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(aux.instance(i), 2).instance(1).classValue();
+                    exp_class = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(eval_car.instance(i), 2).instance(1).classValue();
                 }
                 
                 // If expected class is our instance's class, increase successes
-                if(exp_class == aux.instance(i).classValue()){
+                if(exp_class == eval_car.instance(i).classValue()){
                     succ++;
                 }
             } catch (Exception ex) {

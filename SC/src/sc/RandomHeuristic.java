@@ -31,8 +31,8 @@ public abstract class RandomHeuristic extends Heuristic{
         }
     }
     
-    protected void GenerateNeighbour(int num_c){
-        int i = rnd.nextInt(num_c);
+    protected void GenerateNeighbour(){
+        int i = rnd.nextInt(num_car);
 
         Flip(i);
     }
