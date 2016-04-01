@@ -18,13 +18,13 @@ public class SFS extends Heuristic{
     }
 
     void Exec(){
-        boolean [] copia_c = car.clone();
+        boolean [] copy_c = car.clone();
         int c_prom = -1;
-        boolean fin = false;
+        boolean end = false;
 
-        while(num_c_sel != num_car && !fin){
+        while(num_c_sel != num_car && !end){
             for(int i = 0; i < num_car; i++){
-                if(copia_c[i] != true){
+                if(copy_c[i] != true){
                     Evaluate(i);
 
                     if(c_prom == -1 || Evaluate(i) > Evaluate(c_prom)){
@@ -33,16 +33,15 @@ public class SFS extends Heuristic{
                 }
             }
 
-            copia_c[c_prom] = true;
+            copy_c[c_prom] = true;
 
-            if(Evaluate(copia_c) > Evaluate()){
-                car[c_prom] = true;
-                num_c_sel++;
+            if(Evaluate(copy_c) > Evaluate()){
+                Flip(c_prom);
             }
 
             else{
-                copia_c[c_prom] = false;
-                fin = true;
+                copy_c[c_prom] = false;
+                end = true;
             }
         }
     }
