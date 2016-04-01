@@ -36,7 +36,7 @@ public class Heuristic {
         instances.setClassIndex(col_class);
         
         num_car = inst.numAttributes()-1;
-        car = new boolean[num_car];
+        car = new boolean [num_car];
         
         for(int i = 0; i < num_car; i++){
            car[i] = false;
@@ -47,6 +47,10 @@ public class Heuristic {
         }
     }
     
+    public boolean[] getCar() {
+        return car;
+    }
+    
     protected void GenerateNeighbours(int num_c){
         int i = rnd.nextInt(num_c);
 
@@ -54,19 +58,37 @@ public class Heuristic {
     }
     
     protected int Evaluate(){
-        Instances aux = new Instances(instances);
+        return Evaluate(car);
+    }
+    
+    protected int Evaluate(int index){
+        boolean [] c_sel = car.clone();
+        
+        return Evaluate(c_sel);
+    }
+    
+    protected int Evaluate(boolean[] c_sel){
+        return Evaluate(c_sel, instances);
+    }
+    
+    protected int Evaluate(Instances inst){
+        return Evaluate(car, inst);
+    }
+    
+    protected int Evaluate(boolean [] c_sel, Instances inst){
+        Instances aux = new Instances(inst);
         Instances neighbours;
         double exp_class;
-        int succ = 0;
+        int succ = 0, n_inst = inst.numInstances();
         IBk ibk = new IBk();
         
         for(int i = num_car-1; i >= 0; i--){
-            if(car[i] == false){
+            if(c_sel[i] == false){
                 aux.deleteAttributeAt(i);
             }
         }
         
-        for(int i = 0; i < num_inst; i++){
+        for(int i = 0; i < n_inst; i++){
             try {
                 neighbours = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(aux.instance(i), num_neig+1);
                 
@@ -99,4 +121,5 @@ public class Heuristic {
         
         return succ;
     }
+    
 }
