@@ -36,12 +36,12 @@ public class SFS extends Heuristic{
             copia_c[c_prom] = true;
 
             if(Evaluate(copia_c) > Evaluate()){
-                car = copia_c;
+                car[c_prom] = true;
                 num_c_sel++;
             }
 
             else{
-                copia_c = car;
+                copia_c[c_prom] = false;
                 fin = true;
             }
         }
