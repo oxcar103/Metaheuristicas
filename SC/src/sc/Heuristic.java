@@ -5,6 +5,9 @@
  */
 package sc;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import weka.classifiers.lazy.IBk;
 import weka.core.Debug.Random;
 import weka.core.Instances;
 
@@ -20,14 +23,16 @@ public class Heuristic {
     
     // Variables
     protected Instances instances;
+    protected int num_inst;
     protected boolean[] car;
     protected int num_car;
     Random rnd = new Random(seed);
     protected int[] seeds;
 
     public Heuristic(Instances inst, int col_class){
+        num_inst = inst.numInstances();
         instances = new Instances(inst);
-        instances.delete(col_class);
+        instances.setClassIndex(col_class);
         
         num_car = inst.numAttributes()-1;
         car = new boolean[num_car];
@@ -45,5 +50,52 @@ public class Heuristic {
         int i = rnd.nextInt(num_c);
 
         car[i] = !car[i];
+    }
+    
+    protected int Evaluate(){
+        Instances aux = new Instances(instances);
+        Instances neighbours;
+        double exp_class;
+        int succ = 0;
+        IBk ibk = new IBk();
+        
+        for(int i = num_car-1; i >= 0; i--){
+            if(car[i] == false){
+                aux.deleteAttributeAt(i);
+            }
+        }
+        
+        for(int i = 0; i < num_inst; i++){
+            try {
+                neighbours = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(aux.instance(i), 4);
+                
+                // neighbours.instance(0) is equal to aux.instance(i), so we delete it
+                neighbours.delete(0);
+                
+                // Looking for the majority class
+                if(neighbours.instance(0) == neighbours.instance(1)){
+                    exp_class = neighbours.instance(0).classValue();
+                }
+                else if(neighbours.instance(0) == neighbours.instance(2)){
+                    exp_class = neighbours.instance(0).classValue();
+                }
+                else if(neighbours.instance(1) == neighbours.instance(2)){
+                    exp_class = neighbours.instance(1).classValue();
+                }
+                else{
+                    // If there isn't a majority class, we chose the nearest neighbour's class.
+                    exp_class = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(aux.instance(i), 2).instance(1).classValue();
+                }
+                
+                // If expected class is our instance's class, increase successes
+                if(exp_class == aux.instance(i).classValue()){
+                    succ++;
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(Heuristic.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return succ;
     }
 }
