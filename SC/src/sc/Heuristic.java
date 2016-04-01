@@ -64,17 +64,21 @@ public abstract class Heuristic {
         return ((num_car - num_c_sel) * 100) / (num_car * 1.0);
     }
     
-    protected void GenerateNeighbours(int num_c){
-        int i = rnd.nextInt(num_c);
-
-        car[i] = !car[i];
+    protected void Flip(int index){
+        car[index] = !car[index];
         
-        if(car[i] == true){
+        if(car[index] == true){
             num_c_sel++;
         }
         else{
             num_c_sel--;
         }
+    }
+    
+    protected void GenerateNeighbour(int num_c){
+        int i = rnd.nextInt(num_c);
+
+        Flip(i);
     }
     
     protected int Evaluate(){
