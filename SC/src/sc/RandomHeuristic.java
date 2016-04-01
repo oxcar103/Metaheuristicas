@@ -31,17 +31,6 @@ public abstract class RandomHeuristic extends Heuristic{
         }
     }
     
-    protected void Flip(int index){
-        car[index] = !car[index];
-        
-        if(car[index] == true){
-            num_c_sel++;
-        }
-        else{
-            num_c_sel--;
-        }
-    }
-    
     protected void GenerateNeighbour(int num_c){
         int i = rnd.nextInt(num_c);
 

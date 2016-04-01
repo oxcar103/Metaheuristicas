@@ -53,12 +53,25 @@ public abstract class Heuristic {
         return ((num_car - num_c_sel) * 100) / (num_car * 1.0);
     }
     
+    protected void Flip(int index){
+        car[index] = !car[index];
+        
+        if(car[index] == true){
+            num_c_sel++;
+        }
+        else{
+            num_c_sel--;
+        }
+    }
+    
     protected int Evaluate(){
         return Evaluate(car);
     }
     
     protected int Evaluate(int index){
         boolean [] c_sel = car.clone();
+        
+        c_sel[index] = !c_sel[index];
         
         return Evaluate(c_sel);
     }
