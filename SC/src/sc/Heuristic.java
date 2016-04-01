@@ -19,6 +19,7 @@ public class Heuristic {
     // Constants
     public final int max_eval = 15000;
     public final int exec = 10;
+    public final int num_neig = 3;
     public final int seed = 103;
     
     // Variables
@@ -67,7 +68,7 @@ public class Heuristic {
         
         for(int i = 0; i < num_inst; i++){
             try {
-                neighbours = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(aux.instance(i), 4);
+                neighbours = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(aux.instance(i), num_neig+1);
                 
                 // neighbours.instance(0) is equal to aux.instance(i), so we delete it
                 neighbours.delete(0);
