@@ -8,7 +8,6 @@ package sc;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import weka.classifiers.lazy.IBk;
-import weka.core.Debug.Random;
 import weka.core.Instances;
 
 /**
@@ -18,20 +17,14 @@ import weka.core.Instances;
 public abstract class Heuristic {
     // Constants
     public final int max_eval = 15000;
-    public final int exec = 10;
     public final int num_neig = 3;
-    
-    //Best random seed in the history
-    private final int seed = 103;
     
     // Variables
     protected Instances instances;
     protected int num_inst;
     protected boolean[] car;
     protected int num_car, num_c_sel;
-    Random rnd = new Random(seed);
-    protected int[] seeds;
-
+    
     abstract void Exec();
             
     public Heuristic(Instances inst, int col_class){
@@ -46,10 +39,6 @@ public abstract class Heuristic {
         for(int i = 0; i < num_car; i++){
            car[i] = false;
         }
-        
-        for(int i = 0; i < exec ; i++){
-            seeds[i] = rnd.nextInt();
-        }
     }
     
     public boolean[] getCar() {
@@ -62,23 +51,6 @@ public abstract class Heuristic {
  
     double ReductionRate(){
         return ((num_car - num_c_sel) * 100) / (num_car * 1.0);
-    }
-    
-    protected void Flip(int index){
-        car[index] = !car[index];
-        
-        if(car[index] == true){
-            num_c_sel++;
-        }
-        else{
-            num_c_sel--;
-        }
-    }
-    
-    protected void GenerateNeighbour(int num_c){
-        int i = rnd.nextInt(num_c);
-
-        Flip(i);
     }
     
     protected int Evaluate(){
