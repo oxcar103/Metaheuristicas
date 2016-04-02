@@ -25,9 +25,11 @@ public class LocalSearch extends RandomHeuristic{
             improv = false;
             
             for(int i = 0; i < num_car && !improv; i++){
-                if(Evaluate(i) > Evaluate()){
-                    Flip(i);
-                    improv = true;
+                if(i != instances.classIndex()){
+                    if(Evaluate(i) > Evaluate()){
+                        Flip(i);
+                        improv = true;
+                    }
                 }
             }
         }

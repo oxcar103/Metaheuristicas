@@ -33,7 +33,7 @@ public abstract class Heuristic {
         instances.setClassIndex(col_class);
         
         num_c_sel = 0;
-        num_car = inst.numAttributes()-1;
+        num_car = inst.numAttributes();
         car = new boolean [num_car];
         
         for(int i = 0; i < num_car; i++){
@@ -50,7 +50,7 @@ public abstract class Heuristic {
     }
  
     double ReductionRate(){
-        return ((num_car - num_c_sel) * 100) / (num_car * 1.0);
+        return (((num_car-1)  - num_c_sel) * 100) / ((num_car-1) * 1.0);
     }
     
     protected void Flip(int index){
@@ -94,13 +94,13 @@ public abstract class Heuristic {
         eval_car.setClass(inst.classAttribute());
         
         for(int i = num_car-1; i >= 0; i--){
-            if(c_sel[i] == false && i != instances.classIndex()){
+            if(c_sel[i] == false && i != inst.classIndex()){
                 eval_car.deleteAttributeAt(i);
             }
         }
         try {
             
-            ibk.buildClassifier(instances);
+            ibk.buildClassifier(inst);
 
             for(int i = 0; i < n_inst; i++){
                 neighbours = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(eval_car.instance(i), num_neigh+1);
@@ -125,6 +125,7 @@ public abstract class Heuristic {
                 
                 // If expected class is our instance's class, increase successes
                 if(eval_car.instance(i).classValue() == exp_class){
+                    System.out.printf(eval_car.instance(i).classValue() + " == " + exp_class + "\t" + "\n");
                     succ++;
                 }
             }

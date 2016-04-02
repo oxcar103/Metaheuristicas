@@ -17,13 +17,15 @@ public class SimulatedAnnealing extends RandomHeuristic{
     private static final double sigma, mu = sigma = 0.3;
     private static final double T_f = 10^-3;
 
-    private static double T_0, T, beta;
-    private static int max_neigh, max_succ, M;
+    private final double T_0, beta;
+    private final int max_neigh, max_succ, M;
+    
+    private double T;
     
     public SimulatedAnnealing(Instances inst, int col_class, int seed){
         super(inst, col_class, seed);
         
-        max_neigh = 10 * num_car;
+        max_neigh = 10 * (num_car-1);
         max_succ = (int) (0.1 * max_neigh);
         M = max_eval / max_neigh;
         T = T_0 = mu * Evaluate() / -log(sigma);
@@ -72,6 +74,7 @@ public class SimulatedAnnealing extends RandomHeuristic{
             }
             
             cauchyAnnealing();
+            
             end = (succ == 0);
         }     
     }

@@ -25,15 +25,21 @@ public abstract class RandomHeuristic extends Heuristic{
     
     protected final void RandomSolution(){
         for(int i = 0; i < num_car; i++){
-            if(rnd.nextBoolean()){
-                Flip(i);
+            if(i != instances.classIndex()){
+                if(rnd.nextBoolean()){
+                    Flip(i);
+                }
             }
         }
     }
     
     protected void GenerateNeighbour(){
-        int i = rnd.nextInt(num_car);
-
+        int i;
+        
+        do{
+            i = rnd.nextInt(num_car);
+        }while(i == instances.classIndex());
+        
         Flip(i);
     }
     
