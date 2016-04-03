@@ -109,13 +109,13 @@ public abstract class Heuristic {
                 neighbours.delete(0);
                 
                 // Looking for the majority class
-                if(neighbours.instance(0) == neighbours.instance(1)){
+                if(neighbours.instance(0).classValue() == neighbours.instance(1).classValue()){
                     exp_class = neighbours.instance(0).classValue();
                 }
-                else if(neighbours.instance(0) == neighbours.instance(2)){
+                else if(neighbours.instance(0).classValue() == neighbours.instance(2).classValue()){
                     exp_class = neighbours.instance(0).classValue();
                 }
-                else if(neighbours.instance(1) == neighbours.instance(2)){
+                else if(neighbours.instance(1).classValue() == neighbours.instance(2).classValue()){
                     exp_class = neighbours.instance(1).classValue();
                 }
                 else{
