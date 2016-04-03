@@ -39,7 +39,6 @@ public class SC {
         for(int i = 0; i < num_files; i++){
             instances = lector.getData(args[2*i]);
             col_class = Integer.parseInt(args[2*i+1]);
-            
             for(int j = 0; j < exec/2 ; j++){
                 instances.randomize(rnd);
                 Normalize norm = new Normalize();
@@ -60,7 +59,7 @@ public class SC {
     }    
     
     private static void Exec(Instances inst1, Instances inst2, int col_class, int seed){
-        Heuristic [] heuristics = new Heuristic[2];
+        Heuristic [] heuristics = new Heuristic[4];
         
         heuristics[0] = new SFS(inst1, col_class);
         heuristics[1] = new LocalSearch(inst1, col_class, seed);

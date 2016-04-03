@@ -34,8 +34,6 @@ public class SFS extends Heuristic{
                         c_prom = i;
                         eval_c_prom = eval_c_i;
                     }
-                    System.out.printf("Actual = " + eval_act + "\n");
-                    System.out.printf("car[" + c_prom + "] = " + eval_c_prom + "\n");
                 }
             }
 
