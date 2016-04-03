@@ -33,7 +33,7 @@ public abstract class RandomHeuristic extends Heuristic{
         }
     }
     
-    protected void GenerateNeighbour(){
+    protected int GenerateNeighbour(){
         int i;
         
         do{
@@ -41,6 +41,8 @@ public abstract class RandomHeuristic extends Heuristic{
         }while(i == instances.classIndex());
         
         Flip(i);
+        
+        return i;
     }
     
 }
