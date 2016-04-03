@@ -5,6 +5,7 @@
  */
 package sc;
 
+import java.util.ArrayList;
 import weka.core.Debug.Random;
 import weka.core.Instances;
 import weka.filters.Filter;
@@ -15,7 +16,6 @@ import weka.filters.unsupervised.attribute.Normalize;
  * @author oxcar103
  */
 public class SC {
-    private static final int num_files = 1;
     private static final int num_heur = 4;
     
     //Best random seed in the history
@@ -29,48 +29,75 @@ public class SC {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception{
         ArffReader lector = new ArffReader();
-        Instances instances = null, inst1, inst2;
+        Instances instances = null;
         int col_class;
         rnd = new Random(seed);
         
+        int num_files = Integer.parseInt(args[0]);
+        String name_out = args[2*(num_files+1)+1];
         
         for(int i = 0; i < num_files; i++){
-            instances = lector.getData(args[2*i]);
-            col_class = Integer.parseInt(args[2*i+1]);
-            for(int j = 0; j < exec/2 ; j++){
-                instances.randomize(rnd);
-                Normalize norm = new Normalize();
-                norm.setInputFormat(instances);
-                instances = Filter.useFilter(instances, norm);
-                instances.setClassIndex(col_class);
-                seeds[2*j] = rnd.nextInt();
-                seeds[2*j+1] = rnd.nextInt();
-
-                for(int k = 0; k < 2; k++){
-                    inst1 = instances.trainCV(2, k);
-                    inst2 = instances.testCV(2, k);
-                    
-                    Exec(inst1, inst2, col_class, seeds[2*j+k]);
-                }
+            instances = lector.getData(args[2*i+1]);
+            col_class = Integer.parseInt(args[2*i+2]);
+            
+            for(int j = 0; j < num_heur; j++){
+                Exec(instances, col_class, j, name_out);
             }
         }
     }    
     
-    private static void Exec(Instances inst1, Instances inst2, int col_class, int seed){
-        Heuristic [] heuristics = new Heuristic[4];
+    private static void Exec(Instances instances, int col_class, int alg, String filename) throws Exception{
+        ArrayList<Double> suc_r = new ArrayList<Double> ();
+        ArrayList<Double> red_r = new ArrayList<Double> ();
+        ArrayList<Double> times = new ArrayList<Double> ();
+        CSVFileWriter wrt = new CSVFileWriter();
+        Heuristic heuristic = null;
+        Instances inst1, inst2;
+        double duration = 0;
+        long start_t, end_t;
         
-        heuristics[0] = new SFS(inst1, col_class);
-        heuristics[1] = new LocalSearch(inst1, col_class, seed);
-        heuristics[2] = new SimulatedAnnealing(inst1, col_class, seed);
-        heuristics[3] = new TabooSearch(inst1, col_class, seed);
-        
-        for(int i = 0; i < 4; i++){
-            heuristics[i].Train();
+        for(int i = 0; i < exec/2 ; i++){
+            instances.randomize(rnd);
+            Normalize norm = new Normalize();
+            norm.setInputFormat(instances);
+            instances = Filter.useFilter(instances, norm);
+            instances.setClassIndex(col_class);
+            seeds[2*i] = rnd.nextInt();
+            seeds[2*i+1] = rnd.nextInt();
+
+            for(int j = 0; j < 2; j++){
+                inst1 = instances.trainCV(2, j);
+                inst2 = instances.testCV(2, j);
+
+                if(alg == 0){
+                    heuristic = new SFS(inst1, col_class);
+                }
+                else if (alg == 1){
+                    heuristic = new LocalSearch(inst1, col_class, seeds[2*i+j]);
+                }
+                else if (alg == 2){
+                    heuristic = new SimulatedAnnealing(inst1, col_class, seeds[2*i+j]);
+                }
+                else if (alg == 3){
+                    heuristic = new TabooSearch(inst1, col_class, seeds[2*i+j]);
+                }
+                
+                start_t = System.currentTimeMillis();
+                heuristic.Train();
+                end_t = System.currentTimeMillis();
+                
+                duration = (end_t - start_t) / 1000.0;
+                
+                suc_r.add(heuristic.SuccessesRate(inst2));
+                red_r.add(heuristic.ReductionRate());
+                times.add(duration);
+            }
             
-            System.out.println(heuristics[i].SuccessesRate(inst2) + "\n" + heuristics[i].ReductionRate());
         }
+        
+        wrt.CSVFileWriter(filename, suc_r, red_r, times);
     }
     
 }
