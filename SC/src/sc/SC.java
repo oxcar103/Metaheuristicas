@@ -32,18 +32,25 @@ public class SC {
     public static void main(String[] args) throws Exception{
         ArffReader lector = new ArffReader();
         Instances instances = null;
+        String [] hr_str = new String[4];
+        String f_name;
         int col_class;
         rnd = new Random(seed);
         
         int num_files = Integer.parseInt(args[0]);
-        String name_out = args[2*(num_files+1)+1];
+        
+        hr_str [0] = "SFS";
+        hr_str [1] = "LS";
+        hr_str [2] = "SA";
+        hr_str [3] = "TS";
         
         for(int i = 0; i < num_files; i++){
-            instances = lector.getData(args[2*i+1]);
-            col_class = Integer.parseInt(args[2*i+2]);
+            instances = lector.getData(args[3*i+1]);
+            col_class = Integer.parseInt(args[3*i+2]);
+            f_name = args[3*i+3];
             
             for(int j = 0; j < num_heur; j++){
-                Exec(instances, col_class, j, name_out);
+                Exec(instances, col_class, j, f_name + "_" + hr_str [j]);
             }
         }
     }    
