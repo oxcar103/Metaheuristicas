@@ -50,7 +50,7 @@ public class SC {
             f_name = args[3*i+3];
             
             for(int j = 0; j < num_heur; j++){
-                Exec(instances, col_class, j, f_name + "_" + hr_str [j] + ".txt");
+                Exec(instances, col_class, j, f_name + "_" + hr_str [j] + ".csv");
             }
         }
     }    
