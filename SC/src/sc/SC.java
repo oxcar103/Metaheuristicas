@@ -17,6 +17,12 @@ import weka.filters.unsupervised.attribute.Normalize;
 public class SC {
     private static final int num_files = 1;
     private static final int num_heur = 4;
+    private static final String easy = "C:\\Users\\Usuario\\Documents\\Projects\\Universidad\\MH\\Metaheuristicas\\Material aportado por el profesor\\Instancias-y-tablas-SC-15-16\\wdbc.arff";
+    private static final int class_easy = 0;
+    private static final String medium = "C:\\Users\\Usuario\\Documents\\Projects\\Universidad\\MH\\Metaheuristicas\\Material aportado por el profesor\\Instancias-y-tablas-SC-15-16\\movement_libras.arff";
+    private static final int class_medium = 90;
+    private static final String hard = "C:\\Users\\Usuario\\Documents\\Projects\\Universidad\\MH\\Metaheuristicas\\Material aportado por el profesor\\Instancias-y-tablas-SC-15-16\\arrhytmia.arff";
+    private static final int class_hard = 278;
     
     //Best random seed in the history
     private static final int seed = 103;
@@ -37,9 +43,13 @@ public class SC {
         
         
         for(int i = 0; i < num_files; i++){
+            /*
             instances = lector.getData(args[2*i]);
             col_class = Integer.parseInt(args[2*i+1]);
-            
+            /*/
+            instances = lector.getData(easy);
+            col_class = class_easy;
+            //*/
             for(int j = 0; j < exec/2 ; j++){
                 instances.randomize(rnd);
                 Normalize norm = new Normalize();
