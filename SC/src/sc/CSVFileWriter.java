@@ -26,11 +26,11 @@ public class CSVFileWriter {
 		 
             writer.append("Nombre");
 	    writer.append(',');
-	    writer.append("Tasa_acierto");
+	    writer.append("Tasa de acierto(%)");
 	    writer.append(',');
-	    writer.append("Tasa_error");
+	    writer.append("Tasa de reducción(%)");
             writer.append(',');
-            writer.append("Time");
+            writer.append("Tiempo(s)");
             writer.append('\n');
             
             for(int i = 0; i < size; i++){
