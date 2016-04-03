@@ -49,9 +49,9 @@ public class CSVFileWriter {
                 writer.append('\n');
             }
 
-            //suc_m /= size * 1.0;
-            //red_m /= size * 1.0;
-            //time_m /= size * 1.0;
+            suc_m /= size * 1.0;
+            red_m /= size * 1.0;
+            time_m /= size * 1.0;
             
             writer.append("Media");
             writer.append(',');
