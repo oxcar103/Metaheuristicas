@@ -37,10 +37,7 @@ public class TabooSearch extends RandomHeuristic{
         int eval_neigh, eval_asp;
         int index, best_index = 0;
         
-        boolean end = false;
-        
-        while(!end && getEval() < getMaxEval()){
-            end = true;
+        while(getEval() < getMaxEval()){
             eval_asp = eval_act;
             
             for(int i = 0; i < max_neigh && getEval() < getMaxEval(); i++){
@@ -54,8 +51,6 @@ public class TabooSearch extends RandomHeuristic{
                     best_car = car.clone();
                     num_best_c_sel = num_asp_c_sel = num_c_sel;
                     best_index = index;
-                    
-                    end = false;
                 }
                 else if(!taboo_list.contains(index)){
                     if(eval_neigh > eval_asp){
@@ -63,8 +58,6 @@ public class TabooSearch extends RandomHeuristic{
                         asp_car = car.clone();
                         num_asp_c_sel = num_c_sel;
                         best_index = index;
-                        
-                        end = false;
                     }
                 }
                 
@@ -72,7 +65,7 @@ public class TabooSearch extends RandomHeuristic{
                 car = old_car.clone();
                 num_c_sel = old_num_c_sel;
             }
-            
+        
             // If aspiration criterion is actived, remove used index
             if(taboo_list.contains(best_index)){
                 taboo_list.remove(taboo_list.indexOf(best_index));
