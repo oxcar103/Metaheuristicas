@@ -47,12 +47,12 @@ public class SimulatedAnnealing extends RandomHeuristic{
         
         return true;
     }
-    
+
     @Override
     void Train() {
         boolean [] old_car = car.clone();
         boolean end = false;
-        int neigh, succ, old_num_car = num_car;
+        int neigh, succ, old_num_c_sel = num_c_sel;
         
         while(T > T_f || end){
             neigh = 0;
@@ -65,11 +65,11 @@ public class SimulatedAnnealing extends RandomHeuristic{
                 if(MetropolisCriterion(car, old_car)){
                     succ++;
                     old_car = car.clone();
-                    old_num_car = num_car;
+                    old_num_c_sel = num_c_sel;
                 }
                 else{
                     car = old_car.clone();
-                    num_car = old_num_car;
+                    num_c_sel = old_num_c_sel;
                 }
             }
             

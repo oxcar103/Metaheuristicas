@@ -19,22 +19,25 @@ public class LocalSearch extends RandomHeuristic{
 
     @Override
     void Train() {
-        boolean improv = true;
+        boolean [] old_car = car.clone();
+        int old_num_c_sel = num_c_sel;
+        int eval_neigh, eval_act = Evaluate();
         
-        while(improv){
-            improv = false;
+        while(eval < max_eval){
+            GenerateNeighbour();
+
+            eval_neigh = Evaluate();
             
-            for(int i = 0; i < num_car && !improv; i++){
-                if(i != instances.classIndex()){
-                    if(Evaluate(i) > Evaluate()){
-                        Flip(i);
-                        improv = true;
-                    }
-                }
+            if(eval_neigh > eval_act){
+                old_car = car.clone();
+                old_num_c_sel = num_c_sel;
+                eval_act = eval_neigh;
+            }
+            else{
+                car = old_car.clone();
+                num_c_sel = old_num_c_sel;
             }
         }
     }
-    
-    
     
 }

@@ -21,7 +21,7 @@ public abstract class Heuristic {
     
     // Variables
     protected Instances instances;
-    protected int num_inst;
+    protected int num_inst, eval;
     protected boolean[] car;
     protected int num_car, num_c_sel;
     
@@ -31,6 +31,8 @@ public abstract class Heuristic {
         num_inst = inst.numInstances();
         instances = new Instances(inst);
         instances.setClassIndex(col_class);
+        
+        eval = 0;
         
         num_c_sel = 0;
         num_car = inst.numAttributes();
@@ -131,6 +133,8 @@ public abstract class Heuristic {
         } catch (Exception ex) {
             Logger.getLogger(Heuristic.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        eval++;
         
         return succ;
     }

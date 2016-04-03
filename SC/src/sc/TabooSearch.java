@@ -30,9 +30,9 @@ public class TabooSearch extends RandomHeuristic{
         boolean [] old_car = car.clone();
         boolean [] best_car = car.clone();
         boolean [] asp_car = car.clone();
-        int old_num_car = num_car;
-        int num_best_car = num_car;
-        int num_asp_car = num_car;
+        int old_num_c_sel = num_c_sel;
+        int num_best_c_sel = num_c_sel;
+        int num_asp_c_sel = num_c_sel;
         int eval_act, eval_best = eval_act = Evaluate();
         int eval_neigh, eval_asp;
         int index, best_index = 0;
@@ -52,7 +52,7 @@ public class TabooSearch extends RandomHeuristic{
                     eval_best = eval_asp = eval_neigh;
                     asp_car = car.clone();
                     best_car = car.clone();
-                    num_best_car = num_asp_car = num_car;
+                    num_best_c_sel = num_asp_c_sel = num_c_sel;
                     best_index = index;
                     
                     end = false;
@@ -60,8 +60,8 @@ public class TabooSearch extends RandomHeuristic{
                 else if(!taboo_list.contains(index)){
                     if(eval_neigh > eval_asp){
                         eval_asp = eval_neigh;
-                        best_car = car.clone();
-                        num_best_car = num_car;
+                        asp_car = car.clone();
+                        num_asp_c_sel = num_c_sel;
                         best_index = index;
                         
                         end = false;
@@ -70,7 +70,7 @@ public class TabooSearch extends RandomHeuristic{
                 
                 // Restore original values
                 car = old_car.clone();
-                num_car = old_num_car;
+                num_c_sel = old_num_c_sel;
             }
             
             // If aspiration criterion is actived, remove used index
@@ -89,12 +89,12 @@ public class TabooSearch extends RandomHeuristic{
             // Set new solution
             eval_act = eval_asp;
             car = asp_car.clone();
-            num_car = num_asp_car;
+            num_c_sel = num_asp_c_sel;
         }
         
         // Set best solution
         car = best_car.clone();
-        num_car = num_best_car;
+        num_c_sel = num_best_c_sel;
     }
     
 }
