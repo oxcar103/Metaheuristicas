@@ -39,11 +39,11 @@ public class TabooSearch extends RandomHeuristic{
         
         boolean end = false;
         
-        while(!end){
+        while(!end && eval < max_eval){
             end = true;
             eval_asp = eval_act;
             
-            for(int i = 0; i < max_neigh; i++){
+            for(int i = 0; i < max_neigh && eval < max_eval; i++){
                 index = GenerateNeighbour();
                 
                 eval_neigh = Evaluate();

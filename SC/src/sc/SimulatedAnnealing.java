@@ -36,9 +36,7 @@ public class SimulatedAnnealing extends RandomHeuristic{
         T = T / (1 + beta * T);
     }
     
-    private boolean MetropolisCriterion(boolean[] aspirant, boolean[] actual){
-        int v_asp = Evaluate(aspirant), v_act = Evaluate(actual);
-        
+    private boolean MetropolisCriterion(int v_asp, int v_act){
         if(v_asp <= v_act){
             if(rnd.nextDouble() > exp((v_act - v_asp)/ T)){
                 return false;
@@ -52,17 +50,22 @@ public class SimulatedAnnealing extends RandomHeuristic{
     void Train() {
         boolean [] old_car = car.clone();
         boolean end = false;
-        int neigh, succ, old_num_c_sel = num_c_sel;
+        int old_num_c_sel = num_c_sel;
+        int eval_act = Evaluate();
+        int eval_asp;
+        int neigh, succ;
         
-        while(T > T_f || end){
+        while(T > T_f && !end && eval < max_eval){
             neigh = 0;
             succ = 0;
             
-            while(neigh < max_neigh && succ < max_succ){
+            while(neigh < max_neigh && succ < max_succ && eval < max_eval){
                 GenerateNeighbour();
                 neigh++;
                 
-                if(MetropolisCriterion(car, old_car)){
+                eval_asp = Evaluate();
+                
+                if(MetropolisCriterion(eval_asp, eval_act)){
                     succ++;
                     old_car = car.clone();
                     old_num_c_sel = num_c_sel;
