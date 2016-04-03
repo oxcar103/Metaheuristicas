@@ -21,7 +21,7 @@ public class TabooSearch extends RandomHeuristic{
     public TabooSearch(Instances inst, int col_class, int seed) {
         super(inst, col_class, seed);
         
-        max_size_t_l = (num_car-1)/3;
+        max_size_t_l = (getNumCar()-1)/3;
     }
  
     @Override
@@ -39,11 +39,11 @@ public class TabooSearch extends RandomHeuristic{
         
         boolean end = false;
         
-        while(!end && eval < max_eval){
+        while(!end && getEval() < getMaxEval()){
             end = true;
             eval_asp = eval_act;
             
-            for(int i = 0; i < max_neigh && eval < max_eval; i++){
+            for(int i = 0; i < max_neigh && getEval() < getMaxEval(); i++){
                 index = GenerateNeighbour();
                 
                 eval_neigh = Evaluate();

@@ -21,8 +21,8 @@ public class SFS extends Heuristic{
         int c_prom = -1, eval_c_prom = 0, eval_c_i, eval_act = Evaluate();
         boolean end = false;
 
-        while(num_c_sel != num_car && !end){
-            for(int i = 0; i < num_car; i++){
+        while(num_c_sel != getNumCar() && !end){
+            for(int i = 0; i < getNumCar(); i++){
                 if(car[i] != true && i != instances.classIndex()){
                     eval_c_i = Evaluate(i);
 

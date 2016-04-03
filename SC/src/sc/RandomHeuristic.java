@@ -24,7 +24,7 @@ public abstract class RandomHeuristic extends Heuristic{
     }
     
     protected final void RandomSolution(){
-        for(int i = 0; i < num_car; i++){
+        for(int i = 0; i < getNumCar(); i++){
             if(i != instances.classIndex()){
                 if(rnd.nextBoolean()){
                     Flip(i);
@@ -37,7 +37,7 @@ public abstract class RandomHeuristic extends Heuristic{
         int i;
         
         do{
-            i = rnd.nextInt(num_car);
+            i = rnd.nextInt(getNumCar());
         }while(i == instances.classIndex());
         
         Flip(i);

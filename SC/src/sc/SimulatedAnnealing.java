@@ -25,9 +25,9 @@ public class SimulatedAnnealing extends RandomHeuristic{
     public SimulatedAnnealing(Instances inst, int col_class, int seed){
         super(inst, col_class, seed);
         
-        max_neigh = 10 * (num_car-1);
+        max_neigh = 10 * (getNumCar()-1);
         max_succ = (int) (0.1 * max_neigh);
-        M = max_eval / max_neigh;
+        M = getMaxEval() / max_neigh;
         T = T_0 = mu * Evaluate() / -log(sigma);
         beta =(T_0 - T_f)/(M * T_0 * T_f);
     }
@@ -55,11 +55,11 @@ public class SimulatedAnnealing extends RandomHeuristic{
         int eval_asp;
         int neigh, succ;
         
-        while(T > T_f && !end && eval < max_eval){
+        while(T > T_f && !end && getEval() < getMaxEval()){
             neigh = 0;
             succ = 0;
             
-            while(neigh < max_neigh && succ < max_succ && eval < max_eval){
+            while(neigh < max_neigh && succ < max_succ && getEval() < getMaxEval()){
                 GenerateNeighbour();
                 neigh++;
                 

@@ -26,7 +26,7 @@ public class LocalSearch extends RandomHeuristic{
         // If the actual solution is good enough, this variable stop the loop
         int it_wo_succ = 0;
         
-        while(eval < max_eval && it_wo_succ < 1.5 * num_car ){
+        while(getEval() < getMaxEval() && it_wo_succ < 1.5 * getNumCar()){
             GenerateNeighbour();
 
             eval_neigh = Evaluate();

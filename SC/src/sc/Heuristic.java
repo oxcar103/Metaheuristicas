@@ -16,19 +16,19 @@ import weka.core.Instances;
  */
 public abstract class Heuristic {
     // Constants
-    public final int max_eval = 15000;
-    public final int num_neigh = 3;
+    private final int max_eval = 15000;
+    private final int num_neigh = 3;
     
     // Variables
+    private final int num_car;
+    private int eval;
     protected Instances instances;
-    protected int num_inst, eval;
     protected boolean[] car;
-    protected int num_car, num_c_sel;
+    protected int num_c_sel;
     
     abstract void Train();
             
     public Heuristic(Instances inst, int col_class){
-        num_inst = inst.numInstances();
         instances = new Instances(inst);
         instances.setClassIndex(col_class);
         
@@ -43,8 +43,16 @@ public abstract class Heuristic {
         }
     }
     
-    public boolean[] getCar() {
-        return car;
+    public int getNumCar() {
+        return num_car;
+    }
+
+    public int getMaxEval() {
+        return max_eval;
+    }
+
+    public int getEval() {
+        return eval;
     }
     
     double SuccessesRate(Instances inst){
