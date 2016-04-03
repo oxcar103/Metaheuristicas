@@ -95,7 +95,7 @@ public class SC {
                 heuristic.Train();
                 end_t = System.currentTimeMillis();
                 
-                duration = (end_t - start_t) / 1000.0;
+                duration = ((double) end_t - (double) start_t) / 1000.0;
                 
                 suc_r.add(heuristic.SuccessesRate(inst2));
                 red_r.add(heuristic.ReductionRate());
