@@ -75,7 +75,7 @@ public class TabooSearch extends RandomHeuristic{
             
             // If aspiration criterion is actived, remove used index
             if(taboo_list.contains(best_index)){
-                taboo_list.remove(best_index);
+                taboo_list.remove(taboo_list.indexOf(best_index));
             }
             
             // Add used element's index to taboo list
