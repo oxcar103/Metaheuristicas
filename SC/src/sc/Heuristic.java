@@ -100,7 +100,7 @@ public abstract class Heuristic {
         }
         try {
             
-            ibk.buildClassifier(inst);
+            ibk.buildClassifier(eval_car);
 
             for(int i = 0; i < n_inst; i++){
                 neighbours = ibk.getNearestNeighbourSearchAlgorithm().kNearestNeighbours(eval_car.instance(i), num_neigh+1);
