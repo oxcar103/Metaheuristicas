@@ -49,8 +49,8 @@ public class SC {
             col_class = Integer.parseInt(args[3*i+2]);
             f_name = args[3*i+3];
             
-            for(int j = 0; j < num_heur; j++){
-                Exec(instances, col_class, j, f_name + "_" + hr_str [j]);
+            for(int j = 0; j < 2; j++){
+                Exec(instances, col_class, j, f_name + "_" + hr_str [j] + ".txt");
             }
         }
     }    
