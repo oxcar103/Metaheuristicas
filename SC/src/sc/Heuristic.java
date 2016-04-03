@@ -125,6 +125,7 @@ public abstract class Heuristic {
                 
                 // If expected class is our instance's class, increase successes
                 if(eval_car.instance(i).classValue() == exp_class){
+                    System.out.printf(eval_car.instance(i).classValue() + " == " + exp_class + "\t" + "\n");
                     succ++;
                 }
             }
