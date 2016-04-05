@@ -212,9 +212,9 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			\label{Flip}
 			\end{algorithm}
 		
-		Y para el caso de la generación de un vecino aleatorio, bastaría con generarlo aleatoriamente,
-		invocar a la función anterior y devolver el número generado (por si fuese necesario para algo
-		en el ámbito en el que se invoca la función):
+			Y para el caso de la generación de un vecino aleatorio, bastaría con generarlo aleatoriamente,
+			invocar a la función anterior y devolver el número generado (por si fuese necesario
+			para algo en el ámbito en el que se invoca la función):
 		
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
@@ -229,10 +229,37 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			\label{Neighbour}
 			\end{algorithm}
 		
-		
 		\subsection{\textit{5x2-Cross Validation}}
+			Para realizar la comprobación del buen funcionamiento de nuestras heurísticas, realizaremos
+			una serie de particiones del conjunto de instancias que nos pasan como parámetro, algunas
+			las usaremos como entrenamiento y otras como validación.
 			
+			En concreto, utilizaremos la conocida como \textit{5x2-Cross Validation}, que consiste en
+			dividir el conjunto en dos mitades, tomar una como entrenamiento y la otra como validación,
+			y luego invertir la que se usó como entrenamiento y la que se usó como validación. Este
+			proceso se realiza 5 veces:
+			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
 
+			     	\FOR{{i} $<$ \texttt{5}}
+				  		\STATE{\texttt{part1} = Genera partición}
+				  		\STATE{\texttt{part2} = Complementario(\texttt{part1})}
+
+						\STATE{\texttt{Heurística.entrenar(part1)}}
+						\STATE{\texttt{evaluaciones[2*i]} = \texttt{Heurística.evaluar(part2)}}
+										  		
+						\STATE{\texttt{Heurística.entrenar(part2)}}
+						\STATE{\texttt{evaluaciones[2*i+1]} = \texttt{Heurística.evaluar(part1)}}
+					\ENDFOR
+					
+					\RETURN{evaluciones}
+				\end{algorithmic}
+			\caption{\textit{5x2-Cross Validation}}
+			\label{Cross-Validation}
+			\end{algorithm}			
+			
 		\subsection{Entrada y salida}
 			Para recoger los datos a través de la entrada, he implementado una clase extra basándome
 			en \cite{ARFFReader}.
