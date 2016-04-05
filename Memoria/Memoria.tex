@@ -145,12 +145,54 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			característica $f_i$ está en la solución o no.
 		
 		\subsection{Función objetivo y función evaluación}
+			Como función objetivo lógica para nuestro problema, se tomaría la función:
+			$$tasa_{aciertos} = 100 \cdot \frac{nº\ instancias\ bien\ clasificadas}{nº\ total\ de\ instancias}$$
+			
+			Sin embargo, como el número total de instancias es una constante y para la máquina
+			es más sencillo trabajar con valores enteros que con valores decimales, optaremos
+			por maximizar la función que nos calcula el número de aciertos y los transformaremos
+			en la tasa de aciertos cuando queramos evaluar el buen funcionamiento de la
+			clasificación realizada sobre el conjunto de evaluación.
+			
+			Un pequeño esquema del funcionamiento de nuestra función de evaluación sería:
 
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+
+					\REQUIRE \ \\
+			        	\texttt{c\_sel}, vector de características seleccionadas\\
+			        	\texttt{inst}, instancias sobre las que evaluar\\ \
+
+			     	\STATE{\texttt{aciertos} = 0}\\
+			     	\FORALL{\texttt{instancia} $\in$ \texttt{inst}}
+				  		\STATE{Genera \texttt{3-NN} de \texttt{instancia[i]}}
+				  		\IF{\texttt{hay clase predominante}}
+							\STATE{\text{clase\ esperada} = Clase predominante de \texttt{3-NN} de \texttt{instancia[i]}}
+						\ELSE
+							\STATE{\text{clase\ esperada} = Clase de \texttt{1-NN} de \texttt{instancia[i]}}
+						\ENDIF
+				  		
+						\IF{\texttt{clase\ esperada} == Clase de \texttt{instancia[i]}}
+							\STATE{\texttt{aciertos++}}
+						\ENDIF
+					\ENDFOR
+				  
+					\RETURN{aciertos}			
+				\end{algorithmic}
+			    \caption{Función de evaluación}
+			    \label{Evaluate}
+			\end{algorithm}
+			
+			Este algoritmo tiene algunas variantes, como que si no le pasas instancia, toma la que
+			usó para realizar el entrenamiento, si no le pasas vector de características seleccionadas,
+			usa la que tiene almacenada y que si le pasas un entero $i$, usa el vector de características
+			resultante de alternar el valor de $f_i$ de la solución almacenada.
+			
+			El cálculo del KNN está tomado de \cite{KNN}.
+		
 		\subsection{Operador de vecinos}
 		
 		\subsection{\textit{5x2-Cross Validation}}
-			
-
 
 	\section{Heurísticas implementadas}
 		\subsection{\textit{Sequential Forward Selection} (\textbf{SFS})}
