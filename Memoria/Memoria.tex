@@ -191,9 +191,47 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			El cálculo del KNN está tomado de \cite{KNN}.
 		
 		\subsection{Operador de vecinos}
+			Para la generación de una solución vecina, basta con alterar la pertenencia de una
+			característica al conjunto de características seleccionadas, y alterar el contador
+			de las mismas ya que me parecía más eficiente de este modo llevar la cuenta de cuántas
+			fueron escogidas. Una aproximación de sería la siguiente:
+			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
+			        	\texttt{index}, índice a cambiar\\
+
+			     	\STATE{\texttt{car[index]} = \texttt{!car[index]}}\\
+			  		\IF{\texttt{car[index]} == \texttt{true}}
+						\STATE{\text{num\_c\_sel++}}
+					\ELSE
+						\STATE{\text{num\_c\_sel- -}}
+					\ENDIF
+				\end{algorithmic}
+			\caption{Generación de solución vecina}
+			\label{Flip}
+			\end{algorithm}
+		
+		Y para el caso de la generación de un vecino aleatorio, bastaría con generarlo aleatoriamente,
+		invocar a la función anterior y devolver el número generado (por si fuese necesario para algo
+		en el ámbito en el que se invoca la función):
+		
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
+
+			     	\STATE{\texttt{index} = Entero Aleatorio}\\
+			  		\STATE{\texttt{Flip(index)}}\\
+			  		
+					\RETURN{index}
+				\end{algorithmic}
+			\caption{Generación aleatoria de solución vecina}
+			\label{Neighbour}
+			\end{algorithm}
+		
 		
 		\subsection{\textit{5x2-Cross Validation}}
-
+			
 	\section{Heurísticas implementadas}
 		\subsection{\textit{Sequential Forward Selection} (\textbf{SFS})}
 
