@@ -132,202 +132,36 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 \pagebreak
 
 %% Inicio del documento
-	\section{\textit{Sequential Forward Selection} (\textbf{SFS})}
-	\begin{algorithm}[H]
-		\begin{algorithmic}[1]
-			\REQUIRE \ \\
-	        	\texttt{monedas}, vector con los valores de monedas disponibles \\
-	        	\texttt{precio}, cantidad de dinero a devolver\\\
-	     	\STATE{Ordenar \texttt{monedas} de mayor a menor}
-	     	%  He usado un vector aunque en el código final usábamos 
-	     	%  un diccionario, si queréis lo cambio -David
-	     	\STATE{Crear un vector \texttt{vuelta}}
-			\FORALL{\texttt{moneda} en \texttt{monedas}}
-				\STATE{\texttt{cantidad} = \texttt{precio} / \texttt{moneda}}
-				\STATE{\texttt{precio} = \texttt{precio} $-$ \texttt{cantidad} $\times$ \texttt{moneda}}
-				\STATE{Añadir [\texttt{moneda}, \texttt{cantidad}] a \texttt{vuelta}}
-			\ENDFOR
-			\RETURN{vuelta}
-		\end{algorithmic}
-	    \caption{Devolución en mínimo número de monedas}
-	    \label{monedas}
-	\end{algorithm}
-	\section{Búsqueda Local (\textbf{LS})}
-	    \begin{algorithm}[H]
-		\begin{algorithmic}[1]
-			\REQUIRE \ \\
-	        	\texttt{grafo}, grafo inicial del que se calcula el árbol minimal \\\
-			\STATE{\texttt{árbol=}$\emptyset$}
-			\FORALL{\texttt{v} en \texttt{grafo.vértices}:}
-			   \STATE{Crea componente conexa \texttt{set(v)}}
-			\ENDFOR
-			\FORALL{arista \texttt{(u,v)} en \texttt{grafo.aristas}:}
-			\IF{\texttt{componente(u)} $\neq$ \texttt{componente(v)}}
-			      \STATE{\texttt{árbol}.añadir(\texttt{(u,v)})}
-			      \STATE{unir(\texttt{componente(u)},\texttt{componente(v)})}
-			    \ENDIF
-			\ENDFOR
-			\RETURN{\texttt{árbol}}
-		\end{algorithmic}
-	      \caption{Algoritmo de Kruskal}
-	      \label{kruskal}
-	    \end{algorithm}
-	\section{Enfriamiento Simulado (\textbf{SA})}
-	\begin{algorithm}[H]
-		\begin{algorithmic}[1]
-			\REQUIRE \ \\
-	        	\texttt{ciudades}, coordenadas de un conjunto de ciudades \\\
-			\STATE{\texttt{grafo.vértices} $=$ \texttt{ciudades}}
-			\STATE{\texttt{grafo.aristas}  $=$ $[\texttt{(u,v)} \quad | \quad \forall \texttt{(u,v)} \in Delaunay(\texttt{ciudades})]$}
-			\RETURN{$Kruskal(\texttt{grafo})$}
-		\end{algorithmic}
-	      \caption{Red de comunicaciones}
-	      \label{red}
-	    \end{algorithm}
-	    
-	    \begin{algorithm}[H]
-		\begin{algorithmic}[1]
-			\REQUIRE \ \\
-	        	\texttt{grafo}, grafo euclídeo generado por los vectores de características \\\
-	        	\texttt{k}, número de componentes conexas en las que se quiere partir el grafo \\\
-			\STATE{\texttt{componentes=}[[$v_1$],\ldots,[$v_{\#grafo.vertices}$]], diccionario de $\#grafo.vertices$ arrays, $v_i\in$\texttt{grafo.vertices}}
-			\STATE{\texttt{edge\_list=sort(grafo.edges)} en función del peso de cada arista, de menor a mayor}
-			\FORALL{\texttt{arista (u,v)} en \texttt{edge\_list}}
-			  \IF{\texttt{componente[u]} $\neq$ \texttt{componente[v]}}
-				\STATE{unir(\texttt{componente(u)},\texttt{componente(v)})}
-			      \ENDIF
-			  \IF{\texttt{\#componentes == k}}
-			    \RETURN{\texttt{componentes}}
-			  \ENDIF
-			\ENDFOR
-		\end{algorithmic}
-	      \caption{Algoritmo de Kruskal generalizado}
-	      \label{kruskal-generalizado}
-	    \end{algorithm}
-	
-	\section{Búsqueda Tabú (\textbf{TS})}
-	\begin{algorithm}[H]
-				\begin{algorithmic}[1]
-					\REQUIRE \ \\
-						\texttt{m}, matriz de costes, y $n$ orden de la matriz\\
-					\STATE{\texttt{Crea una Asignacion vacía}}
-					\STATE{\texttt{Crea un vector trabajosUsados de tamaño $n$ y lo rellena a false}}
-					\FORALL{Trabajador (i)}
-					  \STATE{\texttt{Minimo = -1}}
-					  \STATE{\texttt{posTrabajo = 0}}
-			          \FORALL{Trabajo (j)}
-			            \IF{!trabajosUsados[j]}
-			            	\IF{Minimo < 0 || m[i][j] < Minimo}
-			            		\STATE{\texttt{posTrabajo = j}}
-			         			\STATE{\texttt{Minimo = m[i][j]}}
-			            	\ENDIF
-			            \ENDIF
-			          \ENDFOR
-			          \STATE{\texttt{ Asignacion.push(pair(i,posTrabajo))} }
-			          \STATE{\texttt{trabajosUsados[posTrabajo = true]} }
-			        \ENDFOR  	
-			        
-					\RETURN{\texttt{Asignacion}}
-				\end{algorithmic}
-			    \caption{Asignación de trabajos por trabajador}
-			    \label{Asignación Trabajos}
-			\end{algorithm}
-	
-	
-	
-	
-	
-	
-			Para recoger los datos a través de la entrada, he implementado una clase
-			extra basándome en \cite{ARFFReader}.
-			Para generar los archivos \textit{.csv}, he utilizado una clase implementada
-			por un compañero y algo adaptada a mi estilo de programación.
-			El algoritmo KNN está tomado de \cite{KNN}
-	
-	
-	
-			
+	\section{Descripción del problema}
 		
-	\begin{algorithm}[H]
-				\begin{algorithmic}[1]
-					\REQUIRE \ \\
-						\texttt{m}, matriz de costes, y $n$ orden de la matriz\\
-					\STATE{\texttt{Crea una Asignacion vacía}}
-					\STATE{\texttt{Crea dos vectores: trabajosUsados y trabajadoresUsados, de tamaño $n$ y los rellena a false}}
-					\FORALL{Fila}
-					  \STATE{\texttt{Minimo = -1}}
-					  \STATE{\texttt{posTrabajo = 0\\ posTrabajador = 0}}
-				      \FORALL{Trabajador (j)}
-				        \IF{!trabajadoresUsados[j]}
-				          \FORALL{Trabajo (k)}
-				            \IF{!trabajosUsados[j]}
-				           	  \IF{Minimo < 0 || m[j][k] < Minimo}
-				           	    \STATE{\texttt{posTrabajo = k \\ posTrabajador = j\\
-				           	    Minimo = m[j][k]}}
-				           	  \ENDIF
-				           	\ENDIF
-				          \ENDFOR
-				        \ENDIF
-				      \ENDFOR
-				      \STATE{\texttt{Asignacion.push(pair(posTrabajador,posTrabajo))}}
-				      \STATE{\texttt{trabajosUsados[posTrabajo] = true \\ trabajadoresUsados[posTrabajador] = true}}
-				    \ENDFOR  	
-					        
-					\RETURN{\texttt{Asignacion}}
-				\end{algorithmic}
-				   \caption{Asignación global de trabajos}
-				   \label{Asignación Global}
-			\end{algorithm}
+
+	\section{Características de las heurísticas}
+		En este apartado, se describirán las características comunes empleadas para resolver
+		el problema
+		
+		\subsection{Representación de la solución}
+			Representaremos la solución como un vector de booleanos de longitud $n$, con $n$
+			el número de características del problema dado, en el cuál se especifica si la
+			característica $f_i$ está en la solución o no.
+		
+		\subsection{Función objetivo y función evaluación}
+
+		\subsection{Operador de vecinos}
+		
+		\subsection{\textit{5x2-Cross Validation}}
 			
-	\begin{algorithm}[H]
-		\begin{algorithmic}[1]
-			\REQUIRE \ \\
-	        	\texttt{clases}, array de $n$ objetos \texttt{Clase}, que almacena
-					 un tiempo de inicialización y otro de 
-					 finalización\\
-	     	\STATE{\texttt{adyadcentes}=$(\delta_{i,j})_{nxn}, i,j\in \{0\ldots \#clases - 1\}$}
-	     	\STATE{\texttt{sin\_colorear}= $\{0\ldots\#clases-1\}$}
-	     	\STATE{\texttt{color}=$[]$}
-	     	\STATE{\texttt{indice}=0}
-		  \WHILE{\texttt{sin\_colorear}$\neq \emptyset$}
-		    \STATE{\texttt{color[indice]=[sin\_colorear.pop\_front]}}
-		    \FORALL{\texttt{v}$\in$\texttt{sin\_colorear}}
-		      \IF{\textbf{no} \texttt{adyacentes[color[indice][0]][v]}}
-			\STATE{\texttt{color[indice].push(v)}}
-			\STATE{\texttt{sin\_colorear.delete(v)}}
-		      \ENDIF
-		    \ENDFOR
-		    \STATE{\texttt{indice++}}
-		  \ENDWHILE
-			\RETURN{$\#$\texttt{color}}
-		\end{algorithmic}
-	    \caption{Asignación de aulas}
-	    \label{aulas}
-	\end{algorithm}
-	\begin{algorithm}[H]
-		\begin{algorithmic}[1]
-			\REQUIRE \ \\
-	        	\texttt{p}, array de $n$ peticiones\\
-	        	\texttt{k}, tamaño de la caché\\ \
-	     	\STATE{\texttt{fallos} = 0}\\
-	     	\STATE{\texttt{cache} = eliminaRepetidos(\texttt{p}).\texttt{slice}(0, k-1)}
-		  \FORALL{\texttt{petición} $\in$ \texttt{p}}
-		   \IF{\texttt{petición $\notin$ cache}}
-			\STATE{\texttt{a\_eliminar} = Elemento de \texttt{p} en \texttt{cache} que más tardará en volver a ser necesitado}
-			\STATE{\texttt{cache[cache.find(a\_eliminar)]} = \texttt{peticion}}
-			\STATE{\texttt{fallos++}}
-		   \ENDIF
-		  \ENDFOR
-		  
-		  \RETURN{fallos}
-	
-		\end{algorithmic}
-	    \caption{Optimización de memoria caché}
-	    \label{memory}
-	\end{algorithm}
-	
-	\begin{thebibliography}{7}
-	
+
+
+	\section{Heurísticas implementadas}
+		\subsection{\textit{Sequential Forward Selection} (\textbf{SFS})}
+
+		\subsection{Búsqueda Local (\textbf{LS})}
+
+		\subsection{Enfriamiento Simulado (\textbf{SA})}
+		
+		\subsection{Búsqueda Tabú (\textbf{TS})}
+
+
 	\begin{thebibliography}{10}
 	\expandafter\ifx\csname url\endcsname\relax
 	  \def\url#1{\texttt{#1}}\fi
@@ -335,17 +169,15 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 	\expandafter\ifx\csname href\endcsname\relax
 	  \def\href#1#2{#2} \def\path#1{#1}\fi
 	
-	\bibitem{ARFFReader}
-	WEKA (The University of Waikato)\\
-	  \url{http://weka.sourceforge.net/doc.dev/weka/core/converters/ArffLoader.ArffReader.html}
-	
 	\bibitem{KNN}
 	WEKA (The University of Waikato)\\
 	  \url{http://weka.sourceforge.net/doc.dev/weka/classifiers/lazy/IBk.html}\\
 	  \url{http://weka.sourceforge.net/doc.dev/weka/core/neighboursearch/NearestNeighbourSearch.html}
-	
-%	\bibitem{KNN}
-%	Gigas, the cloud hosting company.\\
-%	  \url{https://gigas.com/cloud-vps}
+	  
+  	\bibitem{ARFFReader}
+  	WEKA (The University of Waikato)\\
+	  \url{http://weka.sourceforge.net/doc.dev/weka/core/converters/ArffLoader.ArffReader.html}
+	  
+	\end{thebibliography}
 
 \end{document}
