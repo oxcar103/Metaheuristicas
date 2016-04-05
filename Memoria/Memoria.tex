@@ -64,6 +64,11 @@
 %% Matemáticas
 \usepackage{amsmath}
 
+% Para algoritmos
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsthm}
+\input{spanishAlgorithmic.tex}
 
 %% Bibliografía
 \makeatletter
@@ -78,7 +83,7 @@
 % Configuraciones para el título.
 % El título no debe editarse aquí.
 \renewcommand{\maketitle}{
-  \begin{center} % Center align
+  \begin{flushright} % Center align
   {\LARGE\@title} % Increase the font size of the title
   
   \vspace{50pt} % Some vertical space between the title and author name
@@ -86,11 +91,11 @@
   {\large\@author} % Author name
   \\\@date % Date
   \vspace{40pt} % Some vertical space between the author block and abstract
-  \end{center}
+  \end{flushright}
 }
 
 % Título
-\title{\textbf{Metaheurísticas: Selección de Características(SC)}\\ % Title
+\title{\textbf{Metaheurísticas: Selección de Características}\\ % Title
 Búsquedas por Trayectorias Simples} % Subtitle
 
 \author{\textsc{Óscar Bermúdez Garrido\\
@@ -132,4 +137,199 @@ Búsquedas por Trayectorias Simples} % Subtitle
 \section{Enfriamiento Simulado (\textbf{SA})}
 \section{Búsqueda Tabú (\textbf{TS})}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\REQUIRE \ \\
+        	\texttt{monedas}, vector con los valores de monedas disponibles \\
+        	\texttt{precio}, cantidad de dinero a devolver\\\
+     	\STATE{Ordenar \texttt{monedas} de mayor a menor}
+     	%  He usado un vector aunque en el código final usábamos 
+     	%  un diccionario, si queréis lo cambio -David
+     	\STATE{Crear un vector \texttt{vuelta}}
+		\FORALL{\texttt{moneda} en \texttt{monedas}}
+			\STATE{\texttt{cantidad} = \texttt{precio} / \texttt{moneda}}
+			\STATE{\texttt{precio} = \texttt{precio} $-$ \texttt{cantidad} $\times$ \texttt{moneda}}
+			\STATE{Añadir [\texttt{moneda}, \texttt{cantidad}] a \texttt{vuelta}}
+		\ENDFOR
+		\RETURN{vuelta}
+	\end{algorithmic}
+    \caption{Devolución en mínimo número de monedas}
+    \label{monedas}
+\end{algorithm}  
+
+    \begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\REQUIRE \ \\
+        	\texttt{grafo}, grafo inicial del que se calcula el árbol minimal \\\
+		\STATE{\texttt{árbol=}$\emptyset$}
+		\FORALL{\texttt{v} en \texttt{grafo.vértices}:}
+		   \STATE{Crea componente conexa \texttt{set(v)}}
+		\ENDFOR
+		\FORALL{arista \texttt{(u,v)} en \texttt{grafo.aristas}:}
+		\IF{\texttt{componente(u)} $\neq$ \texttt{componente(v)}}
+		      \STATE{\texttt{árbol}.añadir(\texttt{(u,v)})}
+		      \STATE{unir(\texttt{componente(u)},\texttt{componente(v)})}
+		    \ENDIF
+		\ENDFOR
+		\RETURN{\texttt{árbol}}
+	\end{algorithmic}
+      \caption{Algoritmo de Kruskal}
+      \label{kruskal}
+    \end{algorithm}
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\REQUIRE \ \\
+        	\texttt{ciudades}, coordenadas de un conjunto de ciudades \\\
+		\STATE{\texttt{grafo.vértices} $=$ \texttt{ciudades}}
+		\STATE{\texttt{grafo.aristas}  $=$ $[\texttt{(u,v)} \quad | \quad \forall \texttt{(u,v)} \in Delaunay(\texttt{ciudades})]$}
+		\RETURN{$Kruskal(\texttt{grafo})$}
+	\end{algorithmic}
+      \caption{Red de comunicaciones}
+      \label{red}
+    \end{algorithm}
+    
+    \begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\REQUIRE \ \\
+        	\texttt{grafo}, grafo euclídeo generado por los vectores de características \\\
+        	\texttt{k}, número de componentes conexas en las que se quiere partir el grafo \\\
+		\STATE{\texttt{componentes=}[[$v_1$],\ldots,[$v_{\#grafo.vertices}$]], diccionario de $\#grafo.vertices$ arrays, $v_i\in$\texttt{grafo.vertices}}
+		\STATE{\texttt{edge\_list=sort(grafo.edges)} en función del peso de cada arista, de menor a mayor}
+		\FORALL{\texttt{arista (u,v)} en \texttt{edge\_list}}
+		  \IF{\texttt{componente[u]} $\neq$ \texttt{componente[v]}}
+			\STATE{unir(\texttt{componente(u)},\texttt{componente(v)})}
+		      \ENDIF
+		  \IF{\texttt{\#componentes == k}}
+		    \RETURN{\texttt{componentes}}
+		  \ENDIF
+		\ENDFOR
+	\end{algorithmic}
+      \caption{Algoritmo de Kruskal generalizado}
+      \label{kruskal-generalizado}
+    \end{algorithm}
+
+\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{m}, matriz de costes, y $n$ orden de la matriz\\
+				\STATE{\texttt{Crea una Asignacion vacía}}
+				\STATE{\texttt{Crea un vector trabajosUsados de tamaño $n$ y lo rellena a false}}
+				\FORALL{Trabajador (i)}
+				  \STATE{\texttt{Minimo = -1}}
+				  \STATE{\texttt{posTrabajo = 0}}
+		          \FORALL{Trabajo (j)}
+		            \IF{!trabajosUsados[j]}
+		            	\IF{Minimo < 0 || m[i][j] < Minimo}
+		            		\STATE{\texttt{posTrabajo = j}}
+		         			\STATE{\texttt{Minimo = m[i][j]}}
+		            	\ENDIF
+		            \ENDIF
+		          \ENDFOR
+		          \STATE{\texttt{ Asignacion.push(pair(i,posTrabajo))} }
+		          \STATE{\texttt{trabajosUsados[posTrabajo = true]} }
+		        \ENDFOR  	
+		        
+				\RETURN{\texttt{Asignacion}}
+			\end{algorithmic}
+		    \caption{Asignación de trabajos por trabajador}
+		    \label{Asignación Trabajos}
+		\end{algorithm}
+		
+	
+\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{m}, matriz de costes, y $n$ orden de la matriz\\
+				\STATE{\texttt{Crea una Asignacion vacía}}
+				\STATE{\texttt{Crea dos vectores: trabajosUsados y trabajadoresUsados, de tamaño $n$ y los rellena a false}}
+				\FORALL{Fila}
+				  \STATE{\texttt{Minimo = -1}}
+				  \STATE{\texttt{posTrabajo = 0\\ posTrabajador = 0}}
+			      \FORALL{Trabajador (j)}
+			        \IF{!trabajadoresUsados[j]}
+			          \FORALL{Trabajo (k)}
+			            \IF{!trabajosUsados[j]}
+			           	  \IF{Minimo < 0 || m[j][k] < Minimo}
+			           	    \STATE{\texttt{posTrabajo = k \\ posTrabajador = j\\
+			           	    Minimo = m[j][k]}}
+			           	  \ENDIF
+			           	\ENDIF
+			          \ENDFOR
+			        \ENDIF
+			      \ENDFOR
+			      \STATE{\texttt{Asignacion.push(pair(posTrabajador,posTrabajo))}}
+			      \STATE{\texttt{trabajosUsados[posTrabajo] = true \\ trabajadoresUsados[posTrabajador] = true}}
+			    \ENDFOR  	
+				        
+				\RETURN{\texttt{Asignacion}}
+			\end{algorithmic}
+			   \caption{Asignación global de trabajos}
+			   \label{Asignación Global}
+		\end{algorithm}
+		
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\REQUIRE \ \\
+        	\texttt{clases}, array de $n$ objetos \texttt{Clase}, que almacena
+				 un tiempo de inicialización y otro de 
+				 finalización\\
+     	\STATE{\texttt{adyadcentes}=$(\delta_{i,j})_{nxn}, i,j\in \{0\ldots \#clases - 1\}$}
+     	\STATE{\texttt{sin\_colorear}= $\{0\ldots\#clases-1\}$}
+     	\STATE{\texttt{color}=$[]$}
+     	\STATE{\texttt{indice}=0}
+	  \WHILE{\texttt{sin\_colorear}$\neq \emptyset$}
+	    \STATE{\texttt{color[indice]=[sin\_colorear.pop\_front]}}
+	    \FORALL{\texttt{v}$\in$\texttt{sin\_colorear}}
+	      \IF{\textbf{no} \texttt{adyacentes[color[indice][0]][v]}}
+		\STATE{\texttt{color[indice].push(v)}}
+		\STATE{\texttt{sin\_colorear.delete(v)}}
+	      \ENDIF
+	    \ENDFOR
+	    \STATE{\texttt{indice++}}
+	  \ENDWHILE
+		\RETURN{$\#$\texttt{color}}
+	\end{algorithmic}
+    \caption{Asignación de aulas}
+    \label{aulas}
+\end{algorithm}
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\REQUIRE \ \\
+        	\texttt{p}, array de $n$ peticiones\\
+        	\texttt{k}, tamaño de la caché\\ \
+     	\STATE{\texttt{fallos} = 0}\\
+     	\STATE{\texttt{cache} = eliminaRepetidos(\texttt{p}).\texttt{slice}(0, k-1)}
+	  \FORALL{\texttt{petición} $\in$ \texttt{p}}
+	   \IF{\texttt{petición $\notin$ cache}}
+		\STATE{\texttt{a\_eliminar} = Elemento de \texttt{p} en \texttt{cache} que más tardará en volver a ser necesitado}
+		\STATE{\texttt{cache[cache.find(a\_eliminar)]} = \texttt{peticion}}
+		\STATE{\texttt{fallos++}}
+	   \ENDIF
+	  \ENDFOR
+	  
+	  \RETURN{fallos}
+
+	\end{algorithmic}
+    \caption{Optimización de memoria caché}
+    \label{memory}
+\end{algorithm}
 \end{document}
