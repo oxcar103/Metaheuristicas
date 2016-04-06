@@ -76,7 +76,6 @@
 \renewcommand{\@listI}{\itemsep=0pt} % Reduce the space between items in the itemize and enumerate environments and the bibliography
 
 
-
 %----------------------------------------------------------------------------------------
 %	TÍTULO
 %----------------------------------------------------------------------------------------
@@ -103,7 +102,6 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 \\{\textit{Universidad de Granada}}} % Institution
 
 \date{\today} % Date
-
 
 
 %----------------------------------------------------------------------------------------
@@ -181,6 +179,9 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 				\end{algorithmic}
 			    \caption{Función de evaluación}
 			    \label{Evaluate}
+
+		\subsection{Comparativa}
+			
 			\end{algorithm}
 			
 			Este algoritmo tiene algunas variantes, como que si no le pasas instancia, toma la que
@@ -277,16 +278,25 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 
 	\section{Resultados}
 		\subsection{\textit{Sequential Forward Selection} (\textbf{SFS})}
+			\input{WDBC-SFS}
+			\input{MLIB-SFS}
+			\input{ARRH-SFS}
 		
 		\subsection{Búsqueda Local (\textbf{LS})}
+			\input{WDBC-LS}
+			\input{MLIB-LS}
+			\input{ARRH-LS}
 
 		\subsection{Enfriamiento Simulado (\textbf{SA})}
+			\input{WDBC-SA}
+			\input{MLIB-SA}
+			\input{ARRH-SA}
 		
 		\subsection{Búsqueda Tabú (\textbf{TS})}
+			\input{WDBC-TS}
+			\input{MLIB-TS}
+			\input{ARRH-TS}
 		
-		\subsection{Comparativa}
-
-
 	\begin{thebibliography}{10}
 	\expandafter\ifx\csname url\endcsname\relax
 	  \def\url#1{\texttt{#1}}\fi
