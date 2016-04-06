@@ -299,6 +299,30 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			
 		\subsection{Comparación de resultados}
 			\input{Compare}
+			
+			Viendo los resultados de arriba, podemos concluir que:
+			\begin{itemize}
+				\item Los mayores índices de reducción se obtienen con el \textit{SFS}, obteniendo en
+				todos los casos una tasa de reducción superior al 80\% y los demás, rondan el 50\%.
+				Lo que nos hace pensar que puede ser que los demás tenga sobre-ajuste sobre los datos
+				de entrenamiento.
+				
+				\item En el caso de \textit{WBDC}, todos los algoritmos tienen una alta tasa de acierto,
+				quizás la mejor heurística en este caso, sería utilizar \textit{LS} ya que, a pesar
+				de que \textit{TS} tienen un valor mayor, su coste en tiempo desproporcional lo descarta
+				rápidamente.
+				
+				\item En el caso de \textit{Movement Libras}, optaría por tomar \textit{SA} por motivos
+				similares al caso anterior: aunque no sea el que posee el mayor índice de acierto,
+				\textit{TS} lo descartamos por excesivo tiempo de ejecución, tiene un gran índice de
+				acierto, un índice de reducción aceptable y se ejecuta en un tiempo razonable.
+
+				\item Sin duda alguna, para el caso de \textit{Arrhythmia}, el mejor algoritmo sería
+				el de \textit{SFS}, ya que tiene el mejor índice de acierto(con un único valor muy
+				bajo en las 10 iteraciones que provoca una bajada importante en la media), de reducción
+				y un tiempo bastante bajo para la cantidad de características e instancias que tiene.
+
+			\end{itemize}
 		
 	\newpage
 	
