@@ -135,7 +135,7 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 
 	\section{Características de las heurísticas}
 		En este apartado, se describirán las características comunes empleadas para resolver
-		el problema
+		el problema.
 		
 		\subsection{Representación de la solución}
 			Representaremos la solución como un vector de booleanos de longitud $n$, con $n$
@@ -462,6 +462,72 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			\end{algorithm}			
 
 		\subsection{Búsqueda Tabú (\textbf{TS})}
+			Este método de búsqueda almacena la lista de los últimos índices usados para no tomar
+			esas posiciones en iteraciones futuras pues estaríamos deshaciendo la solución encontrada
+			en iteraciones pasadas. Aunque esta es su política principal de actuación, si encuentra
+			una solución mejor que la mejor encontrada hasta el momento, se permite tomarla sin
+			importar si el índice está en la lista tabú.
+			
+			Los principales parámetros de esta búsqueda son:
+			\begin{itemize}
+				\item Número máximo de vecinos, que nos indica cuántas soluciones vecinas se exploran
+				antes de tomar la decisión de cuál elegir como siguiente iteración. En nuestra
+				implementación, le daremos el valor de 30.
+				\item Tamaño de la lista tabú, que nos indica cuántos elementos tenemos como tabú y
+				que, salvo que produzca una mejora superior a la mejor solución encontrada, nos indicará
+				qué índices no podemos tomar como alternativa. Le daremos un tercio del número de
+				características.
+			\end{itemize}
+		
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
+							 \
+
+					\STATE{Hacemos copia de la solución actual}
+					\STATE{Tomamos como mejor solución global, la actual}
+					\STATE{\texttt{evaluación\_actual} = Evaluate()}
+					
+					\WHILE{No se exceda el número máximo de evaluaciones}
+						\STATE{Vecinos = 0}
+						
+						\WHILE{Vecinos < Máximo Vecinos \AND No se exceda el número máximo de evaluaciones}
+					     	\STATE{\texttt{índice} = GenerateNeighbour()}
+					     	\STATE{Incrementamos Vecinos}
+					     	\STATE{\texttt{evaluación\_vecino} = Evaluate()}
+
+					     	\IF{\texttt{evaluación\_vecino} mejora la solución global}
+					     		\STATE{Tomamos esta solución y el índice como mejor vecino}
+					     		\STATE{Tomamos esta solución como mejor global}
+					     	\ELSE
+					     		\IF{\texttt{índice} no está en la lista tabú}
+						     		\IF{\texttt{evaluación\_vecino} mejora la solución de mejor vecino}
+							     		\STATE{Tomamos esta solución y el índice como mejor vecino}
+						     		\ENDIF
+					     		\ENDIF
+					     	\ENDIF
+					     	
+					     	\STATE{Restauramos valores de la solución actual}
+   						\ENDWHILE
+   						
+						\STATE{Establecemos la mejor solución vecino como la actual}
+
+						\IF{\texttt{índice} está en la lista tabú}
+							\STATE{Lo recolocamos al principio}
+						\ELSE
+							\STATE{Lo añadimos al principio}
+							
+							\IF{La lista tabú está llena}
+								\STATE{Quitamos el último}
+							\ENDIF
+						\ENDIF
+					\ENDWHILE
+					
+					\STATE{Establecemos la mejor solución global como la actual}
+				\end{algorithmic}
+			\caption{Búsqueda taboo}
+			\label{TS}
+			\end{algorithm}			
 			
 	\section{Resultados}
 		\subsection{\textit{Sequential Forward Selection} (\textbf{SFS})}
