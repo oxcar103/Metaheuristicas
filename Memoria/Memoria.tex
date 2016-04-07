@@ -258,7 +258,7 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 						\STATE{\texttt{evaluaciones[2*i+1]} = \texttt{Heurística.evaluar(part1)}}
 					\ENDFOR
 					
-					\RETURN{evaluciones}
+					\RETURN{evaluaciones}
 				\end{algorithmic}
 			\caption{\textit{5x2-Cross Validation}}
 			\label{Cross-Validation}
@@ -345,7 +345,7 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 					\STATE{\texttt{evaluación\_actual} = Evaluate()}
 					
 					\WHILE{Iteraciones sin mejora < 1.5 $\cdot$ Número de características
-							\OR Se exceda el número máximo de evaluaciones}
+							\AND No se exceda el número máximo de evaluaciones}
 				     	\STATE{\texttt{índice} = GenerateNeighbour()}
 				     	
 				     	\IF{Mejora evaluación actual}
@@ -362,7 +362,10 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			\end{algorithm}			
 
 		\subsection{Enfriamiento Simulado (\textbf{SA})}
-			Para enfriamiento simulado, es necesario el uso de ciertas variables:
+			Este algoritmo nos permite aceptar no sólo soluciones vecinas mejores, si no que también nos
+			permite aceptar algunas que serían peores con el fin de salir de óptimos locales. Para ello,
+			es necesario el uso de ciertas variables:
+
 			\begin{itemize}
 				\item $\sigma = 0.3$, probabilidad de aceptar una solución peor que la actual.
 				\item $\mu = 0.3$, coeficiente que regula cómo de mala puede ser una solución peor
@@ -380,6 +383,10 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 				\item $\displaystyle beta = \frac{T_0 - T_f}{M \cdot T_0 \cdot T_f}$
 			\end{itemize}
 
+			La variación de la temperatura, que para nuestra práctica se basa en el esquema de
+			enfriamiento simulado de Cauchy modificado, se puede calcular como indica este simple
+			algoritmo:
+			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
 					\REQUIRE \ \\
@@ -390,6 +397,9 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			\caption{Enfriamiento Simulado - Enfriamiento}
 			\label{SA-Annealing}
 			\end{algorithm}
+
+			Mientras tanto, el método de aceptación de una solución, conocido como criterio de
+			Metrópolis, se basa en este método:
 
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
@@ -412,6 +422,44 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			\caption{Enfriamiento Simulado - Criterio de metrópolis}
 			\label{SA-mCrit}
 			\end{algorithm}
+			
+			Finalmente, el algoritmo de búsqueda de solución sería:
+			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
+							 \
+
+					\STATE{Hacemos copia de la solución actual y el número de características seleccionadas}
+					\STATE{\texttt{evaluación\_actual} = Evaluate()}
+					\STATE{\texttt{Hay\_mejora} = \texttt{true}}
+					
+					\WHILE{Temperatura > Temperatura final \AND \texttt{Hay\_mejora}
+							\AND No se exceda el número máximo de evaluaciones}
+						\STATE{Vecinos = 0}
+						\STATE{Éxitos = 0}
+						
+						\WHILE{Vecinos < Máximo Vecinos \AND Éxitos < Máximos Éxitos
+								\AND No se exceda el número máximo de evaluaciones}
+					     	\STATE{\texttt{índice} = GenerateNeighbour()}
+					     	\STATE{Incrementamos Vecinos}
+					     	\STATE{\texttt{evaluación\_vecino} = Evaluate()}
+					     	
+					     	\IF{MetropolisCriterion(\texttt{evaluación\_vecino}, \texttt{evaluación\_actual)}}
+					     		\STATE{Hacemos copia de esta solución y el número de características seleccionadas}
+					     		\STATE{Incrementamos Éxitos}
+					     	\ELSE
+					     		\STATE{Restauramos valores de la solución actual}
+					     	\ENDIF
+   						\ENDWHILE
+   						
+   						\STATE{CauchyAnnealing()}
+   						\STATE{\texttt{Hay\_mejora} = (Éxitos == 0)}
+					\ENDWHILE
+				\end{algorithmic}
+			\caption{Enfriamiento Simulado - Entrenamiento}
+			\label{SA-Train}
+			\end{algorithm}			
 
 		\subsection{Búsqueda Tabú (\textbf{TS})}
 			
