@@ -290,7 +290,7 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 					\REQUIRE \ \\
 							 \
 
-					\STATE{\texttt{hay\_mejora} = true}
+					\STATE{\texttt{hay\_mejora} = \texttt{true}}
 				    \WHILE{\texttt{hay\_mejora} \AND \texttt{Número de características seleccionadas} $<$
 				    		\texttt{Número de características}}
 				     	\FOR{\texttt{i} $<$ \texttt{Número de características}}
@@ -308,7 +308,7 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 							\STATE{\texttt{Flip(índice de mejora)}}
 							\STATE{Guardamos el valor de la solución actual}
 						\ELSE
-							\STATE{\texttt{hay\_mejora} = false}
+							\STATE{\texttt{hay\_mejora} = \texttt{false}}
 						\ENDIF
 					\ENDWHILE
 				\end{algorithmic}
@@ -362,6 +362,56 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			\end{algorithm}			
 
 		\subsection{Enfriamiento Simulado (\textbf{SA})}
+			Para enfriamiento simulado, es necesario el uso de ciertas variables:
+			\begin{itemize}
+				\item $\sigma = 0.3$, probabilidad de aceptar una solución peor que la actual.
+				\item $\mu = 0.3$, coeficiente que regula cómo de mala puede ser una solución peor
+				aceptada.
+				\item $T_0$ $\equiv$ Temperatura inicial = $\mu$ $\cdot$ Valor de la solución inicial / $\ln(\sigma)$,
+				temperatura a la que comenzamos.
+				\item $T_f$ $ \equiv$ Temperatura final = $10^{-3}$, cuando se alcance esta temperatura, se parará la
+				búsqueda.
+				\item Vecinos máximos = 10 $\cdot$ Número de características, que indica cuántos vecinos
+				se pueden generar antes de que se produzca un enfriamiento.
+				\item Éxitos máximos = 0.1 $\cdot$ Vecinos máximos $\equiv$ Número de características,
+				que indica cuántos éxitos se pueden tener antes de que se produzca un enfriamiento.
+				\item M $\equiv$ Número de Enfriamientos = Número máximo de evaluaciones / Vecinos máximos,
+				establece cuántas veces se enfriará entre la temperatura inicial y la final
+				\item $\displaystyle beta = \frac{T_0 - T_f}{M \cdot T_0 \cdot T_f}$
+			\end{itemize}
+
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
+							 \
+							 
+				  	\STATE{$\displaystyle Temperatura = \frac{Temperatura}{1 + \beta * \texttt{Temperatura}}$}
+				\end{algorithmic}
+			\caption{Enfriamiento Simulado - Enfriamiento}
+			\label{SA-Annealing}
+			\end{algorithm}
+
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
+						\texttt{eval\_act}, evaluación actual \\
+						\texttt{eval\_asp}, evaluación candidata \\ \
+							 
+					\STATE{\texttt{Aceptar} = \texttt{true}}
+				  	\IF{Empeora la solución}
+				  		\STATE{\texttt{rnd} = Genera valor aleatorio entre 0 y 1}
+
+				  		\STATE{$\displaystyle \texttt{exponente} = \frac{eval\_act - eval\_asp}{T}$}
+				  		\IF{\texttt{rnd} > $e^{exponente}$}
+				  			\STATE{\texttt{Aceptar} = \texttt{false}}
+				  		\ENDIF
+				  	\ENDIF
+				  	
+				  	\RETURN{Aceptar}
+				\end{algorithmic}
+			\caption{Enfriamiento Simulado - Criterio de metrópolis}
+			\label{SA-mCrit}
+			\end{algorithm}
 
 		\subsection{Búsqueda Tabú (\textbf{TS})}
 			
