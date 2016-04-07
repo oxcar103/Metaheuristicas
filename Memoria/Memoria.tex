@@ -346,17 +346,24 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 					
 					\WHILE{Iteraciones sin mejora < 1.5 $\cdot$ Número de características
 							\OR Se exceda el número máximo de evaluaciones}
-				     	\STATE{\texttt{índice} = GenerateNeighbour()}				     	
+				     	\STATE{\texttt{índice} = GenerateNeighbour()}
+				     	
+				     	\IF{Mejora evaluación actual}
+				     		\STATE{Hacemos copia de esta solución y el número de características seleccionadas}
+				     		\STATE{Iteraciones sin mejora = 0}
+				     	\ELSE
+				     		\STATE{Restauramos valores de la solución actual}
+				     		\STATE{Incrementamos el número de iteraciones sin mejora}
+				     	\ENDIF
 					\ENDWHILE
 				\end{algorithmic}
 			\caption{Búsqueda Local}
 			\label{LS}
 			\end{algorithm}			
-		
+
 		\subsection{Enfriamiento Simulado (\textbf{SA})}
 
 		\subsection{Búsqueda Tabú (\textbf{TS})}
-
 			
 	\section{Resultados}
 		\subsection{\textit{Sequential Forward Selection} (\textbf{SFS})}
