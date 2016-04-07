@@ -165,7 +165,7 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			     	\FORALL{\texttt{instancia} $\in$ \texttt{inst}}
 				  		\STATE{Genera \texttt{3-NN} de \texttt{instancia[i]}}
 				  		\IF{\texttt{hay clase predominante}}
-							\STATE{\text{clase\ esperada} = Clase predominante de \texttt{3-NN} de \texttt{instancia[i]}}
+							\STATE{\text{clase\ esperada} = Clase predominante de \texttt{K-NN} de \texttt{instancia[i]}}
 						\ELSE
 							\STATE{\text{clase\ esperada} = Clase de \texttt{1-NN} de \texttt{instancia[i]}}
 						\ENDIF
@@ -189,7 +189,8 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			usa la que tiene almacenada y que si le pasas un entero $i$, usa el vector de características
 			resultante de alternar el valor de $f_i$ de la solución almacenada.
 			
-			El cálculo del KNN está tomado de \cite{KNN}.
+			En nuestro caso, tomamos $K=3$ para realizar el KNN. Además, para el cálculo del KNN
+			utilizamos el \textit{framework} que ya estaba implementado en \cite{KNN}.
 		
 		\subsection{Operador de vecinos}
 			Para la generación de una solución vecina, basta con alterar la pertenencia de una
@@ -314,7 +315,7 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			\end{algorithm}			
 
 		\subsection{Búsqueda Local (\textbf{LS})}
-
+			
 		\subsection{Enfriamiento Simulado (\textbf{SA})}
 
 		\subsection{Búsqueda Tabú (\textbf{TS})}
