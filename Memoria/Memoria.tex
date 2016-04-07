@@ -200,7 +200,7 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
 					\REQUIRE \ \\
-			        	\texttt{index}, índice a cambiar\\
+			        	\texttt{index}, índice a cambiar\\ \
 
 			     	\STATE{\texttt{car[index]} = \texttt{!car[index]}}\\
 			  		\IF{\texttt{car[index]} == \texttt{true}}
@@ -220,6 +220,7 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
 					\REQUIRE \ \\
+							 \
 
 			     	\STATE{\texttt{index} = Entero Aleatorio}\\
 			  		\STATE{\texttt{Flip(index)}}\\
@@ -243,8 +244,9 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
 					\REQUIRE \ \\
-
-			     	\FOR{{i} $<$ \texttt{5}}
+							 \
+							 
+			     	\FOR{\texttt{i} $<$ \texttt{5}}
 				  		\STATE{\texttt{part1} = Genera partición}
 				  		\STATE{\texttt{part2} = Complementario(\texttt{part1})}
 
@@ -269,13 +271,54 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 
 	\section{Heurísticas implementadas}
 		\subsection{\textit{Sequential Forward Selection} (\textbf{SFS})}
+			Para realizar la comprobación del buen funcionamiento del resto de heurísticas, realizaremos
+			una heurística \textit{Greedy} que nos dé una solución para el problema de clasificación
+			de características.
+			
+			En particular, usaremos el \textit{Sequential Forward Selection} que se encarga de ir
+			seleccionando las características a añadir una por una tomando siempre la que mayor mejora
+			produce hasta que ya no se produce mejora. Este proceso se puede ilustrar mediante el
+			siguiente algoritmo:
+
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
+							 \
+
+					\STATE{\texttt{hay\_mejora} = true}
+					\STATE{\texttt{evaluación\_actual} = \texttt{Evaluate()}}
+					\STATE{\texttt{evaluación\_de\_mejora} = \texttt{evaluación\_actual}}
+				    \WHILE{\texttt{hay\_mejora} \AND \texttt{Número de características seleccionadas} $<$
+				    		\texttt{Número de características}}
+				     	\FOR{\texttt{i} $<$ \texttt{Número de características}}
+							\IF{\texttt{$Característica_i$} no está seleccionada ni es de clase}
+								\STATE{\texttt{evaluación\_vecina} = \texttt{Evaluate(i)}}
+							\ENDIF
+							
+							\IF{\texttt{evaluación\_vecina} > \texttt{evaluación\_de\_mejora}}
+								\STATE{\texttt{índice\_mejora} = \texttt{i}}
+								\STATE{\texttt{evaluación\_de\_mejora} = \texttt{evaluación\_vecina}}
+							\ENDIF
+						\ENDFOR
+						
+						\IF{\texttt{evaluación\_de\_mejora} > \texttt{evaluación\_actual}}
+							\STATE{\texttt{Flip(índice\_mejora)}}
+							\STATE{\texttt{evaluación\_actual} = \texttt{evaluación\_de\_mejora}}
+						\ELSE
+							\STATE{\texttt{hay\_mejora} = false}
+						\ENDIF
+					\ENDWHILE
+				\end{algorithmic}
+			\caption{\textit{Sequential Forward Selection}}
+			\label{SFS}
+			\end{algorithm}			
 
 		\subsection{Búsqueda Local (\textbf{LS})}
 
 		\subsection{Enfriamiento Simulado (\textbf{SA})}
-		
-		\subsection{Búsqueda Tabú (\textbf{TS})}
 
+		\subsection{Búsqueda Tabú (\textbf{TS})}
+			
 	\section{Resultados}
 		\subsection{\textit{Sequential Forward Selection} (\textbf{SFS})}
 			\input{WDBC-SFS}
@@ -321,7 +364,6 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 				el de \textit{SFS}, ya que tiene el mejor índice de acierto(con un único valor muy
 				bajo en las 10 iteraciones que provoca una bajada importante en la media), de reducción
 				y un tiempo bastante bajo para la cantidad de características e instancias que tiene.
-
 			\end{itemize}
 		
 	\newpage
