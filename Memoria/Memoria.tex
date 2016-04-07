@@ -163,8 +163,8 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 
 			     	\STATE{\texttt{aciertos} = 0}\\
 			     	\FORALL{\texttt{instancia} $\in$ \texttt{inst}}
-				  		\STATE{Genera \texttt{3-NN} de \texttt{instancia[i]}}
-				  		\IF{\texttt{hay clase predominante}}
+				  		\STATE{Genera \texttt{K-NN} de \texttt{instancia[i]}}
+				  		\IF{\texttt{Hay clase predominante}}
 							\STATE{\text{clase\ esperada} = Clase predominante de \texttt{K-NN} de \texttt{instancia[i]}}
 						\ELSE
 							\STATE{\text{clase\ esperada} = Clase de \texttt{1-NN} de \texttt{instancia[i]}}
@@ -205,9 +205,9 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 
 			     	\STATE{\texttt{car[index]} = \texttt{!car[index]}}\\
 			  		\IF{\texttt{car[index]} == \texttt{true}}
-						\STATE{\text{num\_c\_sel++}}
+						\STATE{Incrementamos número de características seleccionadas}
 					\ELSE
-						\STATE{\text{num\_c\_sel- -}}
+						\STATE{Decrementamos número de características seleccionadas}
 					\ENDIF
 				\end{algorithmic}
 			\caption{Generación de solución vecina}
@@ -278,8 +278,12 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			
 			En particular, usaremos el \textit{Sequential Forward Selection} que se encarga de ir
 			seleccionando las características a añadir una por una tomando siempre la que mayor mejora
-			produce hasta que ya no se produce mejora. Este proceso se puede ilustrar mediante el
-			siguiente algoritmo:
+			produce hasta que ya no se produce mejora.
+			
+			Para la inicialización del objeto, nos basta con aportarle las instancias de entrenamiento
+			y el índice de la columna de clase.
+			
+			El proceso de entrenamiento se puede ilustrar mediante el siguiente algoritmo:
 
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
@@ -287,24 +291,22 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 							 \
 
 					\STATE{\texttt{hay\_mejora} = true}
-					\STATE{\texttt{evaluación\_actual} = \texttt{Evaluate()}}
-					\STATE{\texttt{evaluación\_de\_mejora} = \texttt{evaluación\_actual}}
 				    \WHILE{\texttt{hay\_mejora} \AND \texttt{Número de características seleccionadas} $<$
 				    		\texttt{Número de características}}
 				     	\FOR{\texttt{i} $<$ \texttt{Número de características}}
 							\IF{\texttt{$Característica_i$} no está seleccionada ni es de clase}
-								\STATE{\texttt{evaluación\_vecina} = \texttt{Evaluate(i)}}
+								\STATE{Guardamos \texttt{Evaluate(i)}}
 							\ENDIF
 							
-							\IF{\texttt{evaluación\_vecina} > \texttt{evaluación\_de\_mejora}}
-								\STATE{\texttt{índice\_mejora} = \texttt{i}}
-								\STATE{\texttt{evaluación\_de\_mejora} = \texttt{evaluación\_vecina}}
+							\IF{Es mejor que las soluciones vecinas generadas hasta ahora}
+								\STATE{Guardamos el valor de la mejor}
+								\STATE{Guardamos el índice de la característica mejorada}
 							\ENDIF
 						\ENDFOR
 						
-						\IF{\texttt{evaluación\_de\_mejora} > \texttt{evaluación\_actual}}
-							\STATE{\texttt{Flip(índice\_mejora)}}
-							\STATE{\texttt{evaluación\_actual} = \texttt{evaluación\_de\_mejora}}
+						\IF{Mejora la solución actual}
+							\STATE{\texttt{Flip(índice de mejora)}}
+							\STATE{Guardamos el valor de la solución actual}
 						\ELSE
 							\STATE{\texttt{hay\_mejora} = false}
 						\ENDIF
@@ -315,10 +317,46 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			\end{algorithm}			
 
 		\subsection{Búsqueda Local (\textbf{LS})}
+			Como primera forma de búsqueda de la solución, utilizaremos la búsqueda local del primero
+			mejor. Ésta consiste en:
+				\begin{enumerate}
+					\item Generar una solución inicial aleatoria\footnote{Aunque en nuestro caso, esto
+					se hace en la inicialización del objeto.}.
+					\item Tras esto, generamos una serie de vecinos aleatorios.
+					\item Aceptamos el primero que mejore la solución actual.
+					\item Si generamos un número determinado\footnote{En nuestro código, este número
+					consiste en 1.5 $\cdot$ número de características de los datos para dar posibilidad
+					a que se prueben todas las características aunque no lo comprobamos.} de vecinos y
+					no se ha mejorado, acabamos.
+				\end{enumerate}
+
+			Para la inicialización del objeto, nos basta con aportarle las instancias de entrenamiento,
+			el índice de la columna de clase y una semilla, pues requiere de un generador de números
+			aleatorios para su correcto funcionamiento.
+
+			El algoritmo de su función de entrenamiento sería algo así:
 			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
+							 \
+
+					\STATE{Hacemos copia de la solución actual y el número de características seleccionadas}
+					\STATE{\texttt{evaluación\_actual} = Evaluate()}
+					
+					\WHILE{Iteraciones sin mejora < 1.5 $\cdot$ Número de características
+							\OR Se exceda el número máximo de evaluaciones}
+				     	\STATE{\texttt{índice} = GenerateNeighbour()}				     	
+					\ENDWHILE
+				\end{algorithmic}
+			\caption{Búsqueda Local}
+			\label{LS}
+			\end{algorithm}			
+		
 		\subsection{Enfriamiento Simulado (\textbf{SA})}
 
 		\subsection{Búsqueda Tabú (\textbf{TS})}
+
 			
 	\section{Resultados}
 		\subsection{\textit{Sequential Forward Selection} (\textbf{SFS})}
