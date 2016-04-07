@@ -264,6 +264,29 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 			\label{Cross-Validation}
 			\end{algorithm}			
 			
+		\subsection{Variables globales}
+			Existen las siguientes variables globales en el problema:
+			\begin{itemize}
+				\item \textbf{Semillas aleatorias:} Éstas dan cabida a la generación de los números
+				aleatorios necesarios para ciertos procesos como la generación de la solución inicial
+				o la generación de soluciones vecinas. Disponemos de 11 semillas aleatorias en esta
+				implementación:
+					\begin{itemize}
+						\item \textbf{Principal:} Sólo existe una semilla aleatoria principal, a la
+						que le dí el valor $103$.
+						\item \textbf{Generadas:} Estas semillas están generadas de forma aleatoria
+						a partir de la semilla principal. Cada una de ellas se pasa los algoritmos
+						que la requieren\footnote{Todos menos \textit{SFS}.} a la hora de la
+						inicialización del objeto. Existen 10 para pasar una en cada prueba de las
+						heurísticas.
+					\end{itemize}
+				\item \textbf{Número máximo de evaluaciones:} Es un valor que nos permite limitar
+				las iteraciones de los algoritmos(ya que, de otro modo, podrían no terminar o tardar
+				mucho más tiempo)\footnote{Usada por todas excepto la \textit{SFS} porque necesitaría
+				una cantidad tan desproporcionada de características en la instancia pasada que
+				dicha variable carecería de sentido usarla.}. Le hemos dado el valor de 15000.
+			\end{itemize}
+		
 		\subsection{Entrada y salida}
 			Para recoger los datos a través de la entrada, he implementado una clase extra basándome
 			en \cite{ARFFReader}.
