@@ -15,7 +15,6 @@ import weka.core.Instances;
 public abstract class RandomHeuristic extends Heuristic{
     protected Random rnd;
     
-    
     public RandomHeuristic(Instances inst, int col_class, int seed) {
         super(inst, col_class);
         rnd = new Random(seed);
@@ -24,6 +23,8 @@ public abstract class RandomHeuristic extends Heuristic{
     }
     
     protected final void RandomSolution(){
+        NewSolution();
+        
         for(int i = 0; i < getNumCar(); i++){
             if(i != instances.classIndex()){
                 if(rnd.nextBoolean()){

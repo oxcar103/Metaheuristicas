@@ -38,9 +38,7 @@ public abstract class Heuristic {
         num_car = inst.numAttributes();
         car = new boolean [num_car];
         
-        for(int i = 0; i < num_car; i++){
-           car[i] = false;
-        }
+        NewSolution();
     }
     
     public int getNumCar() {
@@ -53,6 +51,12 @@ public abstract class Heuristic {
 
     public int getEval() {
         return eval;
+    }
+    
+    protected final void NewSolution(){
+        for(int i = 0; i < num_car; i++){
+           car[i] = false;
+        }
     }
     
     double SuccessesRate(Instances inst){
