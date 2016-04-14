@@ -130,41 +130,7 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 \pagebreak
 
 %% Inicio del documento
-	\section{Descripción del problema}
-		Disponemos de una serie de muestras $w_1, w_2, \dots, w_r$ con un conjunto de caracterísitcas
-		asociadas $(x_1(w_i), x_2, \dots, x_n(w_i))$ clasificadas en las distintas clases $\{C_1, C_2,
-		\dots, C_M\}$.
-		
-		Queremos obtener una máscara que nos permita clasificar estas y futuras muestras a partir
-		de sus atributos o características de forma automática, con la mayor tasa de acierto posible
-		así como con la mayor tasa de reducción que se pueda, es decir, usando el menor número de
-		características posible.
-		
-		Todo ello, en un tiempo razonable, pues a pesar de que podríamos encontrar el óptimo probando
-		para todas las máscaras, debido a la dimensionalidad de algunos problemas, dicho coste en
-		tiempo sería muy elevado.
-		
-		Para comprobar su funcionamiento, se suele recurrir a partir el conjunto de instancias dadas
-		en dos particiones no necesariamente de igual cardinalidad. Sobre una de ellas se ejecutará
-		el \textbf{Entrenamiento} donde se creará la máscara, y sobre la otra se llevará a cabo la
-		\textbf{Validación} donde se usará la máscara creada para clasificar el conjunto y ver qué
-		tasa de acierto tiene nuestro algoritmo. Por seguridad del buen funcionamiento del algoritmo,
-		se realizan varias particiones entrenamiento-validación.
-		
-		Este problema tiene principalmente dos grandes adversidades que superar:
-		\begin{itemize}
-			\item La $"$maldición de la dimensión$"$(o efecto Hughes), que son el conjunto de fenómenos
-			ocasionados a raíz del estudio y clasificación de datos de múltiple dimensionalidad.
-			
-			Estos fenómenos se deben porque a medida que la dimensión aumenta, el tamaño del espacio
-			asociado se incrementa exponencialmente, complicando de este modo la predicción correcta
-			del comportamiento de los individuos que lo componen.
-			
-			\item El $"$sobre-ajuste$"$ a los datos de entrenamiento, es decir, la creación de una
-			máscara que maximiza la tasa de aciertos sobre los datos de entrenamiento pero dificultan
-			la generalización sobre el problema, obteniendo malos resultados en la parte de validación
-			y, por tanto, posiblemente en la clasificación de las futuras muestras.
-		\end{itemize}
+	\input{Introducción.tex}
 
 	\section{Características de las heurísticas}
 		En este apartado, se describirán las características comunes empleadas para resolver
