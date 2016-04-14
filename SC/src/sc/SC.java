@@ -5,6 +5,8 @@
  */
 package sc;
 
+import ArffReader.ArffReader;
+import CSVFileWriter.CSVFileWriter;
 import java.util.ArrayList;
 import weka.core.Debug.Random;
 import weka.core.Instances;
