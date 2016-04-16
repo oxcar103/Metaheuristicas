@@ -92,6 +92,16 @@ public class SC {
                 else if (alg == 3){
                     heuristic = new TabooSearch(inst1, col_class, seeds[2*i+j]);
                 }
+                else if (alg == 4){
+                    heuristic = new BasicMultiBootingSearch(inst1, col_class, seeds[2*i+j]);
+                }
+                else if (alg == 5){
+                    heuristic = new GRASP(inst1, col_class, seeds[2*i+j]);
+                }
+                else if (alg == 6){
+                    heuristic = new IteratedLocalSearch(inst1, col_class, seeds[2*i+j]);
+                }
+                
                 
                 start_t = System.currentTimeMillis();
                 heuristic.Train();
