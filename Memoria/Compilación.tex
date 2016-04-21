@@ -1,0 +1,25 @@
+\section{Implementación y compilación del proyecto}
+	Este proyecto se ha realizado en Java en el entorno de desarrollo NetBeans y se han utilizado
+	los \textit{frameworks} de \textit{Weka} principalmente para el tratamiento previo del
+	conjunto de instancias(normalización de los mismos), la separación de las instancias en
+	instancias de Entrenamiento y de Valoración y para la llamada al $K-NN$ utilizada en la
+	función de valoración.
+	
+	Para la compilación del proyecto, se recomienda el uso de la plataforma NetBeans por su
+	sencillez a la hora de compilar, \textit{$"$debuggear$"$} y ejecutar el proyecto(aunque,
+	como usa parámetros de entrada, en lo personal, prefiero ejecutarlo por terminal).
+	
+	No obstante, se puede realizar la compilación del proyecto con \textit{ant -f} <nombre del
+	proyecto> y su ejecución mediante \textit{java -jar} <nombre del proyecto> <parámetros>.
+	
+	Los parámetros serían:
+		\begin{itemize}
+			\item Número de archivos en los que se le pedirá aplicar las heurísticas.
+			\item Párametros de cada fichero, es decir:
+				\begin{itemize}
+					\item Dirección al fichero.
+					\item Columna en la que se encuentra la característica de clase.
+					\item Base del nombre del fichero de salida\footnote{Por cada fichero
+					de entrada, se generan 4 de salida, uno por cada algoritmo}.
+				\end{itemize}
+		\end{itemize}
