@@ -18,7 +18,7 @@ import weka.filters.unsupervised.attribute.Normalize;
  * @author oxcar103
  */
 public class SC {
-    private static final int num_heur = 4;
+    private static final int num_heur = 7;
     
     //Best random seed in the history
     private static final int seed = 103;
@@ -45,6 +45,9 @@ public class SC {
         hr_str [1] = "LS";
         hr_str [2] = "SA";
         hr_str [3] = "TS";
+        hr_str [4] = "BMBS";
+        hr_str [5] = "GRASP";
+        hr_str [6] = "ILS";
         
         for(int i = 0; i < num_files; i++){
             instances = lector.getData(args[3*i+1]);
