@@ -5,6 +5,8 @@
  */
 package sc;
 
+import java.util.ArrayList;
+import java.util.List;
 import weka.core.Instances;
 
 /**
@@ -22,7 +24,61 @@ public class GRASP extends LocalSearch{
         num_initial_solutions = 25;
     }
 
+    int Threshold(int worst_eval, int best_eval){
+        return (int) (best_eval - alpha * (best_eval - worst_eval));
+    }
+    
     void NewGreedySolution(){
+        List<Integer> applicants = new ArrayList<Integer>();
+        List<Integer> index_appl = new ArrayList<Integer>();
+        int best_eval, worst_eval, eval_c_i, eval_act = Evaluate();
+        int c_prom, eval_c_prom, threshold, index;
+        boolean end = false;
+
+        NewSolution();
+        
+        while(num_c_sel != getNumCar() && !end){
+            applicants.clear();
+            index_appl.clear();
+            best_eval = 0;
+            worst_eval = instances.numInstances();
+            
+            for(int i = 0; i < getNumCar(); i++){
+                if(car[i] != true && i != instances.classIndex()){
+                    eval_c_i = Evaluate(i);
+                    applicants.add(eval_c_i);
+                    index_appl.add(i);
+                    
+                    if(eval_c_i < worst_eval){
+                        worst_eval = eval_c_i;
+                    }
+                    if(eval_c_i > best_eval){
+                        best_eval = eval_c_i;
+                    }
+                }
+            }
+            
+            threshold = Threshold(worst_eval, best_eval);
+            
+            for(int i = applicants.size()-1; i >= 0; i--){
+                if(applicants.get(i) < threshold){
+                    applicants.remove(i);
+                    index_appl.remove(i);
+                }
+            }
+            
+            index = rnd.nextInt(applicants.size());
+            c_prom = index_appl.get(index);
+            eval_c_prom = applicants.get(index);
+            
+            if(eval_c_prom > eval_act){
+                Flip(c_prom);
+                eval_act = eval_c_prom;
+            }
+            else{
+                end = true;
+            }
+        }
     }
     
     @Override
