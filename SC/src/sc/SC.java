@@ -116,7 +116,6 @@ public class SC {
                 red_r.add(heuristic.ReductionRate());
                 times.add(duration);
             }
-            
         }
         
         wrt.CSVFileWriter(filename, suc_r, red_r, times);
