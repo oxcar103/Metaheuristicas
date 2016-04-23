@@ -34,7 +34,7 @@ public class SC {
     public static void main(String[] args) throws Exception{
         ArffReader lector = new ArffReader();
         Instances instances = null;
-        String [] hr_str = new String[4];
+        String [] hr_str = new String[num_heur];
         String f_name;
         int col_class;
         rnd = new Random(seed);
