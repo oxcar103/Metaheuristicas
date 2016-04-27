@@ -168,7 +168,7 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 						\ENDFOR
 						
 						\IF{Mejora la solución actual}
-							\STATE{\texttt{Flip(índice de mejora)}}
+							\STATE{\texttt{Flip(índice de la característica mejorada)}}
 							\STATE{Guardamos el valor de la solución actual}
 						\ELSE
 							\STATE{\texttt{hay\_mejora} = \texttt{false}}
@@ -209,7 +209,7 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 					
 					\WHILE{Iteraciones sin mejora < 1.5 $\cdot$ Número de características
 							\AND No se exceda el número máximo de evaluaciones}
-				     	\STATE{\texttt{índice} = GenerateNeighbour()}
+				     	\STATE{GenerateNeighbour()}
 				     	
 				     	\IF{Mejora evaluación actual}
 				     		\STATE{Hacemos copia de esta solución y el número de características seleccionadas}
@@ -388,7 +388,7 @@ P-1: Búsquedas por Trayectorias Simples} % Subtitle
 					
 					\STATE{Establecemos la mejor solución global como la actual}
 				\end{algorithmic}
-			\caption{Búsqueda taboo}
+			\caption{Búsqueda tabú}
 			\label{TS}
 			\end{algorithm}			
 			
