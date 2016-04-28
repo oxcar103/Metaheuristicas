@@ -34,7 +34,6 @@ public abstract class Heuristic {
         
         eval = 0;
         
-        num_c_sel = 0;
         num_car = inst.numAttributes();
         car = new boolean [num_car];
         
@@ -57,6 +56,8 @@ public abstract class Heuristic {
         for(int i = 0; i < num_car; i++){
            car[i] = false;
         }
+        
+        num_c_sel = 0;
     }
     
     double SuccessesRate(Instances inst){
