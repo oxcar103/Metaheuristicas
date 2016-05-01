@@ -135,6 +135,63 @@ P-2: Búsquedas por Trayectorias Múltiples} % Subtitle
 	
 	\section{Heurísticas implementadas}
 		\subsection{Búsqueda Multiarranque Básica (\textbf{BMBS})}
+			La dinámica de trabajo de esta técnica de búsqueda consiste en:
+			\begin{enumerate}
+				\item Generar un número $n$ de soluciones iniciales aleatorias.
+				\item Optimizarlas usando búsqueda local\footnote{Como necesitamos optimizar mediante
+				búsqueda local, haremos que herede de la clase \textit{LocalSearch} para facilitar
+				la implementación.} sobre cada una de ellas.
+				\item Quedarnos con la mejor solución obtenida tras dicha mejora.
+			\end{enumerate}
+			
+			Para nuestro caso particular, generaremos un total de 25 soluciones iniciales utilizando
+			el siguiente método:
+			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+				\REQUIRE \ \\
+						 \
+				\FOR{\texttt{i} $<$ \texttt{Número de características}}
+					\STATE{\texttt{rnd} = Genera valor aleatorio entre 0 y 1}
+					\IF{\texttt{rnd} == 1}
+						\STATE{Flip(i)}
+					\ENDIF
+				\ENDFOR
+				\end{algorithmic}
+			\caption{Solución Aleatoria(\textit{RandomSolution})}
+			\label{RandomSolution}
+			\end{algorithm}
+			
+			El algoritmo de su función de entrenamiento sería tan simple como \footnote{Nótese que la
+			función \textbf{Optimizar} utilizada se traduce en código como \textit{super.train()} al
+			heredar de la clase \textit{LocalSearch}}:
+			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+				\REQUIRE \ \\
+						 \
+				\STATE{\texttt{i} = 0}
+				\STATE{\texttt{Solución\_actual} = RandomSolution()}
+				\STATE{\texttt{Solución\_actual}.Optimizar()}
+				\STATE{\texttt{Evaluación\_actual} = \texttt{Evaluate()}}
+				\STATE{\texttt{Mejor\_Solución} = \texttt{Solución\_actual}}
+				\STATE{\texttt{Mejor\_Evaluación} = \texttt{Evaluación\_actual}}
+				\STATE{\texttt{i++}}
+				\FOR{\texttt{i} $<$ \texttt{Número de Soluciones Iniciales}}
+					\STATE{\texttt{Solución\_actual} = RandomSolution()}
+					\STATE{\texttt{Solución\_actual}.Optimizar()}
+					\STATE{\texttt{Evaluación\_actual} = \texttt{Evaluate()}}
+					\IF{\texttt{Evaluación\_actual} > \texttt{Mejor\_Evaluación}}
+						\STATE{\texttt{Mejor\_Solución} = \texttt{Solución\_actual}}
+						\STATE{\texttt{Mejor\_Evaluación} = \texttt{Evaluación\_actual}}
+					\ENDIF
+				\ENDFOR
+				\STATE{\texttt{Solución\_actual} = \texttt{Mejor\_Solución}}
+			\end{algorithmic}
+		\caption{Búsqueda Multiarranque Básica}
+		\label{BMBS}
+		\end{algorithm}
+
 		\subsection{\textit{Greedy Randomized Adaptive Search Procedure} (\textbf{GRASP})}
 		\subsection{Búsqueda Local Reiterada (\textbf{ILS})}
 	\section{Resultados}
