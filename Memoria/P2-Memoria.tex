@@ -193,6 +193,69 @@ P-2: Búsquedas por Trayectorias Múltiples} % Subtitle
 		\end{algorithm}
 
 		\subsection{\textit{Greedy Randomized Adaptive Search Procedure} (\textbf{GRASP})}
+			El número de soluciones iniciales que tomaremos será 25.
+			
+			Utilizaremos el valor $0.3$ de la variable para la variable $\alpha$ que representa la
+			tolerancia de calidad para la construcción de la lista restringida de candidatos de entre
+			la que sacaremos probabilísticamente el índice que añadiremos
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
+						\texttt{Mejor\_Evaluación}, mejor evaluación \\
+						\texttt{Peor\_Evaluación}, peor evaluación \\ \
+						
+				\STATE{$\texttt{Umbral} = \texttt{Mejor\_Evaluación} - \alpha \cdot
+					(\texttt{Mejor\_Evaluación} - \texttt{Peor\_Evaluación})$}
+				\RETURN{\texttt{Umbral}}
+				\end{algorithmic}
+			\caption{GRASP - Umbral(\textit{Treshold})}
+			\label{Treshold}
+			\end{algorithm}
+			
+			El método de inicialización de soluciones es muy similar a la construcción de soluciones por
+			\textbf{SFS}, de hecho, podemos considerar que es un caso particular con $\alpha = 0$ para
+			nuestro algoritmo:
+
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
+							 \
+					\STATE{\texttt{Hay\_Mejora} = \TRUE}
+					\WHILE{\texttt{Hay\_Mejora} \AND \texttt{Número de características seleccionadas} $<$
+							\texttt{Número de características}}
+						\STATE{Vaciamos \texttt{Lista\_Aspirantes}}
+						\STATE{\texttt{Mejor\_Evaluación} = 0}
+						\STATE{\texttt{Peor\_Evaluación} = $\infty$}
+						\FOR{\texttt{i} $<$ \texttt{Número de características}}
+							\IF{\texttt{Característica$_i$} no está seleccionada ni es de clase}
+								\STATE{\texttt{Evaluación\_Actual} = Evaluate(i)}
+								\STATE{Guardamos \texttt{Evaluación\_Actual} en \texttt{Lista\_Aspirantes}}
+								\IF{\texttt{Evaluación\_Actual} $<$ \texttt{Peor\_Evaluación}}
+									\STATE{\texttt{Peor\_Evaluación} = \texttt{Evaluación\_Actual}}
+								\ENDIF
+								\IF{\texttt{Evaluación\_Actual} $>$ \texttt{Mejor\_Evaluación}}
+									\STATE{\texttt{Mejor\_Evaluación} = \texttt{Evaluación\_Actual}}
+								\ENDIF
+							\ENDIF
+						\ENDFOR
+						\STATE{\texttt{Umbral} = Treshold(\texttt{Peor\_Evaluación}, \texttt{Mejor\_Evaluación})}
+						\FORALL{\texttt{Evaluación} en \texttt{Lista\_Aspirantes}}
+							\IF{\texttt{Evaluación} $<$ \texttt{Umbral}}
+								\STATE{Eliminar \texttt{Evaluación} de \texttt{Lista\_Aspirantes}}
+							\ENDIF
+						\ENDFOR
+						\STATE{\texttt{rnd} = Genera valor aleatorio entre 0 y \texttt{Lista\_Aspirantes}.size()-1}
+						\IF{\texttt{Lista\_Aspirantes[rnd]} mejora \texttt{Solución\_Actual}}
+							\STATE{\texttt{Flip(índice de la característica mejorada por \texttt{rnd})}}
+							\STATE{Guardamos el valor de \texttt{Solución\_Actual}}
+						\ELSE
+							\STATE{\texttt{Hay\_Mejora} = \FALSE}
+						\ENDIF
+					\ENDWHILE
+				\end{algorithmic}
+			\caption{GRASP - Solución Greedy Probabilista(\textit{NewGreedySolution})}
+			\label{GreedySolution}
+			\end{algorithm}
 		\subsection{Búsqueda Local Reiterada (\textbf{ILS})}
 	\section{Resultados}
 		\subsection{Búsqueda Multiarranque Básica (\textbf{BMBS})}
