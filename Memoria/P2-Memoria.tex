@@ -193,11 +193,18 @@ P-2: Búsquedas por Trayectorias Múltiples} % Subtitle
 		\end{algorithm}
 
 		\subsection{\textit{Greedy Randomized Adaptive Search Procedure} (\textbf{GRASP})}
-			El número de soluciones iniciales que tomaremos será 25.
+			La dinámica de trabajo de esta técnica de búsqueda consiste en:
+			\begin{enumerate}
+				\item Generar un número $n$ de soluciones iniciales greedy probabilistas.
+				\item Optimizarlas usando búsqueda local\footnote{Como necesitamos optimizar mediante
+				búsqueda local, haremos que herede de la clase \textit{LocalSearch} para facilitar
+				la implementación.} sobre cada una de ellas.
+				\item Quedarnos con la mejor solución obtenida tras dicha mejora.
+			\end{enumerate}
 			
-			Utilizaremos el valor $0.3$ de la variable para la variable $\alpha$ que representa la
-			tolerancia de calidad para la construcción de la lista restringida de candidatos de entre
-			la que sacaremos probabilísticamente el índice que añadiremos
+			Para nuestro caso particular, generaremos un total de 25 soluciones iniciales utilizando
+			el siguiente método:
+			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
 					\REQUIRE \ \\
@@ -211,6 +218,11 @@ P-2: Búsquedas por Trayectorias Múltiples} % Subtitle
 			\caption{GRASP - Umbral(\textit{Treshold})}
 			\label{Treshold}
 			\end{algorithm}
+			
+			Hemos utilizado la variable $\alpha$ que representa la tolerancia de calidad, esto es, la
+			proporción de empeoramiento de la mejor solución para la construcción de la lista restringida
+			de candidatos de entre la que sacaremos probabilísticamente el índice que añadiremos. En
+			nuestro caso, utilizaremos la variable con un valor de $0.3$.
 			
 			El método de inicialización de soluciones es muy similar a la construcción de soluciones por
 			\textbf{SFS}, de hecho, podemos considerar que es un caso particular con $\alpha = 0$ para
@@ -256,6 +268,36 @@ P-2: Búsquedas por Trayectorias Múltiples} % Subtitle
 			\caption{GRASP - Solución Greedy Probabilista(\textit{NewGreedySolution})}
 			\label{GreedySolution}
 			\end{algorithm}
+			
+			Para el entrenamiento, se ha utilizado el mismo algoritmo que con \textbf{BMBS} pero tomando
+			la función \textit{GreedySolution} en lugar de \textit{RandomSolution}:
+			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+				\REQUIRE \ \\
+						 \
+				\STATE{\texttt{i} = 0}
+				\STATE{\texttt{Solución\_actual} = GreedySolution()}
+				\STATE{\texttt{Solución\_actual}.Optimizar()}
+				\STATE{\texttt{Evaluación\_actual} = \texttt{Evaluate()}}
+				\STATE{\texttt{Mejor\_Solución} = \texttt{Solución\_actual}}
+				\STATE{\texttt{Mejor\_Evaluación} = \texttt{Evaluación\_actual}}
+				\STATE{\texttt{i++}}
+				\FOR{\texttt{i} $<$ \texttt{Número de Soluciones Iniciales}}
+					\STATE{\texttt{Solución\_actual} = GreedySolution()}
+					\STATE{\texttt{Solución\_actual}.Optimizar()}
+					\STATE{\texttt{Evaluación\_actual} = \texttt{Evaluate()}}
+					\IF{\texttt{Evaluación\_actual} > \texttt{Mejor\_Evaluación}}
+						\STATE{\texttt{Mejor\_Solución} = \texttt{Solución\_actual}}
+						\STATE{\texttt{Mejor\_Evaluación} = \texttt{Evaluación\_actual}}
+					\ENDIF
+				\ENDFOR
+				\STATE{\texttt{Solución\_actual} = \texttt{Mejor\_Solución}}
+			\end{algorithmic}
+		\caption{GRASP - Entrenamiento}
+		\label{GRASP}
+		\end{algorithm}
+		
 		\subsection{Búsqueda Local Reiterada (\textbf{ILS})}
 	\section{Resultados}
 		\subsection{Búsqueda Multiarranque Básica (\textbf{BMBS})}
