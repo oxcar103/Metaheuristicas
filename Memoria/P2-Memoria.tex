@@ -133,7 +133,11 @@ P-2: Búsquedas por Trayectorias Múltiples} % Subtitle
 	\input{Introducción.tex}
 	\input{CaracterísticasComunes.tex}
 	
-	\section{Heurísticas implementadas}
+	\section{Heurísticas implementadas}\footnote{En la implementación de las heurísticas desarrolladas
+	en esta práctica, se utilizan la búsqueda de soluciones por la heurística \textbf{SFS} para comparar
+	los resultados obtenidos y las optimizaciones de la \textbf{LS} para mejorar los resultados obtenidos
+	por estas nuevas heurísticas multiarranque. Dado que ya se explicaron en \textbf{P1-Memoria}, he
+	considerado ahorrar su explicación en este documento para permitir una mayor limpieza del mismo.}
 		\subsection{Búsqueda Multiarranque Básica (\textbf{BMBS})}
 			La dinámica de trabajo de esta técnica de búsqueda consiste en:
 			\begin{enumerate}
@@ -227,7 +231,7 @@ P-2: Búsquedas por Trayectorias Múltiples} % Subtitle
 			El método de inicialización de soluciones es muy similar a la construcción de soluciones por
 			\textbf{SFS}, de hecho, podemos considerar que es un caso particular con $\alpha = 0$ para
 			nuestro algoritmo:
-
+			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
 					\REQUIRE \ \\
@@ -360,7 +364,11 @@ P-2: Búsquedas por Trayectorias Múltiples} % Subtitle
 		\label{ILS}
 		\end{algorithm}
 		
-	\section{Resultados}
+	\section{Resultados}\footnote{En este documento, se comparan los resultados obtenidos por las
+	heurísticas desarrolladas en esta práctica con la búsqueda de soluciones por la heurística
+	\textbf{SFS} cuyos resultados ya se expusieron en \textbf{P1-Memoria}, por lo que también he
+	obviado su inclusión en este documento en toda su extensión mas sí han sido incluidas las medias
+	de ejecución en la tabla comparativa.}
 		\subsection{Búsqueda Multiarranque Básica (\textbf{BMBS})}
 			\input{WDBC-BMBS}
 			\input{MLIB-BMBS}
@@ -375,7 +383,8 @@ P-2: Búsquedas por Trayectorias Múltiples} % Subtitle
 			\input{ARRH-ILS}
 			
 		\subsection{Comparación de resultados}
-	
+			\input{Compare-2}
+			
 	\input{Compilación.tex}
 	\newpage
 	
