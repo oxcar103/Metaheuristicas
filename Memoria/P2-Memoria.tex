@@ -299,6 +299,67 @@ P-2: Búsquedas por Trayectorias Múltiples} % Subtitle
 		\end{algorithm}
 		
 		\subsection{Búsqueda Local Reiterada (\textbf{ILS})}
+			La dinámica de trabajo de esta técnica de búsqueda consiste en:
+			\begin{enumerate}
+				\item Generar una solución aleatoria inicial y el resto como mutaciones de la mejor
+				solución encontrada hasta el momento.
+				\item Optimizarlas usando búsqueda local\footnote{Como necesitamos optimizar mediante
+				búsqueda local, haremos que herede de la clase \textit{LocalSearch} para facilitar
+				la implementación.} sobre cada una de ellas.
+				\item Quedarnos con la mejor solución obtenida tras dicha mejora.
+			\end{enumerate}
+			
+			Para nuestro caso particular, mutaremos el 10\% de las características de las soluciones
+			utilizando el siguiente método:
+			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+					\REQUIRE \ \\
+							 \
+					\STATE{Inicializamos vacío \texttt{Características\_Mutadas}}
+					\WHILE{\texttt{Características\_Mutadas}.size() $<$ \texttt{Máximas\_Características\_Mutables}}
+						\STATE{\texttt{Índice} = GenerateNeighbour()}
+						\IF{\texttt{Características\_Mutadas}.contains(\texttt{Índice})}
+							\STATE{Flip(\texttt{Índice})}
+						\ELSE
+							\STATE{\texttt{Características\_Mutadas}.add(\texttt{Índice})}
+						\ENDIF
+					\ENDWHILE
+				\end{algorithmic}
+			\caption{Búsqueda Local Reiterada - Mutación de Solución(\textit{MutedSolution})}
+			\label{MutedSolution}
+			\end{algorithm}
+			
+			Para el entrenamiento, se ha utilizado el mismo algoritmo que con \textbf{BMBS} o
+			\textbf{GRASP} pero tomando la función \textit{MutedSolution} en lugar de
+			\textit{RandomSolution} o \textit{GreedySolution}:
+			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+				\REQUIRE \ \\
+						 \
+				\STATE{\texttt{i} = 0}
+				\STATE{\texttt{Solución\_actual} = RandomSolution()}
+				\STATE{\texttt{Solución\_actual}.Optimizar()}
+				\STATE{\texttt{Evaluación\_actual} = \texttt{Evaluate()}}
+				\STATE{\texttt{Mejor\_Solución} = \texttt{Solución\_actual}}
+				\STATE{\texttt{Mejor\_Evaluación} = \texttt{Evaluación\_actual}}
+				\STATE{\texttt{i++}}
+				\FOR{\texttt{i} $<$ \texttt{Número de Soluciones Iniciales}}
+					\STATE{\texttt{Solución\_actual} = MutedSolution()}
+					\STATE{\texttt{Solución\_actual}.Optimizar()}
+					\STATE{\texttt{Evaluación\_actual} = \texttt{Evaluate()}}
+					\IF{\texttt{Evaluación\_actual} > \texttt{Mejor\_Evaluación}}
+						\STATE{\texttt{Mejor\_Solución} = \texttt{Solución\_actual}}
+						\STATE{\texttt{Mejor\_Evaluación} = \texttt{Evaluación\_actual}}
+					\ENDIF
+				\ENDFOR
+				\STATE{\texttt{Solución\_actual} = \texttt{Mejor\_Solución}}
+			\end{algorithmic}
+		\caption{Búsqueda Local Reiterada - Entrenamiento}
+		\label{ILS}
+		\end{algorithm}
+		
 	\section{Resultados}
 		\subsection{Búsqueda Multiarranque Básica (\textbf{BMBS})}
 			\input{WDBC-BMBS}
