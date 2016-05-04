@@ -385,6 +385,28 @@ P-2: Búsquedas por Trayectorias Múltiples} % Subtitle
 		\subsection{Comparación de resultados}
 			\input{Compare-2}
 			
+			Viendo los resultados de arriba, podemos concluir que:
+			\begin{itemize}
+				\item Los mayores índices de reducción se obtienen con el \textit{SFS}, obteniendo en
+				todos los casos una tasa de reducción muy alta, superior al 85\% seguida del \textit{GRASP},
+				cuya tasa se aproxima más cuantas más características tenga la muestra y tanto \textit{ILS}
+				como \textit{BMBS} rondan el 50\%.
+				
+				\item En el caso de \textit{WBDC}, todos los algoritmos tienen una alta tasa de acierto,
+				pudiendo observarse que los resultados de los algoritmos multiarranque bailan en torno
+				al 95\% de acierto, por lo que la ganancia de un algoritmo frente a los otros no es
+				significativa pues puede depender fácilmente del azar.
+				
+				\item En el caso de \textit{Movement Libras}, sin embargo, se aprecia una mayor diferencia
+				en la proporción de valores bien clasificados haciendo que \textit{ILS} se diferencie
+				en un casi punto de la heurística más cercana, \textit{GRASP}, y algo más de \textit{BMBS}.
+				
+				\item Sin duda alguna, para el caso de \textit{Arrhythmia}, el mejor algoritmo sería
+				el de \textit{GRASP}, ya que tiene el mejor índice de acierto y de reducción, además de
+				una baja desviación típica respecto al resto de heurísticas para el gran número de
+				instancias que dispone.
+			\end{itemize}
+	
 	\input{Compilación.tex}
 	\newpage
 	
