@@ -405,8 +405,47 @@ P-2: Búsquedas por Trayectorias Múltiples} % Subtitle
 				el de \textit{GRASP}, ya que tiene el mejor índice de acierto y de reducción, además de
 				una baja desviación típica respecto al resto de heurísticas para el gran número de
 				instancias que dispone.
+				
+				\item En cuanto a los tiempos de ejecución, podemos observar que el más veloz sería el
+				algoritmo greedy \textit{SFS} aunque podemos observar que de entre los algoritmos
+				multiarranque(los cuáles suelen tener un resultado significativamente mejor que \textit{SFS}),
+				\textit{ILS} nos permite obtener un buen resultado en prácticamente la mitad de tiempo
+				que \textit{BMBS} y \textit{GRASP}.
 			\end{itemize}
-	
+			
+			La considerable mejora obtenida en el algoritmo \textit{GRASP} respecto a \textit{SFS} se
+			debe no sólo al hecho de que pueda optar por varios caminos al inicializar la solución,
+			pues \textit{SFS} sólo permite tomar el mejor y \textit{GRASP} da cierto margen para esta
+			elección, si no a que posteriormente, se mejora parcialmente el resultado obtenido aplicándole
+			una búsqueda local que nos permite ir al máximo local más cercano.
+			
+			La diferencia entre las tasas de reducción de los distintos algoritmos se deben a que \textit{SFS}
+			y \textit{GRASP} comienzan con una máscara en la que ninguna característica está seleccionada
+			mientras que \textit{BMBS} y \textit{ILS} toman una máscara en la cuál la probabilidad de que
+			una característica esté seleccionada es 50\% (suponiendo que está correctamente implementada
+			la función aleatoria). Al aplicarles búsqueda local, simplemente nos desplazamos al máximo
+			local más cercano. Esto hace que la cardinalidad de las características \textit{BMBS} y \textit{ILS}
+			sea cercana al 50\% por distribución estadística aunque se puede alejar un poco de este valor
+			mientras que la de \textit{SFS} y \textit{GRASP} sea cercana al 100\% porque requieren pocas
+			características en las soluciones iniciales para obtener una máscara con grandes valores en
+			la tasa de clasificación y, de nuevo, la aplicación de búsqueda local no desplaza demasiado
+			este valor. Por el hecho de que no se toma siempre la característica que maximiza el valor
+			de la tasa de clasificación si no que se permite cierta tolerancia es por el que la tasa de
+			reducción de \textit{SFS} es algo mayor pero como se puede observar en los resultados, estos
+			valores tienden a convergir a medidad que las instancias disponen de un mayor número de
+			características.
+			
+			Referente a los tiempos de ejecución, estaba claro que \textit{SFS} sería el más veloz pues
+			solamente aplica una vez la heurística mientras los demás requieren utilizar 25 veces búsqueda
+			local que pudimos observar en la práctica anterior que tenía una velocidad similar a \textit{SFS}.
+			Por otra parte, el más lento sería \textit{GRASP} al requerir ejecutar 25 veces un algoritmo
+			similar al \textit{SFS} y 25 veces la búsqueda local, es decir, unas 50 la búsqueda local, lo
+			cuál se nota muchísimo en las instancias de \textit{Arrhythmia}, seguido por \textit{BMBS}
+			e \textit{ILS}. De estos dos últimos, parecía lógico pensar que \textit{ILS} sería algo más
+			rápido pues realizabas una ligera modificación de la máscara y luego aplicabas búsqueda local,
+			que como la modificación fue pequeña haría que la búsqueda local fuese más rápida que si tomabas
+			una nueva máscara aleatoria pero no había nada demasiado sólido para corroborarlo. Sin
+			embargo, podemos ver por los resultados que efectivamente así ocurre.
 	\input{Compilación.tex}
 	\newpage
 	
