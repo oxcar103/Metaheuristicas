@@ -17,10 +17,15 @@ public abstract class GeneticAlgorithm extends RandomHeuristic{
     int population = 30;
     double mut_prob = 0.001;
     double cross_prob;
-    List<Integer> num_c_sel_parents = new ArrayList<Integer>();
-    List<Integer> num_c_sel_childs = new ArrayList<Integer>();
     List<boolean[]> parents = new ArrayList<boolean []>();
     List<boolean[]> childs = new ArrayList<boolean []>();
+    List<Integer> num_c_sel_parents = new ArrayList<Integer>();
+    List<Integer> num_c_sel_childs = new ArrayList<Integer>();
+    List<Integer> eval_parents = new ArrayList<Integer>();
+    List<Integer> eval_childs = new ArrayList<Integer>();
+    
+    List<Integer> selected_parents = new ArrayList<Integer>();
+    int index_best_solution = 0;
 
     public GeneticAlgorithm(Instances inst, int col_class, int seed) {
         super(inst, col_class, seed);
@@ -85,8 +90,33 @@ public abstract class GeneticAlgorithm extends RandomHeuristic{
         childs.add(child_2);
         num_c_sel_childs.add(num_c_sel_child_1);
         num_c_sel_childs.add(num_c_sel_child_2);
+        eval_childs.add(Evaluate(child_1));
+        eval_childs.add(Evaluate(child_2));
     }
     
     abstract void Mutation();
     abstract void Inheritance();
+    
+    @Override
+    void Train() {
+        for(int i = 0; i < population; i++){
+            RandomSolution();
+            
+            parents.add(car);
+            num_c_sel_parents.add(num_c_sel);
+            eval_parents.add(Evaluate());
+        }
+        
+        while(getEval() < getMaxEval()){
+            Selection();
+            for(int i = 0; i < selected_parents.size(); i+=2){
+                Crossover(i, i+1);
+            }
+            Mutation();
+            Inheritance();
+        }
+        
+        car = parents.get(index_best_solution);
+        num_c_sel = num_c_sel_parents.get(index_best_solution);
+    }
 }
