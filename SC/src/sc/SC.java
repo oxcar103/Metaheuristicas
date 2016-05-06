@@ -18,7 +18,7 @@ import weka.filters.unsupervised.attribute.Normalize;
  * @author oxcar103
  */
 public class SC {
-    private static final int num_heur = 7;
+    private static final int num_heur = 9;
     
     //Best random seed in the history
     private static final int seed = 103;
@@ -48,6 +48,8 @@ public class SC {
         hr_str [4] = "BMBS";
         hr_str [5] = "GRASP";
         hr_str [6] = "ILS";
+        hr_str [7] = "GGA";
+        hr_str [8] = "SSGA";
         
         for(int i = 0; i < num_files; i++){
             instances = lector.getData(args[3*i+1]);
@@ -103,6 +105,12 @@ public class SC {
                 }
                 else if (alg == 6){
                     heuristic = new IteratedLocalSearch(inst1, col_class, seeds[2*i+j]);
+                }
+                else if (alg == 7){
+                    heuristic = new GenerationalGA(inst1, col_class, seeds[2*i+j]);
+                }
+                else if (alg == 8){
+                    heuristic = new SteadyStateGA(inst1, col_class, seeds[2*i+j]);
                 }
                 
                 
