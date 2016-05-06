@@ -25,11 +25,6 @@ public class GenerationalGA extends GeneticAlgorithm {
     }
 
     @Override
-    void Crossover() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     void Mutation() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
