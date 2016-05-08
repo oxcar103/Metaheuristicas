@@ -12,7 +12,8 @@ import weka.core.Instances;
  * @author oxcar103
  */
 public class SteadyStateGA extends GeneticAlgorithm {
-
+    private final int num_childs = 2;
+    
     public SteadyStateGA(Instances inst, int col_class, int seed) {
         super(inst, col_class, seed, 1, 0.001);
     }
@@ -21,7 +22,7 @@ public class SteadyStateGA extends GeneticAlgorithm {
     protected void Selection() {
     int asp;
         
-        while(selected_parents.size() != 2){
+        while(selected_parents.size() != num_childs){
             asp = BinaryTournament();
             
             if(!selected_parents.contains(asp)){
@@ -34,8 +35,11 @@ public class SteadyStateGA extends GeneticAlgorithm {
     protected void Mutation() {
         double mut_prob = getMut_prob();   // Set value in a variable for efficiency
         
+        // For each child...
         for(int i = 0; i < childs.size(); i++) {
+            // ... and each caracteristic...
             for(int j = 0; j < getNumCar(); j++) {
+                //... try to mute
                 if(rnd.nextDouble() < mut_prob){
                     // Flip
                     childs.get(i)[j] = !childs.get(i)[j];
@@ -48,11 +52,10 @@ public class SteadyStateGA extends GeneticAlgorithm {
                     }
                 }
             }
+            
+            // Evaluate solutions childs
+            eval_childs.add(Evaluate(childs.get(i)));
         }
-        
-        // Evaluate solutions childs
-        eval_childs.add(Evaluate(childs.get(0)));
-        eval_childs.add(Evaluate(childs.get(1)));
     }
 
     @Override
