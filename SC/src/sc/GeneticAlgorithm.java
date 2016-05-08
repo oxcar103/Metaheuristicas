@@ -49,10 +49,10 @@ public abstract class GeneticAlgorithm extends RandomHeuristic{
     protected int BinaryTournament(){
         int asp_1, asp_2;
         
-        asp_1 = rnd.nextInt(parents.size());
+        asp_1 = rnd.nextInt(population);
         
         do{
-            asp_2 = rnd.nextInt(parents.size());
+            asp_2 = rnd.nextInt(population);
         }while(asp_1 == asp_2);
         
         if(eval_parents.get(asp_1) > eval_parents.get(asp_2)){
