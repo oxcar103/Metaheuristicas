@@ -46,6 +46,23 @@ public abstract class GeneticAlgorithm extends RandomHeuristic{
         return mut_prob;
     }
 
+    protected int BinaryTournament(){
+        int asp_1, asp_2;
+        
+        asp_1 = rnd.nextInt(parents.size());
+        
+        do{
+            asp_2 = rnd.nextInt(parents.size());
+        }while(asp_1 == asp_2);
+        
+        if(eval_parents.get(asp_1) > eval_parents.get(asp_2)){
+            return asp_1;
+        }
+        else{
+            return asp_2;
+        }
+    }
+    
     protected abstract void Selection();
     
     protected void Crossover(int parent_1, int parent_2){
