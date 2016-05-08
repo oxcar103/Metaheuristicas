@@ -81,8 +81,8 @@ public class SteadyStateGA extends GeneticAlgorithm {
                 if(eval_childs.get(i_child) > eval_parents.get(i_worst)){
                     // Replace Old Generation's Worst Solution...
                     parents.set(i_worst, childs.get(i_child));
-                    num_c_sel_parents.set(i_worst, num_c_sel_parents.get(i_child));
-                    eval_parents.set(i_worst, eval_parents.get(i_child));
+                    num_c_sel_parents.set(i_worst, num_c_sel_childs.get(i_child));
+                    eval_parents.set(i_worst, eval_childs.get(i_child));
 
                     // And checkout if Best Solution change
                     if(eval_parents.get(i_worst) > eval_parents.get(index_best_solution)){
