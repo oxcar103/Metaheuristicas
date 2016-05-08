@@ -18,18 +18,18 @@ public class SteadyStateGA extends GeneticAlgorithm {
     }
 
     @Override
-    void Selection() {
+    protected void Selection() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    void Mutation() {
+    protected void Mutation() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    void Inheritance() {
+    protected void Inheritance() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

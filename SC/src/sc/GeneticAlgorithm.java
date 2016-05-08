@@ -46,9 +46,9 @@ public abstract class GeneticAlgorithm extends RandomHeuristic{
         return mut_prob;
     }
 
-    abstract void Selection();
+    protected abstract void Selection();
     
-    void Crossover(int parent_1, int parent_2){
+    protected void Crossover(int parent_1, int parent_2){
         int first, second, aux;
         boolean[] child_1, child_2;
         int num_c_sel_child_1 = 0, num_c_sel_child_2 = 0;
@@ -109,11 +109,11 @@ public abstract class GeneticAlgorithm extends RandomHeuristic{
         eval_childs.add(Evaluate(child_2));
     }
     
-    abstract void Mutation();
-    abstract void Inheritance();
+    protected abstract void Mutation();
+    protected abstract void Inheritance();
     
     @Override
-    void Train() {
+    public void Train() {
         for(int i = 0; i < population; i++){
             RandomSolution();
             
