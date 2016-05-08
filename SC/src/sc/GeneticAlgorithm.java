@@ -24,8 +24,8 @@ public abstract class GeneticAlgorithm extends RandomHeuristic{
     protected List<Integer> eval_parents = new ArrayList<>();
     protected List<Integer> eval_childs = new ArrayList<>();
     
-    List<Integer> selected_parents = new ArrayList<>();
-    int index_best_solution = 0;
+    protected List<Integer> selected_parents = new ArrayList<>();
+    protected int index_best_solution = 0;
 
     public GeneticAlgorithm(Instances inst, int col_class, int seed, double cross, double mut) {
         super(inst, col_class, seed);
