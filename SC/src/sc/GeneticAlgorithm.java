@@ -138,6 +138,12 @@ public abstract class GeneticAlgorithm extends RandomHeuristic{
         }
         
         while(getEval() < getMaxEval()){
+            // Cleaning the auxiliary vectors
+            childs.clear();
+            num_c_sel_childs.clear();
+            eval_childs.clear();
+            selected_parents.clear();
+            
             Selection();
             for(int i = 0; i < selected_parents.size(); i+=2){
                 Crossover(i, i+1);
