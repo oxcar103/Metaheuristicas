@@ -20,9 +20,6 @@ public class GenerationalGA extends GeneticAlgorithm {
     public GenerationalGA(Instances inst, int col_class, int seed) {
         super(inst, col_class, seed, 0.7, 0.001);
         
-        // Best solution is at the end of array
-        index_best_solution = getPopulation();
-        
         exp_cross = (int) (getCross_prob() * getPopulation() / 2);
         exp_mut = (int) (getMut_prob() * getTotal_gens());
     }
@@ -95,22 +92,18 @@ public class GenerationalGA extends GeneticAlgorithm {
     protected void Inheritance() {
         int i_worst = 0;
 
-        // Search Worst Solution
+        // Search Next Generation's Worst Solution
         for(int i = 0; i < getPopulation(); i++){
-            if(eval_parents.get(i) < eval_parents.get(i_worst)){
+            if(eval_childs.get(i) < eval_childs.get(i_worst)){
               i_worst = i;  
             }
         }
         
         // Elitism
-        parents.set(i_worst, parents.get(index_best_solution));
-        num_c_sel_parents.set(i_worst, num_c_sel_parents.get(index_best_solution));
-        eval_parents.set(i_worst, eval_parents.get(index_best_solution));
-        
-        // Add Old Best Solution
-        childs.add(parents.get(index_best_solution));
-        num_c_sel_childs.add(num_c_sel_parents.get(index_best_solution));
-        eval_childs.add(eval_parents.get(index_best_solution));
+        childs.set(i_worst, parents.get(index_best_solution));
+        num_c_sel_childs.set(i_worst, num_c_sel_parents.get(index_best_solution));
+        eval_childs.set(i_worst, eval_parents.get(index_best_solution));
+        index_best_solution = i_worst;
         
         // Replace Old Generation
         parents = new ArrayList(childs);
@@ -120,9 +113,7 @@ public class GenerationalGA extends GeneticAlgorithm {
         // New Best Solution
         for(int i = 0; i < getPopulation(); i++){
             if(eval_parents.get(i) > eval_parents.get(index_best_solution)){
-                parents.set(index_best_solution, parents.get(i));
-                num_c_sel_parents.set(index_best_solution, num_c_sel_parents.get(i));
-                eval_parents.set(index_best_solution, eval_parents.get(i));
+                index_best_solution = i;
             }
         }
     }

@@ -140,8 +140,14 @@ public abstract class GeneticAlgorithm extends RandomHeuristic{
             parents.add(car);
             num_c_sel_parents.add(num_c_sel);
             eval_parents.add(Evaluate());
+            
+            // Looking for Best Solution
+            if(eval_parents.get(i) > eval_parents.get(index_best_solution)){
+                index_best_solution = i;
+            }
         }
         
+        // Let the Population Live and Die
         while(getEval() < getMaxEval()){
             // Cleaning the auxiliary vectors
             childs.clear();
