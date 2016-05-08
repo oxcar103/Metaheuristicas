@@ -15,7 +15,7 @@ import weka.core.Instances;
  * @author oxcar103
  */
 public class GenerationalGA extends GeneticAlgorithm {
-    private final int exp_cross, exp_mut, total_gens;
+    private final int exp_cross, exp_mut;
 
     public GenerationalGA(Instances inst, int col_class, int seed) {
         super(inst, col_class, seed, 0.7, 0.001);
@@ -24,8 +24,7 @@ public class GenerationalGA extends GeneticAlgorithm {
         index_best_solution = getPopulation();
         
         exp_cross = (int) (getCross_prob() * getPopulation() / 2);
-        total_gens = getPopulation() * getNumCar();
-        exp_mut = (int) (getMut_prob() * total_gens);
+        exp_mut = (int) (getMut_prob() * getTotal_gens());
     }
 
     @Override
@@ -45,7 +44,7 @@ public class GenerationalGA extends GeneticAlgorithm {
     protected void Mutation() {
         List<Integer> muted_gens = new ArrayList<>();
         List<Integer> muted_sols = new ArrayList<>();
-        int gen, sol, c;
+        int gen, sol, c, t_gen = getTotal_gens();
         
         // Add parents that don't crossover
         for(int i = 0; i < getPopulation(); i++){
@@ -57,7 +56,7 @@ public class GenerationalGA extends GeneticAlgorithm {
         }
         
         while(muted_gens.size() != exp_mut){
-            gen = rnd.nextInt(total_gens);
+            gen = rnd.nextInt(t_gen);
             sol = gen / getNumCar();
             c = gen % getNumCar();
             
