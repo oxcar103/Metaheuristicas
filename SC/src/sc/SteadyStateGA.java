@@ -32,12 +32,32 @@ public class SteadyStateGA extends GeneticAlgorithm {
 
     @Override
     protected void Mutation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double mut_prob = getMut_prob();   // Set value in a variable for efficiency
+        
+        for(int i = 0; i < childs.size(); i++) {
+            for(int j = 0; j < getNumCar(); j++) {
+                if(rnd.nextDouble() < mut_prob){
+                    // Flip
+                    childs.get(i)[j] = !childs.get(i)[j];
+                
+                    if(childs.get(i)[j]){
+                        num_c_sel_childs.set(i, num_c_sel_childs.get(i)+1);
+                    }
+                    else{
+                        num_c_sel_childs.set(i, num_c_sel_childs.get(i)-1);
+                    }
+                }
+            }
+        }
+        
+        // Evaluate solutions childs
+        eval_childs.add(Evaluate(childs.get(0)));
+        eval_childs.add(Evaluate(childs.get(1)));
     }
 
     @Override
     protected void Inheritance() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
 }
