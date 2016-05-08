@@ -60,7 +60,43 @@ public class SteadyStateGA extends GeneticAlgorithm {
 
     @Override
     protected void Inheritance() {
+        int i_worst, i_child = 0;
+        boolean worst_replaced;
         
+        // For each child
+        while(i_child < childs.size()){
+            i_worst = 0;
+            worst_replaced = false;
+            
+            // Search Worst Solution
+            for(int i = 0; i < parents.size(); i++){
+                if(eval_parents.get(i) < eval_parents.get(i_worst)){
+                    i_worst = i;  
+                }
+            }
+            
+            // Try to replaced it
+            while(i_child < childs.size() && !worst_replaced){
+                // If a New Generation's solution is better, then...
+                if(eval_childs.get(i_child) > eval_parents.get(i_worst)){
+                    // Replace Old Generation's Worst Solution...
+                    parents.set(i_worst, childs.get(i_child));
+                    num_c_sel_parents.set(i_worst, num_c_sel_parents.get(i_child));
+                    eval_parents.set(i_worst, eval_parents.get(i_child));
+
+                    // And checkout if Best Solution change
+                    if(eval_parents.get(i_worst) > eval_parents.get(index_best_solution)){
+                        index_best_solution = i_worst;
+                    }
+                    
+                    worst_replaced = true;
+                }
+                // Else, try again with next child
+                else{
+                    i_child++;
+                }
+            }
+        }
     }
 
 }
