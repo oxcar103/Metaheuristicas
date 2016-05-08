@@ -122,6 +122,8 @@ public abstract class GeneticAlgorithm extends RandomHeuristic{
         childs.add(child_2);
         num_c_sel_childs.add(num_c_sel_child_1);
         num_c_sel_childs.add(num_c_sel_child_2);
+        eval_childs.add(Evaluate(child_1));
+        eval_childs.add(Evaluate(child_2));
     }
     
     protected abstract void Mutation();
