@@ -30,7 +30,15 @@ public class GenerationalGA extends GeneticAlgorithm {
 
     @Override
     protected void Selection() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int asp;
+        
+        while(selected_parents.size() != exp_cross){
+            asp = BinaryTournament();
+            
+            if(!selected_parents.contains(asp)){
+                selected_parents.add(asp);
+            }
+        }
     }
 
     @Override
