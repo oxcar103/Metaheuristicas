@@ -43,8 +43,14 @@ public class GenerationalGA extends GeneticAlgorithm {
     @Override
     protected void Mutation() {
         List<Integer> muted_gens = new ArrayList<>();
-        List<Integer> muted_sols = new ArrayList<>();
+        List<Integer> ev_sols = new ArrayList<>(); // Solutions to re-evaluate
         int gen, sol, c, t_gen = getTotal_gens();
+        
+        // It's a dirty trick to reduce number of evaluations... I know it
+        for(int i = 0; i < childs.size(); i++){
+            eval_childs.add(0);
+            ev_sols.add(i);
+        }
         
         // Add parents that don't crossover
         for(int i = 0; i < getPopulation(); i++){
@@ -63,8 +69,8 @@ public class GenerationalGA extends GeneticAlgorithm {
             // Add gen & solution
             if(!muted_gens.contains(gen)){
                 muted_gens.add(gen);
-                if(!muted_sols.contains(sol)){
-                    muted_sols.add(sol);
+                if(!ev_sols.contains(sol)){
+                    ev_sols.add(sol);
                 }
                 
                 // Flip
@@ -79,9 +85,9 @@ public class GenerationalGA extends GeneticAlgorithm {
             }
         }
         
-        // Re-evaluate muted solutions
-        for(int i = 0; i < muted_sols.size(); i++){
-            eval_childs.set(muted_sols.get(i), Evaluate(childs.get(muted_sols.get(i))));
+        // Re-evaluate solutions
+        for(int i = 0; i < ev_sols.size(); i++){
+            eval_childs.set(ev_sols.get(i), Evaluate(childs.get(ev_sols.get(i))));
         }
     }
 
