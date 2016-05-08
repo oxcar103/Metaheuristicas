@@ -14,9 +14,7 @@ import weka.core.Instances;
 public class SteadyStateGA extends GeneticAlgorithm {
 
     public SteadyStateGA(Instances inst, int col_class, int seed) {
-        super(inst, col_class, seed);
-        
-        cross_prob = 1;
+        super(inst, col_class, seed, 1, 0.001);
     }
 
     @Override

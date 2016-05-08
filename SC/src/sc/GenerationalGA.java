@@ -12,11 +12,13 @@ import weka.core.Instances;
  * @author oxcar103
  */
 public class GenerationalGA extends GeneticAlgorithm {
+    private final int exp_cross, exp_mut;
 
     public GenerationalGA(Instances inst, int col_class, int seed) {
-        super(inst, col_class, seed);
+        super(inst, col_class, seed, 0.7, 0.001);
         
-        cross_prob = 0.7;
+        exp_cross = (int) (getCross_prob() * getPopulation() / 2);
+        exp_mut = (int) (getMut_prob() * getPopulation() * getNumCar());
     }
 
     @Override

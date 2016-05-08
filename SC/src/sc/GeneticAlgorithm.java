@@ -14,23 +14,38 @@ import weka.core.Instances;
  * @author oxcar103
  */
 public abstract class GeneticAlgorithm extends RandomHeuristic{
-    int population = 30;
-    double mut_prob = 0.001;
-    double cross_prob;
-    List<boolean[]> parents = new ArrayList<boolean []>();
-    List<boolean[]> childs = new ArrayList<boolean []>();
-    List<Integer> num_c_sel_parents = new ArrayList<Integer>();
-    List<Integer> num_c_sel_childs = new ArrayList<Integer>();
-    List<Integer> eval_parents = new ArrayList<Integer>();
-    List<Integer> eval_childs = new ArrayList<Integer>();
+    private final int population = 30;
+    private double cross_prob;
+    private final double mut_prob;
+    protected List<boolean[]> parents = new ArrayList<>();
+    protected List<boolean[]> childs = new ArrayList<>();
+    protected List<Integer> num_c_sel_parents = new ArrayList<>();
+    protected List<Integer> num_c_sel_childs = new ArrayList<>();
+    protected List<Integer> eval_parents = new ArrayList<>();
+    protected List<Integer> eval_childs = new ArrayList<>();
     
-    List<Integer> selected_parents = new ArrayList<Integer>();
+    List<Integer> selected_parents = new ArrayList<>();
     int index_best_solution = 0;
 
-    public GeneticAlgorithm(Instances inst, int col_class, int seed) {
+    public GeneticAlgorithm(Instances inst, int col_class, int seed, double cross, double mut) {
         super(inst, col_class, seed);
+        
+        cross_prob = cross;
+        mut_prob = mut;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public double getCross_prob() {
+        return cross_prob;
     }
     
+    public double getMut_prob() {
+        return mut_prob;
+    }
+
     abstract void Selection();
     
     void Crossover(int parent_1, int parent_2){
