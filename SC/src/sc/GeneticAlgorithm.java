@@ -45,6 +45,11 @@ public abstract class GeneticAlgorithm extends RandomHeuristic{
     public double getMut_prob() {
         return mut_prob;
     }
+    
+    public int getTotal_gens() {
+        return population * getNumCar();
+    }
+        
 
     protected int BinaryTournament(){
         int asp_1, asp_2;
