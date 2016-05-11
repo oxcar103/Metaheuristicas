@@ -414,7 +414,53 @@ P-3: Algoritmos Genéticos} % Subtitle
 		\subsection{Comparación de resultados}
 			\input{Compare-3}
 			
-
+			Viendo los resultados de arriba, podemos concluir que:
+			\begin{itemize}
+				\item Los mayores índices de reducción se obtienen con el \textit{SFS}, obteniendo en
+				todos los casos una tasa de reducción muy alta, mientras que los resultados de los
+				\textit{GA} rondan el 50\%.
+				
+				\item En el caso de \textit{WBDC}, todos los algoritmos tienen una alta tasa de acierto,
+				pudiendo observarse que los resultados de los \textit{GA} bailan en torno al 95\% de
+				acierto, con una ligera mejora del \textit{SSGA} frente a la variante \textit{GGA}.
+				
+				\item En el caso de \textit{Movement Libras}, se aprecian unos resultados similares
+				al caso de \textit{WBDC} aunque con una menor tasa de aciertos, dando de nuevo como
+				resultado que el \textit{SSGA} supera al \textit{GGA}.
+				
+				\item Sin duda alguna, para el caso de \textit{Arrhythmia}, el mejor algoritmo sería
+				el de \textit{SFS}, ya que tiene el mejor índice de acierto y de reducción.
+				
+				\item En cuanto a los tiempos de ejecución, podemos observar que el más veloz sería el
+				algoritmo greedy \textit{SFS} aunque podemos observar que de entre los \textit{GA}(los
+				cuáles suelen tener un resultado significativamente mejor que \textit{SFS}), podemos
+				ver que \textit{SSGA} requiere algo más de tiempo en la mayor parte de los casos
+				frente a \textit{GGA}.
+			\end{itemize}
+			
+			La diferencia entre las tasas de reducción de los distintos algoritmos se deben a que \textit{SFS}
+			comienza con una máscara en la que ninguna característica está seleccionada mientras que
+			\textit{GGA} y \textit{SSGA} toman una población de padres con unas máscaras en las cuáles
+			la probabilidad de que una característica esté seleccionada es 50\%.
+			
+			Claramente, ni el operador de selección ni el de reemplazo, alteran las máscaras con las
+			que trabaja la población. El operador de cruce, sí altera la máscara pero como trabaja con
+			los individuos de la población, los padres tienen una reducción en torno al 50\% y el
+			operador de cruce no impone condiciones sobre las características seleccionadas, no tenemos
+			garantía, \textit{a priori}, de que vaya a aumentar o disminuir dicha tasa. Análogamente,
+			el operador de mutación, altera la máscara al mutar una cantidad de genes de la población
+			pero como no impone condiciones sobre la tasa de reducción y los padres tenían una tasa
+			cercana al 50\%, es muy probable que la mitad de los genes que se alteran sean para seleccionar
+			una característica y la otra mitad, para deseleccionarlos, es decir, no condiciona la tasa
+			de reducción. Este resultado se respalda con los resultados obtenidos, donde se han obtenido
+			tasas de reducción comprendidas entre el 30\% y el 70\%.
+			
+			Referente a los tiempos de ejecución, estaba claro que \textit{SFS} sería el más veloz pues
+			solamente aplica una vez la heurística mientras los \textit{GA} requieren agotar las 15000
+			iteraciones para acabar aunque convergen rápidamente a buenas soluciones, por lo que si no
+			las agotara e hicieran un número mucho menor de iteraciones, obtendrían una solución de
+			similar grado de calidad.
+		
 	\input{Compilación.tex}
 	\newpage
 	
