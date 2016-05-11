@@ -78,10 +78,10 @@ public abstract class GeneticAlgorithm extends RandomHeuristic{
         child_1 = new boolean [getNumCar()];
         child_2 = new boolean [getNumCar()];
         
-        first = rnd.nextInt(num_c_sel);
+        first = rnd.nextInt(getNumCar()-1);
         
         do{
-            second = rnd.nextInt(num_c_sel);
+            second = rnd.nextInt(getNumCar()-1);
         }while(first == second);
         
         if(first > second){
