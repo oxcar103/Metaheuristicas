@@ -290,8 +290,39 @@ P-3: Algoritmos Genéticos} % Subtitle
 			\end{algorithm}
 			
 			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+				\REQUIRE \ \\
+						 \
+						
+				\STATE{\texttt{Índice\_Peor} = 0}
+				\STATE{i = 0}
+				\FOR{i < \texttt{Población}}
+					\IF{Evaluate(\texttt{Hijos[i]}) < Evaluate(\texttt{Hijos[Índice\_Peor]})}
+						\STATE{\texttt{Índice\_Peor} = i}
+					\ENDIF
+				\ENDFOR
+				
+				\STATE{\texttt{Hijos[Índice\_Peor]} = \texttt{Padres[Índice\_Mejor]}}
+				\STATE{\texttt{Índice\_Mejor} = \texttt{Índice\_Peor}}
+				\STATE{\texttt{Padres} = \texttt{Hijos}}
+				
+				\STATE{i = 0}
+				\FOR{i < \texttt{Población}}
+					\IF{Evaluate(\texttt{Padres[i]}) > Evaluate(\texttt{Padres[Índice\_Mejor]})}
+						\STATE{\texttt{Índice\_Mejor} = i}
+					\ENDIF
+				\ENDFOR
+				\end{algorithmic}
+			\caption{AG Generacional - Reemplazo(\textit{Inheritance})}
+			\label{GGA-Inher}
+			\end{algorithm}
+			
 			
 		\subsection{Algoritmo Genético Estacionario (\textbf{SSGA})}
+			
+			
+			
 			
 		
 	\section{Resultados}\footnote{En este documento, se comparan los resultados obtenidos por las
