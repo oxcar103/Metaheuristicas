@@ -342,6 +342,27 @@ P-3: Algoritmos Genéticos} % Subtitle
 			\end{algorithm}
 			
 			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+				\REQUIRE \ \\
+						 \
+						
+				\STATE{i = 0}
+				\FOR{i < \texttt{Hijos}.size()}
+					\STATE{j = 0}
+					\FOR{j < \texttt{Número\_de\_Características}}
+						\STATE{\texttt{rnd} = Genera valor aleatorio entre 0 y 1}
+						\IF{i < \texttt{Probabilidad\_Mutación}}
+							\STATE{i.Flip(j)}
+						\ENDIF
+					\ENDFOR
+				\ENDFOR
+				\end{algorithmic}
+			\caption{AG Estacionario - Mutación(\textit{Mutation})}
+			\label{SSGA-Mut}
+			\end{algorithm}
+			
+			
 			
 		
 	\section{Resultados}\footnote{En este documento, se comparan los resultados obtenidos por las
