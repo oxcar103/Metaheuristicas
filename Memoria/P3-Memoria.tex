@@ -138,8 +138,44 @@ P-3: Algoritmos Genéticos} % Subtitle
 	los resultados obtenidos y las optimizaciones de la \textbf{LS} para mejorar los resultados obtenidos
 	por estas nuevas heurísticas multiarranque. Dado que ya se explicaron en \textbf{P1-Memoria}, he
 	considerado ahorrar su explicación en este documento para permitir una mayor limpieza del mismo.}
+	
+		\subsection{Algoritmos Genéticos}
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+				\REQUIRE \ \\
+						 \
+			 
+				\STATE{i = 0}
+				\STATE{\texttt{Índice mejor}}
+				\FOR{\texttt{i} $<$ \texttt{Población}}
+					\STATE{\texttt{Padres}.add(RandomSolution())}
+					\IF{\texttt{Padres[Índice\_Mejor]} < \texttt{Padres[i]}}
+						\STATE{\texttt{Índice\_Mejor} = i}
+					\ENDIF
+				\ENDFOR
+				
+				\WHILE{\texttt{Evaluaciones} < 15000}
+					\STATE{Limpiamos \texttt{Hijos}}
+					\STATE{\texttt{Padres\_Seleccionados} = Selection()}
+					\STATE{i = 0}
+					\FOR{i < $\frac{\texttt{Padres\_Seleccionados}.size()}{2}$}
+						\STATE{Crossover(2*i, 2*i+1)}
+					\ENDFOR
+					\STATE{Mutation()}
+					\STATE{Inheritance()}
+				\ENDWHILE
+				
+				\STATE{\texttt{Solución\_actual = Padres[Índice\_Mejor]}}
+				\end{algorithmic}
+			\caption{Algoritmos Genéticos - Entrenamiento(\textit{Train})}
+			\label{GA-Train}
+			\end{algorithm}
+			
+			
+			
+			
 		\subsection{Algoritmo Genético Gerenacional (\textbf{GGA})}
-		
+			
 		\subsection{Algoritmo Genético Estacionario (\textbf{SSGA})}
 		
 	\section{Resultados}\footnote{En este documento, se comparan los resultados obtenidos por las
