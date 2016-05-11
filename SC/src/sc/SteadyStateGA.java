@@ -91,10 +91,9 @@ public class SteadyStateGA extends GeneticAlgorithm {
                     
                     worst_replaced = true;
                 }
-                // Else, try again with next child
-                else{
-                    i_child++;
-                }
+                
+                // Next child
+                i_child++;
             }
         }
     }
