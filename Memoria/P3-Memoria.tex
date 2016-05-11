@@ -146,7 +146,7 @@ P-3: Algoritmos Genéticos} % Subtitle
 						 \
 			 
 				\STATE{i = 0}
-				\STATE{\texttt{Índice mejor}}
+				\STATE{\texttt{Índice\_Mejor}}
 				\FOR{\texttt{i} $<$ \texttt{Población}}
 					\STATE{\texttt{Padres}.add(RandomSolution())}
 					\IF{\texttt{Padres[Índice\_Mejor]} < \texttt{Padres[i]}}
@@ -171,7 +171,27 @@ P-3: Algoritmos Genéticos} % Subtitle
 			\label{GA-Train}
 			\end{algorithm}
 			
-			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+				\REQUIRE \ \\
+						 \
+					
+				\STATE{\texttt{Candidato\_1} = Genera valor aleatorio entre 0 y \texttt{Población}-1}
+				\STATE{\texttt{Candidato\_2} = Genera valor aleatorio entre 0 y \texttt{Población}-1}
+				
+				\WHILE{\texttt{Candidato\_1} == \texttt{Candidato\_2}}
+					\STATE{\texttt{Candidato\_2} = Genera valor aleatorio entre 0 y \texttt{Población}-1}
+				\ENDWHILE
+				\IF{Evaluate(\texttt{Padres[Candidato\_1]}) > Evaluate(\texttt{Padres[Candidato\_2]})}
+					\RETURN{\texttt{Candidato\_1}}
+				\ELSE
+					\RETURN{\texttt{Candidato\_2}}
+				\ENDIF
+				\STATE{\texttt{Solución\_actual = Padres[Índice\_Mejor]}}
+				\end{algorithmic}
+			\caption{Algoritmos Genéticos - Torneo Binario(\textit{BinaryTournament})}
+			\label{GA-BT}
+			\end{algorithm}
 			
 			
 			\begin{algorithm}[H]
