@@ -363,6 +363,38 @@ P-3: Algoritmos Genéticos} % Subtitle
 			\end{algorithm}
 			
 			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+				\REQUIRE \ \\
+						 \
+						
+				\STATE{\texttt{Índice\_Hijo} = 0}
+				\WHILE{\texttt{Índice\_Hijo} < \texttt{Hijos}.size()}
+					\STATE{\texttt{Índice\_Peor} = 0}
+					\STATE{\texttt{Reemplazado\_Peor} = \FALSE}
+					\STATE{i = 0}
+					\FOR{i < \texttt{Padres}.size()}
+						\IF{Evaluate(\texttt{Padres[i]}) < Evaluate(\texttt{Padres[Índice\_Peor]})}
+							\STATE{\texttt{Índice\_Peor} = i}
+						\ENDIF
+					\ENDFOR
+					
+					\WHILE{\texttt{Índice\_Hijo} < \texttt{Hijos}.size() \AND \NOT \texttt{Reemplazado\_Peor}}
+						\IF{Evaluate({Índice\_Hijo}) > Evaluate(\texttt{Padres(Índice\_Peor)})}
+							\STATE{\texttt{Padres[Índice\_Peor]} = \texttt{Hijos[Índice\_Hijo]}}
+							\STATE{\texttt{Reemplazado\_Peor} = \TRUE}
+							\IF{Evaluate(\texttt{Padres[Índice\_Peor]}) > Evaluate(\texttt{Padres[Índice\_Mejor]})}
+								\STATE{\texttt{Índice\_Mejor} = \texttt{Índice\_Peor}}
+							\ENDIF
+						\ENDIF
+						
+						\STATE{\texttt{Índice\_Hijo}}
+					\ENDWHILE
+				\ENDWHILE
+				\end{algorithmic}
+			\caption{AG Estacionario - Reemplazo(\textit{Inheritance})}
+			\label{SSGA-Inher}
+			\end{algorithm}
 			
 		
 	\section{Resultados}\footnote{En este documento, se comparan los resultados obtenidos por las
@@ -382,6 +414,7 @@ P-3: Algoritmos Genéticos} % Subtitle
 		\subsection{Comparación de resultados}
 			\input{Compare-3}
 			
+
 	\input{Compilación.tex}
 	\newpage
 	
