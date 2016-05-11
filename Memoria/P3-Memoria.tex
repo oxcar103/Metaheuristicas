@@ -158,8 +158,8 @@ P-3: Algoritmos Genéticos} % Subtitle
 					\STATE{Limpiamos \texttt{Hijos}}
 					\STATE{\texttt{Padres\_Seleccionados} = Selection()}
 					\STATE{i = 0}
-					\FOR{i < $\frac{\texttt{Padres\_Seleccionados}.size()}{2}$}
-						\STATE{Crossover(2*i, 2*i+1)}
+					\FOR{i < $\displaystyle \frac{\texttt{Padres\_Seleccionados}.size()}{2}$}
+						\STATE{Crossover(2 $\cdot$ i, 2 $\cdot$ i+1)}
 					\ENDFOR
 					\STATE{Mutation()}
 					\STATE{Inheritance()}
@@ -254,6 +254,42 @@ P-3: Algoritmos Genéticos} % Subtitle
 			\caption{AG Generacional - Selección(\textit{Selection})}
 			\label{GGA-Selec}
 			\end{algorithm}
+			
+			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+				\REQUIRE \ \\
+						 \
+						
+				\STATE{i = 0}
+				\FOR{i < \texttt{Población}}
+%			        // Add parents that don't crossover
+					\IF{i $\notin$ \texttt{Padres\_Seleccionados}}
+						\STATE{\texttt{Hijos}.add(\texttt{Padres}[i])}
+					\ENDIF
+				\ENDFOR
+				\WHILE{\texttt{Genes\_Mutados}.size() < \texttt{Número\_de\_Mutaciones}}
+					\STATE{\texttt{Gen} = Genera valor aleatorio entre 0 y (\texttt{Población} $\times$
+							\texttt{Número\_de\_Características})-1}
+					\STATE{\texttt{Solución} = $\displaystyle \frac{\texttt{Gen}}{\texttt{Número\_de\_Características}}$}
+					\STATE{\texttt{Característica} = \texttt{Gen} $\mod{\texttt{Número\_de\_Características}}$}
+					
+					\IF{\texttt{Gen} $\notin$ \texttt{Genes\_Mutados}}
+						\STATE{\texttt{Genes\_Mutados}.add(\texttt{Gen})}
+						
+						\IF{\texttt{Solución} $\notin$ \texttt{Soluciones\_Mutadas}}
+							\STATE{\texttt{Soluciones\_Mutadas}.add(\texttt{Solución})}
+						\ENDIF
+						
+						\STATE{\texttt{Solución}.Flip(\texttt{Gen})}
+					\ENDIF
+				\ENDWHILE
+				\end{algorithmic}
+			\caption{AG Generacional - Mutación(\textit{Mutation})}
+			\label{GGA-Mut}
+			\end{algorithm}
+			
+			
 			
 		\subsection{Algoritmo Genético Estacionario (\textbf{SSGA})}
 			
