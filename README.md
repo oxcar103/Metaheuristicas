@@ -18,6 +18,9 @@ Implementación
 - La clase **BasicMultiBootingSearch**, que implementa el comportamiento de la heurística de *Búsqueda Multiarranque Básica* con solución inicial aleatoria y optimizando con *Búsqueda Local*.  
 - La clase **GRASP**, que implementa el comportamiento de la heurística de *Greedy Randomized Adaptive Search Procedure* con solución inicial greedy probabilista y optimizando con *Búsqueda Local*.  
 - La clase **IteratedLocalSearch**, que implementa el comportamiento de la heurística de *Búsqueda Local Reiterada* con solución inicial aleatoria y posterior refinamiento mediante *Búsqueda Local* y mutación de la mejor solución encontrada.  
+- La clase abstracta **GeneticAlgorithm**, que implementa las funciones comunes de los algoritmos genéticos permitiendo de este modo estructurar el esqueleto básico dando cabida a la herencia por parte de heurística con inspiración biológica.  
+- La clase **GenerationalGA**, que implementa el comportamiento de la heurística del *Algoritmo Genético Generacional con Elitismo* con población inicial aleatoria.  
+- La clase **SteadyStateGA**, que implementa el comportamiento de la heurística del *Algoritmo Genético Estacionario* con dos descendientes por generación con población inicial aleatoria.  
 
 Licencias
 ---------------------------------------------
