@@ -140,6 +140,31 @@ P-3: Algoritmos Genéticos} % Subtitle
 	considerado ahorrar su explicación en este documento para permitir una mayor limpieza del mismo.}
 	
 		\subsection{Algoritmos Genéticos}
+			A grandes rasgos, podemos realizar una descripción general de los Algoritmos Genéticos o
+			\textit{Genetic Algorithm}(\textit{GA}) que consiste en:
+			
+			\begin{itemize}
+				\item Generar una población inicial
+				\item Evolucionar dicha población, o equivalentemente se puede expresar mediante los
+				siguientes operadores:
+					\begin{itemize}
+						\item Selección: Se eligen parejas de la población para reproducirse.
+						\item Cruce: Se recombinan las parejas seleccionadas con una probabilidad de
+						cruce característica del problema haciendo tomar a las soluciones sucesoras
+						características de ambos padres.
+						\item Mutación: Se modifican aleatoriamente los genes de la nueva generación
+						con una probabilidad de mutación, normalmente, bastante reducida.
+						\item Reemplazo: Se procede a incluir la nueva generación en la población
+						que actualmente tenemos.
+					\end{itemize}
+				\item Tras el paso de algunas generaciones, nos quedamos con el mejor individuo que
+				haya existido.
+			\end{itemize}
+			
+			Este proceso se puede reflejar en el siguiente algoritmo\footnote{Cabría destacar que,
+			realmente, \texttt{Padres\_Seleccionados} no se devuelve por el Operador de Selección, si
+			no que se trata como una variable global que se ve modificada por cierto número de factores}:
+			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
 				\REQUIRE \ \\
@@ -171,6 +196,10 @@ P-3: Algoritmos Genéticos} % Subtitle
 			\label{GA-Train}
 			\end{algorithm}
 			
+			Para una selección óptima de los individuos de la población que pasarán a cruzarse que nos
+			permita una rápida convergencia de la población a una buena solución del problema, los
+			elegiremos mediante el Torneo Binario consitente en:
+			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
 				\REQUIRE \ \\
@@ -193,6 +222,11 @@ P-3: Algoritmos Genéticos} % Subtitle
 			\label{GA-BT}
 			\end{algorithm}
 			
+			Aunque, \textit{a priori}, los 4 operadores necesarios para evolucionar la población son
+			esencialmente iguales con pequeños detalles a lo largo del proceso, el más fácil de abstraer
+			para los Algoritmos Genéticos Generacional con Elitismo o \textit{Generational Genetic
+			Algorithm}(\textit{GGA}) y Estacionario o \textit{Steady-State}(\textit{SSGA}) resulta ser
+			el Operador de Cruce que quedaría como:
 			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
@@ -233,10 +267,36 @@ P-3: Algoritmos Genéticos} % Subtitle
 			\end{algorithm}
 			
 		\subsection{Algoritmo Genético Gerenacional (\textbf{GGA})}
+			Como ya hemos visto en el apartado anterior, los algoritmos genéticos se caracterizan por:
 			
-%			exp_cross = (int) (getCross_prob() * getPopulation() / 2);
-%			exp_mut = (int) (getMut_prob() * getTotal_gens());
+			\begin{itemize}
+				\item Probabilidad de cruce: que en este caso particular tomará el valor de 0.7
+				\item Probabilidad de mutación: que en esta ocasión será de 0.001
+				\item Operadores de Evolución:
+				\begin{itemize}
+					\item Selección
+					\item Cruce\footnote{Éste ya fue explicado en el apartado anterior.}
+					\item Mutación
+					\item Reemplazo
+				\end{itemize}
+			\end{itemize}
 			
+			Antes de explicar el Operador de Selección, cabe resaltar que el proceso usual para realizar
+			dicha implementación consiste en dividir la población en parejas y comprobar para cada una
+			de ellas si, aleatoriamente, cruzarán o no. Claramente, este proceso es muy costoso, por lo
+			que se ha optado por la selección únicamente de las parejas que cruzarán sí o sí, lo que
+			requiere previamente del cálculo de la esperanza matemática de individuos de la población
+			que mutarán y la almacenaremos en una variable \textit{Número\_de\_Cruces} con expresión
+			igual a $\displaystyle \frac{\textit{Probabilidad\_de\_Cruce} \cdot \textit{Población}}{2}$.
+			
+			Análogamente al caso de la probabilidad de cruce, y con mayor motivo pues la probabilidad
+			de que ocurra este hecho se produce con menor frecuencia que el anterior, se calcula la
+			cantidad de genes que mutarán como la esperanza matemática de dicho suceso, es decir
+			$\textit{Número\_de\_Mutaciones} = \textit{Probabilidad\_de\_Mutación} \cdot \textit{Población}
+			\cdot \textit{Número\_de\_Características}$
+			
+			Llegados a este punto, estamos preparados para representar el Operador de Selección de
+			esta variante de los \textit{AG} como:
 			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
@@ -256,6 +316,13 @@ P-3: Algoritmos Genéticos} % Subtitle
 			\label{GGA-Selec}
 			\end{algorithm}
 			
+			En el caso de \textit{GGA}, la mutación se realiza tanto a los nuevos miembros de la comunidad
+			como a los miembros de la anterior generación que quedaron sin modificar. Esto se podría
+			interpretar como que los padres que no se cruzaron han generado en la nueva generación
+			una serie de individuos sucesores idénticos a los predecesores.
+			
+			De igual manera, obtenemos resultado de la variable \textit{Número\_de\_Mutaciones} recién
+			creada mediante el Operador de Mutación que se describe:
 			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
@@ -264,7 +331,6 @@ P-3: Algoritmos Genéticos} % Subtitle
 						
 				\STATE{i = 0}
 				\FOR{i < \texttt{Población}}
-%			        // Add parents that don't crossover
 					\IF{i $\notin$ \texttt{Padres\_Seleccionados}}
 						\STATE{\texttt{Hijos}.add(\texttt{Padres}[i])}
 					\ENDIF
@@ -290,6 +356,13 @@ P-3: Algoritmos Genéticos} % Subtitle
 			\label{GGA-Mut}
 			\end{algorithm}
 			
+			Finalmente, queda el paso de mezclar la antigua generación con la nueva, esto se realiza
+			mediante la inserción del mejor candidato o élite de la antigua generación en la nueva
+			generación sustituyendo a la peor solución de ésta.
+			
+			En el caso de \textit{GGA}, el proceso es simple, la nueva generación sustituye por completo
+			a la antigua, y posteriormente, se realiza una búsqueda para obtener la mejor solución o
+			élite de la nueva:
 			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
@@ -319,9 +392,17 @@ P-3: Algoritmos Genéticos} % Subtitle
 			\label{GGA-Inher}
 			\end{algorithm}
 			
-			
 		\subsection{Algoritmo Genético Estacionario (\textbf{SSGA})}
+			Para el caso del Algoritmo Genético Estacionario o \textit{Steady-State}(\textit{SSGA}),
+			tomaremos la misma probabilidad de mutación que para \textit{GGA}, es decir, 0.001 y un
+			valor de 1 para la probabilidad de cruce, estableciendo de este modo que todas las parejas
+			cruzarán, además, para este \textit{AG} necesitamos indicar el número de hijos que intentará
+			entrar a formar parte de la población, le asignaremos el valor 2 aunque los algoritmos
+			estarán diseñados para funcionar con cualquier valor\footnote{De hecho, corre por cuenta
+			del programador asignarle un valor par ya que de tomar un valor impar el Operador de Cruce
+			accedería a zonas de memoria no asignada y en ningún lugar se comprueba.}
 			
+			El Operador de Selección de los \textit{SSGA} se expresaría de la forma:
 			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
@@ -341,6 +422,11 @@ P-3: Algoritmos Genéticos} % Subtitle
 			\label{SSGA-Selec}
 			\end{algorithm}
 			
+			En esta ocasión, a diferencia de \textit{GGA}, para cada característica tomaremos números
+			aleatorios para establecer si se produce la mutación de la misma que, aunque es bastante más
+			ineficiente, la forma correcta de hacerlo.
+			
+			Y como resultado, el Operador de Mutación quedaría como:
 			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
@@ -362,6 +448,22 @@ P-3: Algoritmos Genéticos} % Subtitle
 			\label{SSGA-Mut}
 			\end{algorithm}
 			
+			En este caso, se intenta integrar a los hijos a la población uno a uno, esto es, intentamos
+			que entren si y solo si mejoran alguna solución ya existente en la generación anterior de
+			la población. Una forma de realizarlo sería:
+			
+			\begin{itemize}
+				\item Buscar la peor solución de la anterior generación
+				\item Recorrer los hijos hasta que alguno lo mejore
+				\item Recordar el índice de este hijo
+				\item Buscar la siguiente peor solución
+				\item Recorrer los hijos a partir del siguiente al índice que recordamos. Esto se debe
+				a que si no superaron la primera solución peor encontrada, no van a superar a la segunda.
+				\item Repetir el proceso hasta que no queden nuevos hijos por recorrer(en este caso,
+				serían sólo 2 pero el algoritmo está planteado para el caso de que sean cualquier número).
+			\end{itemize}
+			
+			Esta idea queda perfectamente reflejada en el siguiente algoritmo:
 			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
