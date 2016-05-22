@@ -24,6 +24,7 @@ Implementación
 
 Licencias
 ---------------------------------------------
+El proyecto se distribuye bajo la licencia [GPL](https://github.com/oxcar103/Metaheuristicas/blob/master/LICENSE)
 
 La licencia no se aplicará para el material aportado por el profesor.  
 La licencia **SÍ** se aplicará sobre **CSVFileWriter** aunque está tomado de [Lothar Soto](https://github.com/Lothar94).  
