@@ -6,9 +6,9 @@ Prácticas de Metaheurísticas(MH) sobre selección de características
 Implementación
 ---------------------------------------------
 
-- **ArffReader**, que contiene el código de la función que lee archivos *.arff* a partir de los que se generan la instancias.  
-- **CSVFileWriter**, que contiene el código de la función que escribe los archivos *.csv* de salida.  
-- **SC**, que contiene la función main y el *5x2-CrossValidation*.  
+- La clase **ArffReader**, que contiene el código de la función que lee archivos *.arff* a partir de los que se generan la instancias.  
+- La clase **CSVFileWriter**, que contiene el código de la función que escribe los archivos *.csv* de salida.  
+- La clase **SC**, que contiene la función main y el *5x2-CrossValidation*.  
 - La clase abstracta **Heuristic**, que implementa las funciones comunes que no dependen del azar dando cabida a la herencia por parte de cualquier tipo de heurística.  
 - La clase abstracta **RandomHeuristic**, que implementa las funciones comunes que dependen del azar dando cabida a la herencia por parte las heurísticas con componente aleatoria.  
 - La clase **SFS**, que implementa el comportamiento de la heurística de *Sequential Forward Search*.  
