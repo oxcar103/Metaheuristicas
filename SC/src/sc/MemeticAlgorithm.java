@@ -68,8 +68,30 @@ public abstract class MemeticAlgorithm extends GenerationalGA{
     }
     
     void Improve(){
+        int eval_neigh;
+        
+        if(proportion == 1){
+            for(int i = 0; i < getPopulation(); i++){
+                car = parents.get(i).clone();
+                num_c_sel = num_c_sel_parents.get(i);
+                
+                GenerateNeighbour();
+
+                eval_neigh = Evaluate();
+
+                if(eval_neigh > eval_parents.get(i)){
+                    parents.set(i, car.clone());
+                    num_c_sel_parents.set(i, num_c_sel);
+                    eval_parents.set(i, eval_neigh);
+                }
+            }
+        }
+        else{
+            
+        }
     }
     
     void ImproveBest(){
+        
     }
 }
