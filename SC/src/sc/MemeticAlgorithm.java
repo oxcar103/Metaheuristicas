@@ -70,7 +70,7 @@ public abstract class MemeticAlgorithm extends GenerationalGA{
     }
     
     void Improve(){
-         int eval_neigh;
+        int eval_neigh;
         
         for(int i = 0; i < getPopulation(); i++){
             if(rnd.nextDouble() < proportion){
@@ -91,6 +91,36 @@ public abstract class MemeticAlgorithm extends GenerationalGA{
     }
     
     void ImproveBest(){
+        List<Integer> index_best_sols = new ArrayList<>();
+        int num_best = proportion * getPopulation(), index, eval_neigh;
         
+        index_best_sols.add(index_best_solution);
+        
+        while(index_best_sols.size() < num_best){
+            index = -1;
+            
+            for(int i = 0; i < parents.size(); i++){
+                if(index == -1 || (eval_parents.get(i) > eval_parents.get(index) && !index_best_sols.contains(i))){
+                    index = i;
+                }
+            }
+            
+            index_best_sols.add(index);
+        }
+        
+        for(int i = 0; i < index_best_sols.size(); i++){
+            car = parents.get(index_best_sols.get(i)).clone();
+            num_c_sel = num_c_sel_parents.get(index_best_sols.get(i));
+
+            GenerateNeighbour();
+
+            eval_neigh = Evaluate();
+
+            if(eval_neigh > eval_parents.get(index_best_sols.get(i))){
+                parents.set(index_best_sols.get(i), car.clone());
+                num_c_sel_parents.set(index_best_sols.get(i), num_c_sel);
+                eval_parents.set(index_best_sols.get(i), eval_neigh);
+            }
+        }
     }
 }
