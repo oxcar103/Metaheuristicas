@@ -13,7 +13,7 @@ import weka.core.Instances;
  *
  * @author oxcar103
  */
-public abstract class MemeticAlgorithm extends GenerationalGA{
+public class MemeticAlgorithm extends GenerationalGA{
     int iteration, proportion;
     boolean best_childs;
     
