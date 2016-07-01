@@ -54,11 +54,14 @@ public abstract class MemeticAlgorithm extends GenerationalGA{
             Inheritance();
             
             if(j+1 % iteration == 0){
-                if(best_childs){
-                    ImproveBest();
+                if(proportion == 1){
+                    ImproveAll();
+                }
+                else if(best_childs){
+                    ImprovePartialBest();
                 }
                 else{
-                    Improve();
+                    ImprovePartial();
                 }
             }
         }
@@ -67,31 +70,30 @@ public abstract class MemeticAlgorithm extends GenerationalGA{
         num_c_sel = num_c_sel_parents.get(index_best_solution);
     }
     
-    void Improve(){
-        int eval_neigh;
+    void ImproveAll(){
+         int eval_neigh;
         
-        if(proportion == 1){
-            for(int i = 0; i < getPopulation(); i++){
-                car = parents.get(i).clone();
-                num_c_sel = num_c_sel_parents.get(i);
-                
-                GenerateNeighbour();
+        for(int i = 0; i < getPopulation(); i++){
+            car = parents.get(i).clone();
+            num_c_sel = num_c_sel_parents.get(i);
 
-                eval_neigh = Evaluate();
+            GenerateNeighbour();
 
-                if(eval_neigh > eval_parents.get(i)){
-                    parents.set(i, car.clone());
-                    num_c_sel_parents.set(i, num_c_sel);
-                    eval_parents.set(i, eval_neigh);
-                }
+            eval_neigh = Evaluate();
+
+            if(eval_neigh > eval_parents.get(i)){
+                parents.set(i, car.clone());
+                num_c_sel_parents.set(i, num_c_sel);
+                eval_parents.set(i, eval_neigh);
             }
-        }
-        else{
-            
-        }
+        }        
     }
     
-    void ImproveBest(){
+    void ImprovePartial(){
+        int eval_neigh;
+    }
+    
+    void ImprovePartialBest(){
         
     }
 }
