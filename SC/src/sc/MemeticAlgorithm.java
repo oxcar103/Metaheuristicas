@@ -14,10 +14,11 @@ import weka.core.Instances;
  * @author oxcar103
  */
 public class MemeticAlgorithm extends GenerationalGA{
-    int iteration, proportion;
+    double proportion;
+    int iteration;
     boolean best_childs;
     
-    public MemeticAlgorithm(Instances inst, int col_class, int seed, int iter, int prop, boolean best) {
+    public MemeticAlgorithm(Instances inst, int col_class, int seed, int iter, double prop, boolean best) {
         super(inst, col_class, seed);
         
         iteration = iter;
@@ -92,7 +93,7 @@ public class MemeticAlgorithm extends GenerationalGA{
     
     void ImproveBest(){
         List<Integer> index_best_sols = new ArrayList<>();
-        int num_best = proportion * getPopulation(), index, eval_neigh;
+        int num_best = (int) proportion * getPopulation(), index, eval_neigh;
         
         index_best_sols.add(index_best_solution);
         
