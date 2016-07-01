@@ -18,7 +18,7 @@ import weka.filters.unsupervised.attribute.Normalize;
  * @author oxcar103
  */
 public class SC {
-    private static final int num_heur = 9;
+    private static final int num_heur = 12;
     
     //Best random seed in the history
     private static final int seed = 103;
@@ -50,6 +50,9 @@ public class SC {
         hr_str [6] = "ILS";
         hr_str [7] = "GGA";
         hr_str [8] = "SSGA";
+        hr_str [9] = "TMA";
+        hr_str [10] = "PMA";
+        hr_str [11] = "BPMA";
         
         for(int i = 0; i < num_files; i++){
             instances = lector.getData(args[3*i+1]);
@@ -112,7 +115,15 @@ public class SC {
                 else if (alg == 8){
                     heuristic = new SteadyStateGA(inst1, col_class, seeds[2*i+j]);
                 }
-                
+                else if (alg == 9){
+                    heuristic = new MemeticAlgorithm(inst1, col_class, seeds[2*i+j], 10, 1, false);
+                }
+                else if (alg == 10){
+                    heuristic = new MemeticAlgorithm(inst1, col_class, seeds[2*i+j], 10, 0.1, false);
+                }
+                else if (alg == 11){
+                    heuristic = new MemeticAlgorithm(inst1, col_class, seeds[2*i+j], 10, 0.1, true);
+                }
                 
                 start_t = System.currentTimeMillis();
                 heuristic.Train();
