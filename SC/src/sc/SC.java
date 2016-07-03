@@ -52,7 +52,7 @@ public class SC {
         hr_str [8] = "SSGA";
         hr_str [9] = "TMA";
         hr_str [10] = "PMA";
-        hr_str [11] = "BPMA";
+        hr_str [11] = "EPMA";
         
         for(int i = 0; i < num_files; i++){
             instances = lector.getData(args[3*i+1]);
