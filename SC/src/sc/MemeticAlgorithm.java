@@ -19,7 +19,7 @@ public class MemeticAlgorithm extends GenerationalGA{
     boolean best_childs;
     
     public MemeticAlgorithm(Instances inst, int col_class, int seed, int iter, double prop, boolean best) {
-        super(inst, col_class, seed);
+        super(inst, col_class, seed, 10);
         
         iteration = iter;
         proportion = prop;

@@ -17,8 +17,8 @@ import weka.core.Instances;
 public class GenerationalGA extends GeneticAlgorithm {
     private final int exp_cross, exp_mut;
 
-    public GenerationalGA(Instances inst, int col_class, int seed) {
-        super(inst, col_class, seed, 0.7, 0.001);
+    public GenerationalGA(Instances inst, int col_class, int seed, int pop) {
+        super(inst, col_class, seed, pop, 0.7, 0.001);
         
         exp_cross = (int) (getCross_prob() * getPopulation() / 2);
         exp_mut = (int) (getMut_prob() * getTotal_gens());
