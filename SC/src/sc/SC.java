@@ -110,10 +110,10 @@ public class SC {
                     heuristic = new IteratedLocalSearch(inst1, col_class, seeds[2*i+j]);
                 }
                 else if (alg == 7){
-                    heuristic = new GenerationalGA(inst1, col_class, seeds[2*i+j]);
+                    heuristic = new GenerationalGA(inst1, col_class, seeds[2*i+j], 30);
                 }
                 else if (alg == 8){
-                    heuristic = new SteadyStateGA(inst1, col_class, seeds[2*i+j]);
+                    heuristic = new SteadyStateGA(inst1, col_class, seeds[2*i+j], 30);
                 }
                 else if (alg == 9){
                     heuristic = new MemeticAlgorithm(inst1, col_class, seeds[2*i+j], 10, 1, false);
