@@ -1,7 +1,7 @@
 Metaheurísticas
 =============================================
 
-Prácticas de Metaheurísticas(MH) sobre selección de características
+Prácticas de Metaheurísticas(MH) sobre Selección de Características(SC).
 
 Implementación
 ---------------------------------------------
@@ -24,7 +24,7 @@ Implementación
 
 Licencias
 ---------------------------------------------
-El proyecto se distribuye bajo la licencia [GPL](https://github.com/oxcar103/Metaheuristicas/blob/master/LICENSE)
+El proyecto se distribuye bajo la licencia [GPL](https://github.com/oxcar103/Metaheuristicas/blob/master/LICENSE).
 
 La licencia **NO** se aplicará para el material aportado por el profesor.  
 La licencia **SÍ** se aplicará sobre **CSVFileWriter** aunque está tomado de [Lothar Soto](https://github.com/Lothar94).  
@@ -32,4 +32,4 @@ La licencia **SÍ** se aplicará sobre **CSVFileWriter** aunque está tomado de 
 Off-Topic
 ---------------------------------------------
 
-Certificado de Calidad: [3179597](http://github.com/oxcar103/Metaheuristicas/commit/3179597a514cecae327c73c6edd3000d9be9cfa2)
+Certificado de Calidad: [3179597](http://github.com/oxcar103/Metaheuristicas/commit/3179597a514cecae327c73c6edd3000d9be9cfa2).
