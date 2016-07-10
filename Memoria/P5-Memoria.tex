@@ -164,8 +164,60 @@ P-5: Algoritmos Meméticos} % Subtitle
 			\input{ARRH-EPMA}
 		\subsection{Comparación de resultados}
 			\input{Compare-5}
-		
-	
+			
+			Viendo los resultados de arriba, podemos concluir que:
+			\begin{itemize}
+				\item Los mayores índices de reducción se obtienen con el \textit{SFS}, obteniendo en
+				todos los casos una tasa de reducción muy alta, mientras que los resultados de los
+				\textit{MA} rondan el 50\%.
+				
+				\item En el caso de \textit{WBDC}, todos los algoritmos tienen una alta tasa de acierto,
+				manteniéndose los resultados de los \textit{MA} en torno al 95\% de acierto, dando los
+				mejores resultados en media el algoritmo \textit{EPMA} y los peores, \textit{TMA} con
+				apenas 1\% de diferencia.
+				
+				\item En el caso de \textit{Movement Libras}, los algoritmos \textit{MA} siguen logrando
+				resultados medios próximos al 70\% frente al 50\% de \textit{SFS}. Destacando como el
+				mejor \textit{PMA}, seguido de \textit{EPMA} y de \textit{TMA}. A pesar de esto,
+				ocasionalmente se obtenienen en ellos, un 75\% e incluso un 80\% de clasificación, que
+				es el mayor porcentaje obtenido en dicho archivo incluyendo algoritmos de prácticas
+				anteriores.
+				
+				\item Sin duda alguna, para el caso de \textit{Arrhythmia}, el mejor algoritmo sería
+				el de \textit{SFS}, ya que tiene el mejor índice de acierto y de reducción.
+				
+				\item En cuanto a los tiempos de ejecución, podemos observar que el más veloz sería el
+				algoritmo greedy \textit{SFS} aunque podemos observar que de entre los \textit{MA}(los
+				cuáles suelen tener un resultado significativamente mejor que \textit{SFS}), podemos
+				ver que \textit{TMA} es el más lento. Esto nos hace pensar que la búsqueda local es
+				más pesada en términos de tiempo que las operaciones poblacionales, pues \textit{TMA}
+				realiza más búsquedas locales que \textit{PMA} y \textit{EPMA}, los cuales realizan
+				más generaciones.
+				
+				\item Un hecho que me parece curioso es el hecho de que sobre \textit{Arrhytmia}, tanto
+				\textit{TMA} como \textit{EPMA} llegan a las mismas soluciones o, al menos, soluciones
+				igual de buenas en todas las particiones realizadas.
+			\end{itemize}
+			
+			La diferencia entre las tasas de reducción de los distintos algoritmos se deben a que \textit{SFS}
+			comienza con una máscara en la que ninguna característica está seleccionada mientras que
+			los algoritmos \textit{MA} toman una población de padres con unas máscaras en las cuáles
+			la probabilidad de que una característica esté seleccionada es 50\%.
+			
+			Como los algoritmos \textit{MA} heredan gran parte de los métodos de los algoritmos \textit{GA},
+			podemos razonar de forma análoga que ni el operador de selección ni el de reemplazo, alteran
+			las máscaras con las que trabaja la población y que los operadores de cruce y de mutación
+			alteran la máscara pero como no imponen condiciones sobre la tasa de reducción, no habrá
+			un límite de dicho valor a una constante predeterminada. Este resultado se respalda con los
+			resultados obtenidos, donde se han obtenido tasas de reducción comprendidas entre el 23\% y
+			el 67\%.
+			
+			Referente a los tiempos de ejecución, estaba claro que \textit{SFS} sería el más veloz pues
+			solamente aplica una vez la heurística mientras los \textit{MA} requieren agotar las 15000
+			iteraciones para acabar aunque convergen rápidamente a buenas soluciones, por lo que si no
+			las agotara e hicieran un número mucho menor de iteraciones, obtendrían una solución de
+			similar grado de calidad.
+			
 	\input{Compilación.tex}
 	\newpage
 	
