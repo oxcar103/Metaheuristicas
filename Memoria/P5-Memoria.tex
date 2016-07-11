@@ -197,6 +197,7 @@ P-5: Algoritmos Meméticos} % Subtitle
 					\IF{i+1 \% \textit{k} == 0}
 						\STATE{Improve()}
 					\ENDIF
+					\STATE{i++}
 				\ENDWHILE
 				
 				\STATE{\texttt{Solución\_actual = Padres[Índice\_Mejor]}}
@@ -209,7 +210,7 @@ P-5: Algoritmos Meméticos} % Subtitle
 			en concreto, del Algoritmo Genético Gerenacional (\textit{GGA}) explicado detalladamente en
 			\textbf{P3-Memoria}.
 			
-			El único elemento nuevo, es el operador de mejora. Este operador se compone básicamente
+			El único elemento nuevo, es el Operador de Mejora. Este operador se compone básicamente
 			de dos partes:
 			\begin{itemize}
 				\item Selección de un subconjunto de la población, que tendrá dos variantes que veremos
@@ -229,14 +230,15 @@ P-5: Algoritmos Meméticos} % Subtitle
 			
 		\subsection{Algoritmo Memético Total (\textbf{TMA})}
 			El algoritmo memético total se ha tomado como un caso particular de algoritmo memético parcial
-			en el cuál, la probabilidad de mejora de un cromosoma es de 1. Por tanto, el subconjunto de
-			la población seleccionado será toda la población.
+			en el de que la probabilidad de mejora de un cromosoma es de 1. Por tanto, el subconjunto
+			de la población seleccionado será toda la población.
 		
 		\subsection{Algoritmo Memético Parcial (\textbf{PMA})}
 			El Operador de Mejora en este caso, seleccionará aleatoriamente a los miembros del subconjunto,
 			generando un número aleatorio para cada cromosoma y aceptándolo si este valor es inferior a
-			la probabilidad de mejora. Despúes, realiza la búsqueda local de baja intensidad. Esto queda
-			claramente reflejado en el siguiente algoritmo:
+			la probabilidad de mejora. Despúes, realiza la búsqueda local\footnote{Nótese que se utilizan
+			métodos explicados en \textbf{P1-Memoria} como por ejemplo \textit{GenerateNeighbour()}} de
+			baja intensidad. Esto queda claramente reflejado en el siguiente algoritmo:
 			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
@@ -264,6 +266,15 @@ P-5: Algoritmos Meméticos} % Subtitle
 		\subsection{Algotitmo Memético Parcial Elitista (\textbf{EPMA})}
 			El Operador de Mejora en este caso, seleccionará a los mejores miembros de la población, por
 			lo que, previamente, debemos buscarlos. Tras esto, se aplica la búsqueda local como siempre.
+			
+			El subconjunto de individuos que tomará en este caso será proporcional a la probabilidad de
+			mejora y a la población. Esto es algo diferente a lo que ocurría con el algoritmo memético
+			parcial pues, si bien en media también era proporcional a ambos parámetros, debido a la
+			aleatoriedad no siempre se coge el mismo número de elementos a mejorar\footnote{En esta
+			parte, quedan claramente excluídos los casos triviales de probabilidad de mejora igual a 0,
+			que nos daría el subconjunto vacío de la población, y probabilidad de mejora 1, que nos
+			daría toda la población.}.
+			
 			El algoritmo sería algo así:
 			
 			\begin{algorithm}[H]
@@ -298,10 +309,15 @@ P-5: Algoritmos Meméticos} % Subtitle
 				\end{algorithmic}
 			\caption{Algoritmo Memético Parcial Elitista - Mejora(\textit{Improve})}
 			\label{EPMA-Improve}
-			\end{algorithm}\footnotetext{Se ha separado el condicional en dos partes para facilitar la lectura
-			de la condición que lo lanza.}
+			\end{algorithm}\footnotetext{Se ha separado el condicional en dos partes porque realizar
+			toda la condición en un único condicional dificultaba la correcta lectura y comprensión
+			del mismo en gran medida. No obstante, se puede apreciar que no cambia nada hacerlo de
+			una forma u otra.}
 			
-			En este caso, también tomamos una probabilidad de mejora de 0.1 para nuestro algoritmo elitista.
+			De nuevo, volvemos a tomar como la probabilidad de mejora el valor de 0.1 para nuestro
+			algoritmo elitista. Sin embargo, por el hecho de que este algoritmo mejora sólo a los mejores
+			individuos en lugar de escogerlos aleatoriamente, aunque se pongan los mismos valores, los
+			resultados pueden llegar a ser muy distintos entre sí.
 		
 	\section{Resultados}\footnote{En este documento, se comparan los resultados obtenidos por las
 	heurísticas desarrolladas en esta práctica con la búsqueda de soluciones por la heurística
