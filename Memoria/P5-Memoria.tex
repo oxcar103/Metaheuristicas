@@ -233,6 +233,35 @@ P-5: Algoritmos Meméticos} % Subtitle
 			la población seleccionado será toda la población.
 		
 		\subsection{Algoritmo Memético Parcial (\textbf{PMA})}
+			El Operador de Mejora en este caso, seleccionará aleatoriamente a los miembros del subconjunto,
+			generando un número aleatorio para cada cromosoma y aceptándolo si este valor es inferior a
+			la probabilidad de mejora
+			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+				\REQUIRE \ \\
+						 \
+						
+				\STATE{i = 0}
+				\FOR{\texttt{i} $<$ \texttt{Población}}
+					\STATE{\texttt{rnd} = Genera valor aleatorio entre 0 y 1}
+					\IF{rnd < \texttt{Probabilidad\_Mutación}}
+						\STATE{\texttt{Solución\_Sin\_Mejora} = \texttt{Padres[i]}}
+						\STATE{\texttt{Padres[i]}.GenerateNeighbour()}
+						\IF{Evaluate(\texttt{Padres[i]}) < Evaluate(\texttt{Solución\_Sin\_Mejora})}
+							\STATE{\texttt{Padres[i]} = \texttt{Solución\_Sin\_Mejora}}
+						\ENDIF
+					\ENDIF
+				\ENDFOR
+				
+				\STATE{\texttt{Solución\_actual = Padres[Índice\_Mejor]}}
+				\end{algorithmic}
+			\caption{Algoritmo Memético Parcial - Mejora(\textit{Improve})}
+			\label{PMA-Improve}
+			\end{algorithm}
+			
+			En particular, nuestro algoritmo memético parcial tiene una probabilidad de mejora de 0.1.
+		
 		\subsection{Algotitmo Memético Parcial Elitista (\textbf{EPMA})}
 		
 	\section{Resultados}\footnote{En este documento, se comparan los resultados obtenidos por las
