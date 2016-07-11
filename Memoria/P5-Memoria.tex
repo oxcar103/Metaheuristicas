@@ -235,7 +235,8 @@ P-5: Algoritmos Meméticos} % Subtitle
 		\subsection{Algoritmo Memético Parcial (\textbf{PMA})}
 			El Operador de Mejora en este caso, seleccionará aleatoriamente a los miembros del subconjunto,
 			generando un número aleatorio para cada cromosoma y aceptándolo si este valor es inferior a
-			la probabilidad de mejora
+			la probabilidad de mejora. Despúes, realiza la búsqueda local de baja intensidad. Esto queda
+			claramente reflejado en el siguiente algoritmo:
 			
 			\begin{algorithm}[H]
 				\begin{algorithmic}[1]
