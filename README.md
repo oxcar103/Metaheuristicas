@@ -21,6 +21,12 @@ Implementación
 - La clase abstracta **GeneticAlgorithm**, que implementa las funciones comunes de los algoritmos genéticos permitiendo de este modo estructurar el esqueleto básico dando cabida a la herencia por parte de heurística con inspiración biológica.  
 - La clase **GenerationalGA**, que implementa el comportamiento de la heurística del *Algoritmo Genético Generacional con Elitismo* con población inicial aleatoria.  
 - La clase **SteadyStateGA**, que implementa el comportamiento de la heurística del *Algoritmo Genético Estacionario* con dos descendientes por generación con población inicial aleatoria.  
+- La clase abstracta **MemeticAlgorithm**, que modifica el método *Train* de **GeneticAlgorithm** para adaptarlo a los algoritmos meméticos permitiendo de este modo desarrollarlos con facilidad.  
+- La clase **ElitistPartialMA**, que implementa el comportamiento de la heurística del *Algoritmo Memético Parcial Elitista* con población inicial aleatoria.  
+- La clase **PartialMA**, que implementa el comportamiento de la heurística del *Algoritmo Memético Parcial* con población inicial aleatoria.  
+- La clase **TotalMA**, que implementa el comportamiento de la heurística del *Algoritmo Memético Total* como caso particular del *Algoritmo Memético Parcial*.  
+
+
 
 Licencias
 ---------------------------------------------
