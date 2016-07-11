@@ -140,10 +140,90 @@ P-5: Algoritmos Meméticos} % Subtitle
 	considerado ahorrar su explicación en este documento para permitir una mayor limpieza del mismo.}
 	
 		\subsection{Algoritmos Meméticos (\textbf{MA})}
+			A grandes rasgos, podemos realizar una descripción general de los Algoritmos Meméticos o
+			\textit{Memetic Algorithm}(\textit{MA}) que consiste en optimizar a toda o parte de la
+			población de los algoritmos genéticos(\textit{GA}) cada cierto tiempo:
+			
+			\begin{itemize}
+				\item Generar una población inicial
+				\item Evolucionar dicha población, o equivalentemente se puede expresar mediante los
+				siguientes operadores:
+					\begin{itemize}
+						\item Selección: Se eligen parejas de la población para reproducirse.
+						\item Cruce: Se recombinan las parejas seleccionadas con una probabilidad de
+						cruce característica del problema haciendo tomar a las soluciones sucesoras
+						características de ambos padres.
+						\item Mutación: Se modifican aleatoriamente los genes de la nueva generación
+						con una probabilidad de mutación, normalmente, bastante reducida.
+						\item Reemplazo: Se procede a incluir la nueva generación en la población
+						que actualmente tenemos.
+					\end{itemize}
+				\item Periódicamente, cada \textit{k} generaciones, optimizamos a toda la población o
+				parte de la misma, en función de una probabilidad de mejora por cada cromosoma.
+				\item Tras el paso de varias generaciones, nos quedamos con el mejor individuo que
+				haya existido.
+			\end{itemize}
+			
+			Este proceso se puede reflejar en el siguiente algoritmo\footnote{Cabría destacar que,
+			realmente, \texttt{Padres\_Seleccionados} no se devuelve por el Operador de Selección, si
+			no que se trata como una variable global que se ve modificada por cierto número de factores}
+			donde la población para nuestro modelo es de 10 individuos:
+			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+				\REQUIRE \ \\
+				 \
+	 
+				\STATE{i = 0}
+				\STATE{\texttt{Índice\_Mejor}}
+				\FOR{\texttt{i} $<$ \texttt{Población}}
+					\STATE{\texttt{Padres}.add(RandomSolution())}
+					\IF{\texttt{Padres[Índice\_Mejor]} < \texttt{Padres[i]}}
+						\STATE{\texttt{Índice\_Mejor} = i}
+					\ENDIF
+				\ENDFOR
+				
+				\STATE{i = 0}
+				
+				\WHILE{\texttt{Evaluaciones} < 15000}
+					\STATE{Limpiamos \texttt{Hijos}}
+					\STATE{\texttt{Padres\_Seleccionados} = Selection()}
+					\STATE{j = 0}
+					\FOR{j < $\displaystyle \frac{\texttt{Padres\_Seleccionados}.size()}{2}$}
+						\STATE{Crossover(2 $\cdot$ j, 2 $\cdot$ j+1)}
+					\ENDFOR
+					\STATE{Mutation()}
+					\STATE{Inheritance()}
+					\IF{i+1 \% \textit{k} == 0}
+						\STATE{Improve()}
+					\ENDIF
+				\ENDWHILE
+				
+				\STATE{\texttt{Solución\_actual = Padres[Índice\_Mejor]}}
+				\end{algorithmic}
+			\caption{Algoritmos Genéticos - Entrenamiento(\textit{Train})}
+			\label{MA-Train}
+			\end{algorithm}
+			
+			Gran parte de los algoritmos usados son heredados de los algoritmos genéticos (\textbf{GA}),
+			en concreto, del Algoritmo Genético Gerenacional (\textit{GGA}) explicado detalladamente en
+			\textbf{P3-Memoria}.
+			
+			El único elemento nuevo, es el operador \textit{Improve}, que tendrá dos variantes.
+			
+			Tenemos en común que los distintos algoritmos meméticos que usaremos en esta práctica comparten
+			el valor de la mayoría de sus variables:
+			\begin{itemize}
+				\item Probabilidad de cruce = 0.7
+				\item Probabilidad de mutación = 0.001
+				\item Tamaño de la población = 10
+				\item Número de iteraciones \textit{k} tras el cuál se aplicará \textit{Improve()} = 10
+			\end{itemize}
+			
 		\subsection{Algoritmo Memético Total (\textbf{TMA})}
 		\subsection{Algoritmo Memético Parcial (\textbf{PMA})}
 		\subsection{Algotitmo Memético Parcial Elitista (\textbf{EPMA})}
-	
+		
 	\section{Resultados}\footnote{En este documento, se comparan los resultados obtenidos por las
 	heurísticas desarrolladas en esta práctica con la búsqueda de soluciones por la heurística
 	\textbf{SFS} cuyos resultados ya se expusieron en \textbf{P1-Memoria}, por lo que también he
