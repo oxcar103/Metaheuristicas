@@ -176,7 +176,7 @@ P-5: Algoritmos Meméticos} % Subtitle
 	 
 				\STATE{i = 0}
 				\STATE{\texttt{Índice\_Mejor}}
-				\FOR{\texttt{i} $<$ \texttt{Población}}
+				\FOR{i < \texttt{Población}}
 					\STATE{\texttt{Padres}.add(RandomSolution())}
 					\IF{\texttt{Padres[Índice\_Mejor]} < \texttt{Padres[i]}}
 						\STATE{\texttt{Índice\_Mejor} = i}
@@ -244,7 +244,7 @@ P-5: Algoritmos Meméticos} % Subtitle
 						 \
 						
 				\STATE{i = 0}
-				\FOR{\texttt{i} $<$ \texttt{Población}}
+				\FOR{i < \texttt{Población}}
 					\STATE{\texttt{rnd} = Genera valor aleatorio entre 0 y 1}
 					\IF{rnd < \texttt{Probabilidad\_Mutación}}
 						\STATE{\texttt{Solución\_Sin\_Mejora} = \texttt{Padres[i]}}
