@@ -209,7 +209,14 @@ P-5: Algoritmos Meméticos} % Subtitle
 			en concreto, del Algoritmo Genético Gerenacional (\textit{GGA}) explicado detalladamente en
 			\textbf{P3-Memoria}.
 			
-			El único elemento nuevo, es el operador \textit{Improve}, que tendrá dos variantes.
+			El único elemento nuevo, es el operador \textit{Improve}. Este operador se compone básicamente
+			de dos partes:
+			\begin{itemize}
+				\item Selección de un subconjunto de la población, que tendrá dos variantes que veremos
+				en los siguientes apartados.
+				\item Aplicación de una búsqueda local de baja intensidad, esto es, una única iteración
+				de la misma sobre el subconjunto de la población seleccionado.
+			\end{itemize}
 			
 			Tenemos en común que los distintos algoritmos meméticos que usaremos en esta práctica comparten
 			el valor de la mayoría de sus variables:
