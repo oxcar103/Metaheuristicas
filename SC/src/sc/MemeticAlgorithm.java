@@ -14,14 +14,14 @@ import weka.core.Instances;
  * @author oxcar103
  */
 public abstract class MemeticAlgorithm extends GenerationalGA{
-    private double proportion;
-    private int iteration;
+    private final double imp_prob;
+    private final int iteration;
     
-    public MemeticAlgorithm(Instances inst, int col_class, int seed, int iter, double prop) {
+    public MemeticAlgorithm(Instances inst, int col_class, int seed, int iter, double imp) {
         super(inst, col_class, seed, 10);
         
         iteration = iter;
-        proportion = prop;
+        imp_prob = imp;
     }
     
     @Override
@@ -63,9 +63,9 @@ public abstract class MemeticAlgorithm extends GenerationalGA{
         num_c_sel = num_c_sel_parents.get(index_best_solution);
     }
 
-    public double getProportion() {
-        return proportion;
+    public double getImp_prob() {
+        return imp_prob;
     }
-    
+
     protected abstract void Improve();
 }

@@ -22,7 +22,7 @@ public class ElitistPartialMA extends MemeticAlgorithm{
     @Override
     protected void Improve() {
         List<Integer> index_best_sols = new ArrayList<>();
-        int num_best = (int) getProportion() * getPopulation(), index, eval_neigh;
+        int num_best = (int) getImp_prob() * getPopulation(), index, eval_neigh;
         
         index_best_sols.add(index_best_solution);
         

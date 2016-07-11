@@ -22,7 +22,7 @@ public class PartialMA extends MemeticAlgorithm{
         int eval_neigh;
         
         for(int i = 0; i < getPopulation(); i++){
-            if(rnd.nextDouble() < getProportion()){
+            if(rnd.nextDouble() < getImp_prob()){
                 car = parents.get(i).clone();
                 num_c_sel = num_c_sel_parents.get(i);
 
