@@ -15,7 +15,7 @@ import weka.core.Instances;
  */
 public abstract class GeneticAlgorithm extends RandomHeuristic{
     private final int population;
-    private double cross_prob;
+    private final double cross_prob;
     private final double mut_prob;
     protected List<boolean[]> parents = new ArrayList<>();
     protected List<boolean[]> childs = new ArrayList<>();
