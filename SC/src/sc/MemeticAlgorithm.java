@@ -17,8 +17,8 @@ public abstract class MemeticAlgorithm extends GenerationalGA{
     private final double imp_prob;
     private final int iteration;
     
-    public MemeticAlgorithm(Instances inst, int col_class, int seed, int iter, double imp) {
-        super(inst, col_class, seed, 10);
+    public MemeticAlgorithm(Instances inst, int col_class, int seed, int pop, int iter, double imp) {
+        super(inst, col_class, seed, pop);
         
         iteration = iter;
         imp_prob = imp;

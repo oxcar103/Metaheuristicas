@@ -13,8 +13,8 @@ import weka.core.Instances;
  */
 public class PartialMA extends MemeticAlgorithm{
 
-    public PartialMA(Instances inst, int col_class, int seed, int iter, double prop) {
-        super(inst, col_class, seed, iter, prop);
+    public PartialMA(Instances inst, int col_class, int seed, int pop, int iter, double prop) {
+        super(inst, col_class, seed, pop, iter, prop);
     }
 
     @Override

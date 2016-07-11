@@ -13,8 +13,8 @@ import weka.core.Instances;
  */
 public class TotalMA extends PartialMA{
     
-    public TotalMA(Instances inst, int col_class, int seed, int iter) {
-        super(inst, col_class, seed, iter, 1);
+    public TotalMA(Instances inst, int col_class, int seed, int pop, int iter) {
+        super(inst, col_class, seed, pop, iter, 1);
     }
     
 }
