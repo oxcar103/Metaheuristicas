@@ -262,6 +262,46 @@ P-5: Algoritmos Meméticos} % Subtitle
 			En particular, nuestro algoritmo memético parcial tiene una probabilidad de mejora de 0.1.
 		
 		\subsection{Algotitmo Memético Parcial Elitista (\textbf{EPMA})}
+			El Operador de Mejora en este caso, seleccionará a los mejores miembros de la población, por
+			lo que, previamente, debemos buscarlos. Tras esto, se aplica la búsqueda local como siempre.
+			El algoritmo sería algo así:
+			
+			\begin{algorithm}[H]
+				\begin{algorithmic}[1]
+				\REQUIRE \ \\
+			 \
+						
+				\STATE{\texttt{Número\_Mejores} = \texttt{Probabilidad\_Mejora} $\cdot$ \texttt{Población}}
+				\STATE{\texttt{Mejores} = $\emptyset$}
+				\WHILE{\texttt{Mejores.size()} < \texttt{Número\_Mejores}}
+					\STATE{\texttt{Índice\_Mejor} = -1}
+					\STATE{i = 0}
+					\FOR{i < \texttt{Padres.size()}}
+						\IF{\texttt{Índice\_Mejor} == -1}
+							\STATE{\texttt{Índice\_Mejor} = i}
+						\ENDIF\footnotemark
+						\IF{Evaluate(\texttt{Padres[Índice\_Mejor]}) < Evaluate(\texttt{Padres[i]})
+								\AND \texttt{Índice\_Mejor} $\notin$ \texttt{Mejores\_Soluciones}}
+							\STATE{\texttt{Índice\_Mejor} = i}
+						\ENDIF
+					\ENDFOR
+					\STATE{\texttt{Mejores\_Soluciones}.add(\texttt{Índice\_Mejor})}
+				\ENDWHILE
+				\STATE{i = 0}
+				\FOR{i < \texttt{Mejores.size()}}
+					\STATE{\texttt{Solución\_Sin\_Mejora} = \texttt{Padres[Mejores[i]]}}
+					\STATE{\texttt{Padres[Mejores[i]]}.GenerateNeighbour()}
+					\IF{Evaluate(\texttt{Padres[Mejores[i]]}) < Evaluate(\texttt{Solución\_Sin\_Mejora})}
+						\STATE{\texttt{Padres[Mejores[i]]} = \texttt{Solución\_Sin\_Mejora}}
+					\ENDIF
+				\ENDFOR
+				\end{algorithmic}
+			\caption{Algoritmo Memético Parcial Elitista - Mejora(\textit{Improve})}
+			\label{EPMA-Improve}
+			\end{algorithm}\footnotetext{Se ha separado el condicional en dos partes para facilitar la lectura
+			de la condición que lo lanza.}
+			
+			En este caso, también tomamos una probabilidad de mejora de 0.1 para nuestro algoritmo elitista.
 		
 	\section{Resultados}\footnote{En este documento, se comparan los resultados obtenidos por las
 	heurísticas desarrolladas en esta práctica con la búsqueda de soluciones por la heurística
