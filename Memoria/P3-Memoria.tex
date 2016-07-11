@@ -439,7 +439,7 @@ P-3: Algoritmos Genéticos} % Subtitle
 					\STATE{j = 0}
 					\FOR{j < \texttt{Número\_de\_Características}}
 						\STATE{\texttt{rnd} = Genera valor aleatorio entre 0 y 1}
-						\IF{i < \texttt{Probabilidad\_Mutación}}
+						\IF{rnd < \texttt{Probabilidad\_Mutación}}
 							\STATE{i.Flip(j)}
 						\ENDIF
 					\ENDFOR
