@@ -116,13 +116,13 @@ public class SC {
                     heuristic = new SteadyStateGA(inst1, col_class, seeds[2*i+j], 30);
                 }
                 else if (alg == 9){
-                    heuristic = new MemeticAlgorithm(inst1, col_class, seeds[2*i+j], 10, 1, false);
+                    heuristic = new TotalMA(inst1, col_class, seeds[2*i+j], 10);
                 }
                 else if (alg == 10){
-                    heuristic = new MemeticAlgorithm(inst1, col_class, seeds[2*i+j], 10, 0.1, false);
+                    heuristic = new PartialMA(inst1, col_class, seeds[2*i+j], 10, 0.1);
                 }
                 else if (alg == 11){
-                    heuristic = new MemeticAlgorithm(inst1, col_class, seeds[2*i+j], 10, 0.1, true);
+                    heuristic = new ElitistPartialMA(inst1, col_class, seeds[2*i+j], 10, 0.1);
                 }
                 
                 start_t = System.currentTimeMillis();

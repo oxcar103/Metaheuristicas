@@ -13,17 +13,15 @@ import weka.core.Instances;
  *
  * @author oxcar103
  */
-public class MemeticAlgorithm extends GenerationalGA{
-    double proportion;
-    int iteration;
-    boolean best_childs;
+public abstract class MemeticAlgorithm extends GenerationalGA{
+    private double proportion;
+    private int iteration;
     
-    public MemeticAlgorithm(Instances inst, int col_class, int seed, int iter, double prop, boolean best) {
+    public MemeticAlgorithm(Instances inst, int col_class, int seed, int iter, double prop) {
         super(inst, col_class, seed, 10);
         
         iteration = iter;
         proportion = prop;
-        best_childs = best;
     }
     
     @Override
@@ -57,71 +55,17 @@ public class MemeticAlgorithm extends GenerationalGA{
             Inheritance();
             
             if(j+1 % iteration == 0){
-                if(best_childs){
-                    ImproveBest();
-                }
-                else{
-                    Improve();
-                }
+                Improve();
             }
         }
         
         car = parents.get(index_best_solution);
         num_c_sel = num_c_sel_parents.get(index_best_solution);
     }
-    
-    void Improve(){
-        int eval_neigh;
-        
-        for(int i = 0; i < getPopulation(); i++){
-            if(rnd.nextDouble() < proportion){
-                car = parents.get(i).clone();
-                num_c_sel = num_c_sel_parents.get(i);
 
-                GenerateNeighbour();
-
-                eval_neigh = Evaluate();
-
-                if(eval_neigh > eval_parents.get(i)){
-                    parents.set(i, car.clone());
-                    num_c_sel_parents.set(i, num_c_sel);
-                    eval_parents.set(i, eval_neigh);
-                }
-            }
-        }        
+    public double getProportion() {
+        return proportion;
     }
     
-    void ImproveBest(){
-        List<Integer> index_best_sols = new ArrayList<>();
-        int num_best = (int) proportion * getPopulation(), index, eval_neigh;
-        
-        index_best_sols.add(index_best_solution);
-        
-        while(index_best_sols.size() < num_best){
-            index = -1;
-            
-            for(int i = 0; i < parents.size(); i++){
-                if(index == -1 || (eval_parents.get(i) > eval_parents.get(index) && !index_best_sols.contains(i))){
-                    index = i;
-                }
-            }
-            
-            index_best_sols.add(index);
-        }
-        
-        for(int i = 0; i < index_best_sols.size(); i++){
-            car = parents.get(index_best_sols.get(i)).clone();
-            num_c_sel = num_c_sel_parents.get(index_best_sols.get(i));
-
-            GenerateNeighbour();
-
-            eval_neigh = Evaluate();
-
-            if(eval_neigh > eval_parents.get(index_best_sols.get(i))){
-                parents.set(index_best_sols.get(i), car.clone());
-                num_c_sel_parents.set(index_best_sols.get(i), num_c_sel);
-                eval_parents.set(index_best_sols.get(i), eval_neigh);
-            }
-        }
-    }
+    protected abstract void Improve();
 }
